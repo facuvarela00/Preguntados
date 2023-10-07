@@ -1,5 +1,5 @@
 <?php
-include_once ('c://xampp/htdocs/Login-MVC/view/head/head.php');
+include_once ('c://xampp/htdocs/Preguntados/view/head/head.php');
 ?>
 
 <?php

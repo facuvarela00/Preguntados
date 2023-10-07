@@ -5,14 +5,13 @@ class homeModel {
 
     public function __construct()
     {
-        include_once ('c://xampp/htdocs/Login-MVC/config/db.php');
+        include_once ('c://xampp/htdocs/Preguntados/config/db.php');
         $conn = new db();
        $this-> $conection = $conn -> conexion();
     }
 
     public function agregarUsuario ($correo, $password)  {
-        $sql = "INSERT INTO usuarios (mail, password) 
-        VALUES ('$correo', '$password')";
+        $sql = "INSERT INTO usuarios (mail, password) VALUES ('$correo', '$password')";
 
         //maneja la excepcion cuando el correo es duplicado
         try {
@@ -25,18 +24,19 @@ class homeModel {
 
     public function obtenerClave ($correo)
     {
-        $sql1 = " SELECT password FROM usurios WHERE mail = '$correo' ";
+        $encontrada= "";
+
+        $sql1 = " SELECT password FROM usuarios WHERE mail LIKE '$correo' ";
 
         $resultado = mysqli_query($this-> $conection, $sql1);
 
         while ($row = mysqli_fetch_assoc($resultado)) {
-            return $row['password'];
+            $encontrada= $row['password'];
         }
+        var_dump($encontrada);
+        return $encontrada;
     }
-
 }
-
-
 
 ?>
 

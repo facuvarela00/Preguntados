@@ -1,15 +1,13 @@
 <?php
-
-include_once ('c://xampp/htdocs/Login-MVC/view/head/head.php');
+include_once ('c://xampp/htdocs/Preguntados/view/head/head.php');
 ?>
-
 
 <?php
 // mensaje contraseñas distintas
 if (!empty($_GET['error'])) : ?>
-<div id="alertError"  class="container" style="color: #f44336">
-<?= !empty ($_GET['error']) ? $_GET['error'] : " " ?>
-</div>
+    <div id="alertError"  class="container" style="color: #f44336">
+        <?= !empty ($_GET['error']) ? $_GET['error'] : " " ?>
+    </div>
 <?php endif; ?>
 
 <?php

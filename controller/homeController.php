@@ -6,7 +6,7 @@ class homeController
 
     public function __construct()
     {
-        include_once('c://xampp/htdocs/Login-MVC/model/homeModel.php');
+        include_once('c://xampp/htdocs/Preguntados/model/homeModel.php');
         $this ->modelo = new homeModel ();
     }
 

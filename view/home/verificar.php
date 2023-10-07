@@ -1,6 +1,7 @@
 <?php
 
-include_once('c://xampp/htdocs/Login-MVC/controller/homeController.php');
+include_once('c://xampp/htdocs/Preguntados/controller/homeController.php');
+
 $obj = new homeController ();
 
 $correo = $_POST['correo'];
