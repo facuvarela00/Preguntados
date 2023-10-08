@@ -3,6 +3,13 @@ include_once ('c://xampp/htdocs/Preguntados/view/head/head.php');
 ?>
 
 <?php
+//no me deja ir a registrarme porque ya tengo una sesion abierta
+if (!empty($_SESSION['usuario'])){
+    header('location: panel_control.php');
+}
+?>
+
+<?php
 // mensaje contraseñas distintas
 if (!empty($_GET['error'])) : ?>
     <div id="alertError"  class="container" style="color: #f44336">

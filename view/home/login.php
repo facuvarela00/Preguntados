@@ -3,6 +3,21 @@ include_once ('c://xampp/htdocs/Preguntados/view/head/head.php');
 ?>
 
 <?php
+//no me deja ir al login porque ya tengo una sesion abierta
+if (!empty($_SESSION['usuario'])){
+    header('location: panel_control.php');
+}
+?>
+
+<?php
+// mensaje de contraseñas o usuario incorrecto
+if (!empty($_GET['error'])) : ?>
+    <div id="alertError"  class="container" style="color: #f44336">
+        <?= !empty ($_GET['error']) ? $_GET['error'] : " " ?>
+    </div>
+<?php endif; ?>
+
+<?php
 echo'<h2 style="text-align: center">Pokemon Challenge</h2>
 
 <form action="verificar.php" method="POST">

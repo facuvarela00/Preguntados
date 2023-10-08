@@ -7,17 +7,17 @@ class homeModel {
     {
         include_once ('c://xampp/htdocs/Preguntados/config/db.php');
         $conn = new db();
-       $this-> $conection = $conn -> conexion();
+        $this-> conection = $conn-> conexion();
     }
 
-    public function agregarUsuario ($correo, $password)  {
+    public function agregarUsuario ($correo, $password)
+    {
         $sql = "INSERT INTO usuarios (mail, password) VALUES ('$correo', '$password')";
-
         //maneja la excepcion cuando el correo es duplicado
         try {
-            mysqli_query( $this-> $conection, $sql);
+            mysqli_query($this-> conection, $sql);
             return true;
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -25,19 +25,14 @@ class homeModel {
     public function obtenerClave ($correo)
     {
         $encontrada= "";
-
-        $sql1 = " SELECT password FROM usuarios WHERE mail LIKE '$correo' ";
-
-        $resultado = mysqli_query($this-> $conection, $sql1);
-
+        $sql1 = "SELECT password FROM usuarios WHERE mail LIKE '$correo'";
+        $resultado = mysqli_query($this-> conection, $sql1);
         while ($row = mysqli_fetch_assoc($resultado)) {
             $encontrada= $row['password'];
         }
-        var_dump($encontrada);
         return $encontrada;
     }
 }
-
 ?>
 
 

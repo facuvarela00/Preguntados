@@ -21,11 +21,21 @@ class homeController
         return password_hash($password, PASSWORD_DEFAULT );
     }
 
-    //Des encripta la contraseña - verifica usuario
-    public function verificarUsuario($password)  {
-       $llave = $this ->modelo->obtenerClave($password);
-       die();
-       return (password_verify($password, $llave)) ? true : false;
+    //compara la DB con lo que ingreso el usuario
+    public function verificarUsuario($correo, $password)  {
+        $llave = $this ->modelo->obtenerClave($correo);
+        return (password_verify($password, $llave)) ? true : false;
+
+/*
+        if ((password_verify($password, $llave))) {
+            echo '¡La contraseña es válida!';
+        } else {
+            echo 'La contraseña no es válida.';
+        };
+*/
+
     }
 }
 ?>
+
+

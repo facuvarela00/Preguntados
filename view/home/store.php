@@ -10,13 +10,13 @@ $Contrasenia=$_POST['contraseña'];
 if ($Contrasenia == $cofirmarContrasenia){
     if($obj ->guardarUsuario($correo, $Contrasenia)==false){
         $error = '<p> El correo ya esta registrado</p>';
-        header("location: SignUp.php?error=$error");
+        header("location: SignUp.php?error=".$error);
     }else{
         header("location: login.php");
     }
 }else{
     $error = '<p> Las contraseñas son diferentes </p>';
-    header("location: SignUp.php?error=$error");
+    header("location: SignUp.php?error=".$error);
 }
 
 

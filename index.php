@@ -1,3 +1,3 @@
 <?php
-include_once ('c://xampp/htdocs/Login-MVC/view/head/header.php');
+include_once ('c://xampp/htdocs/Preguntados/view/head/header.php');
 
