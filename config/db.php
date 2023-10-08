@@ -6,7 +6,7 @@ class db
 
     public static function conexion()
     {
-       $conexion = mysqli_connect(hostname: 'localhost:3308', username: 'root', password: '', database: 'login');
+       $conexion = mysqli_connect(hostname: 'localhost', username: 'root', password: '', database: 'usuarios');
         return $conexion;
     }
 }
