@@ -10,16 +10,12 @@ if (!empty($_SESSION['usuario'])){
 ?>
 
 <?php
-// mensaje contraseñas distintas
-if (!empty($_GET['error'])) : ?>
-    <div id="alertError"  class="container" style="color: #f44336">
-        <?= !empty ($_GET['error']) ? $_GET['error'] : " " ?>
-    </div>
-<?php endif; ?>
+// GET mensaje contraseñas distintas y mail ya registrado
+$error = isset( $_GET['error'])? $_GET['error'] : "";
+?>
 
 <?php
 echo'<h2 style="text-align: center">Pokemon Challenge</h2>
-
 <form action="store.php" method="POST">
 <h3 style="text-align: center">Registro inicial</h3>
   <div class="container">
@@ -30,11 +26,11 @@ echo'<h2 style="text-align: center">Pokemon Challenge</h2>
     <input type="password" placeholder="Ingrese contraseña" name="contraseña" required>
            
     <label for="psw"><b>Confirmar Contraseña</b></label>
-    <input type="password" placeholder="Ingrese nuevamente contraseña" name="cofirmarContraseña" required>
-          
+    <input type="password" placeholder="Ingrese nuevamente contraseña" name="cofirmarContraseña" required>   
+    <!-- mensaje contraseñas distintas y mail ya registrado -->
+    <span style="color: #f44336">'.$error.'</span>          
     <button type="submit">Crear cuenta</button>
   </div>
-
   <div class="container" style="background-color:#f1f1f1">
     <span class="psw">Ya tenes cuenta en Pokemon Challenge <a href="login.php">Ingresa</a></span>
   </div>

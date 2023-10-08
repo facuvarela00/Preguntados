@@ -7,6 +7,8 @@ $obj = new homeController ();
 $correo = $_POST['correo'];
 $contrasenia = $_POST['contraseña'];
 
+
+
 $bandera = $obj -> verificarUsuario($correo, $contrasenia);
 
 if ($bandera) {

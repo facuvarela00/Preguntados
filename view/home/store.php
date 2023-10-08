@@ -6,10 +6,20 @@ $correo =$_POST['correo'];
 $cofirmarContrasenia =$_POST['cofirmarContraseña'];
 $Contrasenia=$_POST['contraseña'];
 
-//validar que sean iguales las contraseñas y los correos distintos
+//distintas validaciones espacion caracteres especiales etc
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+//validar que sean iguales las contraseñas
+// y los mail distintos
+// (tiene un campo unique en la base, si le mandamos mails iguales, la funcion devuelve false)
 if ($Contrasenia == $cofirmarContrasenia){
     if($obj ->guardarUsuario($correo, $Contrasenia)==false){
-        $error = '<p> El correo ya esta registrado</p>';
+        $error = '<p> El email ya esta registrado</p>';
         header("location: SignUp.php?error=".$error);
     }else{
         header("location: login.php");
@@ -18,6 +28,17 @@ if ($Contrasenia == $cofirmarContrasenia){
     $error = '<p> Las contraseñas son diferentes </p>';
     header("location: SignUp.php?error=".$error);
 }
+
+//validar formato valido de mail
+if (empty($_POST['correo'])) {
+    $email = test_input($_POST['correo']);
+    // checkea si el formato es correcto
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Formato invalido de email ";
+    }
+}
+
+
 
 
 

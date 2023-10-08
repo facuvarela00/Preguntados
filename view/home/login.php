@@ -10,12 +10,10 @@ if (!empty($_SESSION['usuario'])){
 ?>
 
 <?php
-// mensaje de contraseñas o usuario incorrecto
-if (!empty($_GET['error'])) : ?>
-    <div id="alertError"  class="container" style="color: #f44336">
-        <?= !empty ($_GET['error']) ? $_GET['error'] : " " ?>
-    </div>
-<?php endif; ?>
+// GET mensaje de contraseñas o usuario incorrecto
+  $error=!empty ($_GET['error']) ? $_GET['error'] : ""
+?>
+
 
 <?php
 echo'<h2 style="text-align: center">Pokemon Challenge</h2>
@@ -29,10 +27,10 @@ echo'<h2 style="text-align: center">Pokemon Challenge</h2>
   <div class="container">
     <label for="uname"><b>Direccion de mail</b></label>
     <input type="text" placeholder="Ingrese direccion de mail" name="correo" required>
-
     <label for="psw"><b>Contraseña</b></label>
     <input type="password" placeholder="Ingrese contraseña" name="contraseña" required>
-       
+    <!-- mensaje de contraseñas o usuario incorrecto -->
+     <span style="color: #f44336">'.$error.'</span>   
     <button type="submit">Login</button>
   </div>
 

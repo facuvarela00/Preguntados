@@ -3,6 +3,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.error{
+    color: #f44336;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #333;
