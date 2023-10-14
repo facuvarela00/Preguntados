@@ -1,7 +1,6 @@
 <?php
 
-class homeJuegoController
-{
+class homeJuegoController{
     private $modelo;
     private $renderizado;
 
@@ -13,7 +12,12 @@ class homeJuegoController
 
     public function execute()
     {
-        $this->renderizado->render('homeJuego');
+        $error = "";
+        $this->renderizado->render('/homeJuego');
     }
 
+    public function iniciarJuego(){
+
+        header("location:/juegoIniciado");
+    }
 }

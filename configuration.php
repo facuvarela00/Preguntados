@@ -7,10 +7,13 @@ include_once("helper/Router.php");
 include_once('model/registroModel.php');
 include_once('model/loginModel.php');
 include_once('model/homeJuegoModel.php');
+include_once('model/juegoIniciadoModel.php');
+
 
 include_once('controller/registroController.php');
 include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');
+include_once('controller/juegoIniciadoController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 class Configuration{
@@ -54,7 +57,14 @@ class Configuration{
         return new homeJuegoModel($this->getDatabase());
     }
     public function getHomeJuegoController(){
-        return new homeJuegoController($this->getLoginModel(), $this->getRenderer());
+        return new homeJuegoController($this->getHomeJuegoModel(), $this->getRenderer());
+    }
+
+    public function getJuegoIniciadoModel(){
+        return new JuegoIniciadoModel($this->getDatabase());
+    }
+    public function getJuegoIniciadoController(){
+        return new JuegoIniciadoController($this->getJuegoIniciadoModel(), $this->getRenderer());
     }
 
 
