@@ -12,10 +12,13 @@ class juegoIniciadoController{
     public function execute(){
         $error = "";
         $this->renderizado->render("/juegoIniciado");
+
+
     }
 
     public function iniciarJuego(){
      $this->mostrarPreguntaAleatoria();
+
     }
 
     public function validarRespuesta(){
@@ -29,11 +32,18 @@ class juegoIniciadoController{
         }
     }
 
+
     public function mostrarPreguntaAleatoria(){
-        $random=N;
-        $categoria=$this->modelo->buscarCategoria($random);
+
+        $min=1;
+        $max=$this->modelo->cantidadTotalDeCategorias();
+        $numeroAleatorio = rand($min, $max);
+
+        $categoria=$this->modelo->buscarCategoria($numeroAleatorio);
+
         $primeraPregunta=$this->modelo->buscarPreguntas($categoria);
-        $primeraPregunta=$this->modelo->buscarRespuestas($primeraPregunta);
+
+        $respuestas=$this->modelo->buscarRespuestas($primeraPregunta);
     }
 
 

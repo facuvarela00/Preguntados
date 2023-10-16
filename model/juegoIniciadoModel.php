@@ -7,13 +7,23 @@ class juegoIniciadoModel
     {
         $this->database = $database;
     }
+    public function cantidadTotalDeCategorias(){
+        $total = 0;
 
+        $sql = "SELECT COUNT(*) FROM categorias";
+        $resultado = $this->database->query($sql);
 
-    public function buscarPregunta(){
+        foreach($resultado as $result){
+            $total++;
+        }
+            return $total;
+    }
+
+    public function buscarCategoria($numeroAleatorio){
 
     }
 
-
+}
 
 ?>
 
