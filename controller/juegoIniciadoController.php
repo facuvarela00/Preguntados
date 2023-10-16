@@ -33,28 +33,27 @@ class juegoIniciadoController{
     }
 
 
-    public function mostrarPreguntaAleatoria(){
+    public function mostrarPreguntaAleatoria()
+    {
 
-        $min=1;
-        $max=$this->modelo->cantidadTotalDeCategorias();
+        $min = 1;
+        $max = $this->modelo->cantidadTotalDeCategorias();
         $numeroAleatorio = rand($min, $max);
 
 
+        $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
 
-        $categoria=$this->modelo->buscarCategoria($numeroAleatorio);
+        $pregunta = $this->modelo->buscarPregunta($categoria);
 
-        $pregunta=$this->modelo->buscarPregunta($categoria);
-
-        $respuestas=$this->modelo->buscarRespuestas($pregunta);
-
+        $respuestas = $this->modelo->buscarRespuestas($pregunta);
 
 
-        $array=array($categoria,$pregunta,$respuestas);
+        $array = array($categoria, $pregunta, $respuestas);
 
         return $array;
+
+
     }
-
-
 }
 ?>
 
