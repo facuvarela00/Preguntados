@@ -101,3 +101,12 @@ span.psw {
         width: 100%;
     }
 }
+.pregunta{
+    text-align: center;
+    border:1px solid black;
+    padding: 3em;
+}
+.POKEMON{
+    background-color: lightseagreen;
+    height: 500px;
+}

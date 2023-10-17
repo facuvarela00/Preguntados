@@ -18,6 +18,6 @@ class homeJuegoController{
 
     public function iniciarJuego(){
 
-        header("location:/juegoIniciado");
+        header("location:/juegoIniciado/iniciarJuego");
     }
 }

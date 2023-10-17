@@ -1,12 +1,17 @@
 
-<p>JUEGO INICIADO</p>;
+<body class="{{categoria}}">
 
+<p class="pregunta">{{pregunta}}</p>
 
-{{pregunta['string']}}
+<ul>
 
-<form action="juegoIniciado/enviarRespuestaDelUsuario"></form>
+</ul>
 
-<button name="{{respuesta['id']}}">RTA 1</button>
-<button name="{{respuesta['id']}}">RTA 2</button>
-<button name="{{respuesta['id']}}">RTA 3</button>
-<button name="{{respuesta['id']}}">RTA 4</button>
+<form action="juegoIniciado/enviarRespuestaDelUsuario">
+<button type="submit" value="">{{respuestas.0}}</button>
+<button type="submit" value="">{{respuestas.1}}</button>
+<button type="submit" value="">{{respuestas.2}}</button>
+<button type="submit" value="">{{respuestas.3}}</button>
+</form>
+
+</body>
