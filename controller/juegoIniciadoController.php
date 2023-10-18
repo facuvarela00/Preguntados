@@ -10,50 +10,63 @@ class juegoIniciadoController{
     }
 
     public function execute(){
-        $error = "";
-        $this->renderizado->render("/juegoIniciado");
 
+        $this->renderizado->render("/juegoIniciado");
 
     }
 
     public function iniciarJuego(){
+     $_SESSION['puntosPartida'] = 0;
+
+     $this->modelo->reestablecerPreguntas();
      $this->mostrarPreguntaAleatoria();
-
+     exit();
     }
 
-    public function validarRespuesta(){
-        $respuesta=$_POST['name_respuesta'];
-        $respuestas=$this->modelo->buscarSiEsCorrecta($respuesta);
-
-        if(buscarSiEsCorrecta){
-            return true;
-        }else{
-            return false;
+    public function validarRespuesta()
+    {
+        if(isset($_POST['1'])){
+            /*$this->renderizado->render('juegoIniciado');*/
+            $_SESSION['puntosPartida']+=1;
+            header("Location: mostrarPreguntaAleatoria");
+        }else if(isset($_POST['0'])){
+            header("Location: /perder");
         }
+        exit();
     }
-
 
     public function mostrarPreguntaAleatoria()
     {
-
         $min = 1;
         $max = $this->modelo->cantidadTotalDeCategorias();
         $numeroAleatorio = rand($min, $max);
 
-
         $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
+        $pregunta = $this->modelo->buscarPregunta($categoria['id']);
+        $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
 
-        $pregunta = $this->modelo->buscarPregunta($categoria);
+        $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+        $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
 
-        $respuestas = $this->modelo->buscarRespuestas($pregunta);
+        $puntosPartida= $_SESSION['puntosPartida'];
 
+        if (!empty($categoria) && !empty($pregunta) && !empty($respuestas)){
+            $data = [
+                'categoria' => $categoria['categoria'],
+                'pregunta' => $pregunta['pregunta'],
+                'respuestas' => $respuestas,
+                'respuestasCorrecta' => $respuestasCorrecta,
+                'puntosPartida' => $puntosPartida
+            ];
 
-        $array = array($categoria, $pregunta, $respuestas);
-
-        return $array;
-
-
+            $this->renderizado->render('/juegoIniciado', $data);
+            exit();
+        }
     }
+
+
+
+
 }
 ?>
 

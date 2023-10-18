@@ -28,6 +28,11 @@ class MySqlDatabase {
         return mysqli_fetch_assoc($result);
     }
 
+    public function queryID($sql) {
+        $result = mysqli_query($this->connection, $sql);
+        return $result->fetch_array();
+    }
+
     public function execute($sql) {
         mysqli_query($this->connection, $sql);
     }
