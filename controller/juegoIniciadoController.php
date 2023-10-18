@@ -37,20 +37,25 @@ class juegoIniciadoController{
 
     public function mostrarPreguntaAleatoria()
     {
+        $preguntasRealizadas=0;
         $min = 1;
-        $max = $this->modelo->cantidadTotalDeCategorias();
-        $numeroAleatorio = rand($min, $max);
+        $max= $this->modelo->cantidadTotalDeCategorias();
+        $totalPreguntasString= $this->modelo->cantidadTotalDePreguntas();
+        $totalPreguntas = intval($totalPreguntasString);
 
+        do{
+        $numeroAleatorio = rand($min, $max);
         $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
         $pregunta = $this->modelo->buscarPregunta($categoria['id']);
-        $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
 
-        $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
-        $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
+        if (!empty($categoria) && $pregunta!=""){
+            $preguntasRealizadas+=1;
 
-        $puntosPartida= $_SESSION['puntosPartida'];
+            $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
+            $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+            $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
 
-        if (!empty($categoria) && !empty($pregunta) && !empty($respuestas)){
+            $puntosPartida= $_SESSION['puntosPartida'];
             $data = [
                 'categoria' => $categoria['categoria'],
                 'pregunta' => $pregunta['pregunta'],
@@ -58,9 +63,14 @@ class juegoIniciadoController{
                 'respuestasCorrecta' => $respuestasCorrecta,
                 'puntosPartida' => $puntosPartida
             ];
-
             $this->renderizado->render('/juegoIniciado', $data);
             exit();
+        }
+
+        }while (($pregunta=="")&&($totalPreguntas!=$preguntasRealizadas));
+
+        if ($totalPreguntas==$preguntasRealizadas){
+            header("Location:/homeJuego");
         }
     }
 

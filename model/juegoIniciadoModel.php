@@ -8,17 +8,30 @@ class juegoIniciadoModel
         $this->database = $database;
     }
     public function cantidadTotalDeCategorias(){
-        $total = 0;
 
-        $sql = "SELECT COUNT(*) FROM categorias";
-        $resultado = $this->database->query($sql);
-
-        foreach($resultado as $result){
-            $total++;
+        $sql = "SELECT COUNT(*) as total_categorias FROM categorias";
+        $result = $this->database->queryAssoc($sql);
+        if ($result !== false) {
+          $totalCategorias = $result['total_categorias'];
+          return $totalCategorias;
+        }else{
+            return NULL;
         }
-            return $total;
+
     }
 
+    public function cantidadTotalDePreguntas(){
+
+        $sql = "SELECT COUNT(*) as total_preguntas FROM preguntas";
+        $result = $this->database->queryAssoc($sql);
+        if ($result !== false) {
+            $totalPreguntas = $result['total_preguntas'];
+            return $totalPreguntas;
+        }else{
+            return NULL;
+        }
+
+    }
     public function buscarCategoria($numeroAleatorio){
         $sql = "SELECT * FROM categorias WHERE id = '$numeroAleatorio'";
         $resultado = $this->database->queryID($sql);
@@ -30,9 +43,13 @@ class juegoIniciadoModel
         $sql = "SELECT * FROM preguntas WHERE id_categoria LIKE '$idCategoria' AND utilizada LIKE '$utilizada'";
         $result = $this->database->queryID($sql);
 
-        $preguntaElegida = $this->fueUtilizada($result);
+        if (isset($result)){
+            $preguntaElegida = $this->fueUtilizada($result);
+            return $preguntaElegida;
+        }else{
+            return "";
+        }
 
-        return $preguntaElegida;
     }
 
 
