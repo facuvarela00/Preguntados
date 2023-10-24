@@ -21,7 +21,7 @@ class juegoIniciadoController{
     }
 
     public function validarRespuesta(){
-        $respuesta=$_POST['name_respuesta'];
+        $respuesta=$_POST['name'];
         $respuestas=$this->modelo->buscarSiEsCorrecta($respuesta);
 
         if(buscarSiEsCorrecta){
@@ -57,8 +57,6 @@ class juegoIniciadoController{
 
         }
     }
-
-
 
 
 }
