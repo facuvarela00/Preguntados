@@ -10,51 +10,67 @@ class juegoIniciadoController{
     }
 
     public function execute(){
-        $error = "";
+
         $this->renderizado->render("/juegoIniciado");
 
     }
 
     public function iniciarJuego(){
+     $_SESSION['puntosPartida'] = 0;
+
+     $this->modelo->reestablecerPreguntas();
      $this->mostrarPreguntaAleatoria();
      exit();
     }
 
-    public function validarRespuesta(){
-        $respuesta=$_POST['name'];
-        $respuestas=$this->modelo->buscarSiEsCorrecta($respuesta);
-
-        if(buscarSiEsCorrecta){
-            return true;
-        }else{
-            return false;
+    public function validarRespuesta()
+    {
+        if(isset($_POST['1'])){
+            /*$this->renderizado->render('juegoIniciado');*/
+            $_SESSION['puntosPartida']+=1;
+            header("Location: mostrarPreguntaAleatoria");
+        }else if(isset($_POST['0'])){
+            header("Location: /perder");
         }
+        exit();
     }
-
 
     public function mostrarPreguntaAleatoria()
     {
+        $preguntasRealizadas=0;
         $min = 1;
-        $max = $this->modelo->cantidadTotalDeCategorias();
+        $max= $this->modelo->cantidadTotalDeCategorias();
+        $totalPreguntasString= $this->modelo->cantidadTotalDePreguntas();
+        $totalPreguntas = intval($totalPreguntasString);
+
+        do{
         $numeroAleatorio = rand($min, $max);
-
         $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
-
         $pregunta = $this->modelo->buscarPregunta($categoria['id']);
 
-        $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
-        $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+        if (!empty($categoria) && $pregunta!=""){
+            $preguntasRealizadas+=1;
 
-        if (!empty($categoria) && !empty($pregunta) && !empty($respuestas)){
+            $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
+            $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+            $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
+
+            $puntosPartida= $_SESSION['puntosPartida'];
             $data = [
                 'categoria' => $categoria['categoria'],
                 'pregunta' => $pregunta['pregunta'],
-                'respuestas' => $respuestas
+                'respuestas' => $respuestas,
+                'respuestasCorrecta' => $respuestasCorrecta,
+                'puntosPartida' => $puntosPartida
             ];
-
             $this->renderizado->render('/juegoIniciado', $data);
             exit();
+        }
 
+        }while (($pregunta=="")&&($totalPreguntas!=$preguntasRealizadas));
+
+        if ($totalPreguntas==$preguntasRealizadas){
+            header("Location:/homeJuego");
         }
     }
 

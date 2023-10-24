@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <body class="{{categoria}}">
 
@@ -15,3 +16,23 @@
 </form>
 
 </body>
+=======
+<main>
+    <section>
+        <p>Puntos Obtenidos: {{puntosPartida}}</p>
+    </section>
+    <section class="{{categoria}}">
+        <article>
+            <h1 class="pregunta">{{pregunta}}</h1>;
+        </article>
+        <article class="container">
+            <form action="validarRespuesta" method="POST" >
+                <input type="submit" value="{{respuestas.0}}" name="{{respuestasCorrecta.0}}">
+                <input type="submit" value="{{respuestas.1}}" name="{{respuestasCorrecta.1}}">
+                <input type="submit" value="{{respuestas.2}}" name="{{respuestasCorrecta.2}}">
+                <input type="submit" value="{{respuestas.3}}" name="{{respuestasCorrecta.3}}">
+            </form>
+        </article>
+    </section>
+</main>
+>>>>>>> f6eac31bf3d650eacd20b973e0b53165cd72eea1

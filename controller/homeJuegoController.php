@@ -12,12 +12,17 @@ class homeJuegoController{
 
     public function execute()
     {
-        $error = "";
-        $this->renderizado->render('/homeJuego');
+        $correo=$_SESSION['correo'] ;
+        $this->renderizado->render('/homeJuego', ['correo' => $correo]);
     }
 
     public function iniciarJuego(){
 
         header("location:/juegoIniciado/iniciarJuego");
+    }
+
+    public function cerrarSesion(){
+        session_destroy();
+        header("Location:/login");
     }
 }

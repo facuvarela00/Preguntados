@@ -1,18 +1,21 @@
-<h2 style="text-align: center">Pokemon Challenge</h2>
+<h1 class="titulo">Anime Test</h1>
+
+<section>
 <form action="/login/validarLogin" method="POST">
     <h3 style="text-align: center">Iniciar sesion</h3>
     <div class="imgcontainer">
     </div>{{error}}
     <div class="container">
-        <label for="uname"><b>Direccion de mail</b></label>
-        <input type="text" placeholder="Ingrese direccion de mail" name="correo" required>
-        <label for="psw"><b>Contraseña</b></label>
-        <input type="password" placeholder="Ingrese contraseña" name="password" required>
+        <label for="correo"><b>Direccion de Correo</b></label>
+        <input type="text" placeholder="Ingrese direccion de Correo" name="correo" required>
+        <label for="password"><b>Contraseña</b></label>
+        <input type="password" placeholder="Ingrese la Contraseña" name="password" required>
         <span style="color: #f44336">{{error}}</span>
-        <button type="submit">Login</button>
+        <input type="submit" class="botonFormularioInicio" value="Iniciar Sesion">
     </div>
 </form>
+</section>
 
-<div class="container" style="background-color:#f1f1f1">
-    <span class="psw">Nuevo en Pokemon Challenge <a href="/registro">Create una cuenta</a></span>
-</div>
+<section>
+    <p>Nuevo en Pokemon Challenge?<a href="/registro"> Create una cuenta!</a></p>
+</section>

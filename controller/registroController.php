@@ -18,16 +18,25 @@ class registroController{
 
     public function validarRegistro() {
 
+        $nombreCompleto=$_POST["name"];
+        $username=$_POST["username"];
+        $fechaNac=$_POST["year"];
+        $genero=$_POST["genero"];
         $mail = $_POST["correo"];
         $password = $_POST["password"];
         $confirmarPassword = $_POST["confirmarPassword"];
         $mailValido = $this->validarFormatoMail($mail);
+        $imagen = $_FILES['imagen'];
+        $nombreImagen = $mail;
+        $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
         $error="";
 
         if ($password === $confirmarPassword && $mailValido!="") {
-            if (!($this->guardarUsuario($mailValido,$password))) {
+            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password))) {
                 $error = 'El correo ya está registrado';
             } else {
+
+                move_uploaded_file($imagen['tmp_name'], $rutaImagen);
                 enviarEmailBienvenida($mailValido);
                 header("location:/login");
                 exit();
@@ -45,9 +54,9 @@ class registroController{
 
     }
 
-    public function guardarUsuario($correo, $password){
+    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password){
         $passwordHash=$this->encriptarPassword($password);
-        return $this->modelo->agregarUsuario($correo, $passwordHash);
+        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $passwordHash);
 
     }
 
