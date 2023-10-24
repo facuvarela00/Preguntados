@@ -12,13 +12,19 @@ class homeJuegoController{
 
     public function execute()
     {
-        $correo=$_SESSION['correo'] ;
-        $this->renderizado->render('/homeJuego', ['correo' => $correo]);
+        if (isset($_SESSION['correo'])){
+            $nombre = $_SESSION['nombre'];
+            $this->renderizado->render('/homeJuego', ['nombre' => $nombre]);
+        }
+        else{
+            $this->renderizado->render('/login');
+        }
+
     }
 
     public function iniciarJuego(){
-
-        header("location:/juegoIniciado/iniciarJuego");
+        $_SESSION['juegoIniciado']=1;
+            header("location:/juegoIniciado/iniciarJuego");
     }
 
     public function cerrarSesion(){

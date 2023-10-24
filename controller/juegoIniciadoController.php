@@ -10,9 +10,11 @@ class juegoIniciadoController{
     }
 
     public function execute(){
-
-        $this->renderizado->render("/juegoIniciado");
-
+        if(isset($_SESSION['correo'])) {
+            $this->renderizado->render("/juegoIniciado");
+        }else{
+            $this->renderizado->render("/login");
+        }
     }
 
     public function iniciarJuego(){

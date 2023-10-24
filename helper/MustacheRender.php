@@ -15,7 +15,16 @@ class MustacheRender{
     }
 
     public function generateHtml($contentFile, $data = array()) {
-        $contentAsString = file_get_contents('view/head/header.mustache');
+        if(!isset($_SESSION['correo'])){
+            $contentAsString = file_get_contents('view/head/header.mustache');
+        }else{
+            if(isset($_SESSION['juegoIniciado'])&&($_SESSION['juegoIniciado']==1)){
+                $contentAsString = file_get_contents('view/head/headerIniciado.mustache');
+            }else{
+                $contentAsString = file_get_contents('view/head/headerLogged.mustache');
+            }
+        }
+
         $contentAsString .= file_get_contents('view/' . $contentFile . 'View.mustache');
         $contentAsString .= file_get_contents('view/head/footer.mustache');
         return $this->mustache->render($contentAsString, $data);
