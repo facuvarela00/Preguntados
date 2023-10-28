@@ -17,12 +17,12 @@ try {
     $mail->isSMTP();           
     $mail->Host       = 'outlook.office365.com';
     $mail->SMTPAuth   = true;                   
-    $mail->Username   = 'preguntadosunlam@outlook.com';
+    $mail->Username   = 'animetestunlam@outlook.com';
     $mail->Password   = 'Unlam2023';
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('preguntadosunlam@outlook.com');
+    $mail->setFrom('animetestunlam@outlook.com');
     $mail->addAddress($correo);
     
     //$mail->addAttachment('preguntados.png');

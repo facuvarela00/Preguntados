@@ -30,29 +30,33 @@ class registroController{
         $nombreImagen = $mail;
         $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
         $error="";
-
+    
         if ($password === $confirmarPassword && $mailValido!="") {
             if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password))) {
                 $error = 'El correo ya está registrado';
             } else {
-
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-                enviarEmailBienvenida($mailValido);
-                header("location:/login");
-                exit();
+                
+                $resultadoEmail = enviarEmailBienvenida($mailValido);
+                if ($resultadoEmail != true) {
+                    $error = $resultadoEmail;
+                } else {
+                    header("location:/login");
+                    exit();
+                }
             }
         } else if ($mailValido=="") {
             $error = 'Correo inválido';
         } else {
             $error = 'Las contraseñas son diferentes';
         }
-
+    
         if ($error!=""){
             $this->renderizado->render('/registro', ['error' => $error]);
             exit();
         }
-
     }
+
 
     public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password){
         $passwordHash=$this->encriptarPassword($password);

@@ -17,7 +17,6 @@ class homeJuegoController{
             $data = [
                 'nombre'=>$nombre,
             ];
-
             $this->renderizado->render('/homeJuego', $data);
         }
         else{
