@@ -10,9 +10,10 @@ class registroModel {
 
 
         $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, imagen) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password','$rutaImagen')";
-
+        $sql2= "INSERT INTO ranking (mail, puntajesPorPartida, puntajeTotal) VALUES ('$mail',0,0)";
         try {
             $this->database->execute($sql);
+            $this->database->execute($sql2);
             return true;
         } catch (Exception $e) {
             return false;

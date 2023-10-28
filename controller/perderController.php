@@ -12,7 +12,7 @@ class perderController
 
     public function execute()
     {
-        $error = "";
+        $_SESSION['juegoIniciado']=0;
         $this->renderizado->render("/perder");
 
     }

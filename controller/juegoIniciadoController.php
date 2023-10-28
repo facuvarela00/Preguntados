@@ -10,14 +10,15 @@ class juegoIniciadoController{
     }
 
     public function execute(){
-
-        $this->renderizado->render("/juegoIniciado");
-
+        if(isset($_SESSION['correo'])) {
+            $this->renderizado->render("/juegoIniciado");
+        }else{
+            $this->renderizado->render("/login");
+        }
     }
 
     public function iniciarJuego(){
      $_SESSION['puntosPartida'] = 0;
-
      $this->modelo->reestablecerPreguntas();
      $this->mostrarPreguntaAleatoria();
      exit();
@@ -26,10 +27,14 @@ class juegoIniciadoController{
     public function validarRespuesta()
     {
         if(isset($_POST['1'])){
-            /*$this->renderizado->render('juegoIniciado');*/
             $_SESSION['puntosPartida']+=1;
             header("Location: mostrarPreguntaAleatoria");
         }else if(isset($_POST['0'])){
+            $correo=$_SESSION['correo'];
+            $puntajeDeLaPartida=$_SESSION['puntosPartida'];
+
+            $this->modelo->agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida);
+            /*$_SESSION['puntosTotalesPersonal']+=$_SESSION['puntosPartida'];*/
             header("Location: /perder");
         }
         exit();

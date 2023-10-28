@@ -9,6 +9,7 @@ include_once('model/loginModel.php');
 include_once('model/homeJuegoModel.php');
 include_once('model/juegoIniciadoModel.php');
 include_once('model/perderModel.php');
+include_once('model/rankingModel.php');
 
 
 include_once('controller/registroController.php');
@@ -16,6 +17,7 @@ include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');
 include_once('controller/juegoIniciadoController.php');
 include_once('controller/perderController.php');
+include_once('controller/rankingController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 class Configuration{
@@ -75,6 +77,13 @@ class Configuration{
     public function getPerderController(){
         return new perderController($this->getPerderModel(), $this->getRenderer());
     }
+    public function getRankingModel(){
+        return new rankingModel($this->getDatabase());
+    }
+    public function getRankingController(){
+        return new rankingController($this->getrankingModel(), $this->getRenderer());
+    }
+    
 
 
 }

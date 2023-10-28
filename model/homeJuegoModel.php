@@ -9,7 +9,4 @@ class homeJuegoModel
         $this->database = $database;
     }
 
-
-
-
 }

@@ -1,0 +1,50 @@
+<main class="fondoRanking">
+    <section class="contenedorRanking">
+        <article class="error">
+            {{error}}
+        </article>
+
+        <article class="rankingPersonal">
+            <p>RANKING PERSONAL</p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Puntaje</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#rankingPersonal}}
+                    <tr>
+                        <td>{{posicion}}°</td>
+                        <td>{{puntaje}}</td>
+                    </tr>
+                {{/rankingPersonal}}
+                </tbody>
+            </table>
+        </article>
+
+        <article class="rankingGlobal">
+            <p>RANKING GLOBAL</p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Posición</th>
+                    <th>Puntaje</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#rankingGlobal}}
+                    <tr>
+                        <td>{{mail}}</td>
+                        <td>{{posicion}}°</td>
+                        <td>{{puntaje}}</td>
+                    </tr>
+                {{/rankingGlobal}}
+                </tbody>
+            </table>
+        </article>
+    </section>
+</main>
+

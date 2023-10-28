@@ -38,6 +38,20 @@ class loginModel
             return false;
         }
     }
+
+    public function buscarNombre($correo){
+        $sql1 = "SELECT nombreCompleto FROM usuarios WHERE mail = '$correo'";
+        $resultado = $this->database->queryAssoc($sql1);
+        if (!empty($resultado)) {
+            if (isset($resultado['nombreCompleto']) && is_string($resultado['nombreCompleto'])) {
+                return $resultado['nombreCompleto'];
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
 }
 
 ?>
