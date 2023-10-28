@@ -28,13 +28,30 @@ CREATE TABLE respuestas(
   esCorrecta tinyint(1) NOT NULL,
 FOREIGN KEY(id_pregunta) REFERENCES preguntas(id));
 
+CREATE TABLE ranking(
+  mail VARCHAR(100) NOT NULL PRIMARY KEY,
+  puntajesPorPartida VARCHAR(1024), 
+  puntajeTotal int(11),
+  FOREIGN KEY(mail) REFERENCES usuarios(mail));
+
+CREATE TABLE sugeridas(
+id INT(11) PRIMARY KEY AUTO_INCREMENT,
+preguntaSugerida VARCHAR(300) NOT NULL,
+respuestaSugeridaA VARCHAR(50) NOT NULL,
+respuestaSugeridaB VARCHAR(50) NOT NULL,
+respuestaSugeridaC VARCHAR(50) NOT NULL,
+respuestaSugeridaD VARCHAR(50) NOT NULL,
+id_categoria int(11) NOT NULL,
+FOREIGN KEY(id_categoria) REFERENCES categorias(id));
+
+
 INSERT INTO categorias (categoria)
 VALUES 
 ('POKEMON'),
-('SHINGEKI NO KYOJIN'),
-('BANANA FISH'),
-('DEATH NOTE'),
-('HAIKYUU!');
+('SHINGEKI_NO_KYOJIN'),
+('BANANA_FISH'),
+('DEATH_NOTE'),
+('HAIKYUU');
 
 INSERT INTO preguntas (pregunta,utilizada,id_categoria)
 VALUES 

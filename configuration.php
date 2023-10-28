@@ -9,6 +9,8 @@ include_once('model/loginModel.php');
 include_once('model/homeJuegoModel.php');
 include_once('model/juegoIniciadoModel.php');
 include_once('model/perderModel.php');
+include_once('model/sugerirPreguntaModel.php');
+include_once('model/envioExitosoModel.php');
 
 
 include_once('controller/registroController.php');
@@ -16,6 +18,9 @@ include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');
 include_once('controller/juegoIniciadoController.php');
 include_once('controller/perderController.php');
+include_once('controller/sugerirPreguntaController.php');
+include_once('controller/envioExitosoController.php');
+
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 class Configuration{
@@ -76,6 +81,20 @@ class Configuration{
         return new perderController($this->getPerderModel(), $this->getRenderer());
     }
 
+    public function getSugerirPreguntaModel(){
+        return new sugerirPreguntaModel($this->getDatabase());
+    }
+    public function getSugerirPreguntaController(){
+        return new sugerirPreguntaController($this->getSugerirPreguntaModel(), $this->getRenderer());
+    }
+
+    public function getEnvioExitosoModel(){
+        return new envioExitosoModel($this->getDatabase());
+    }
+    public function getEnvioExitosoController(){
+        return new envioExitosoController($this->getEnvioExitosoModel(), $this->getRenderer());
+    }
+ 
 
 }
 ?>
