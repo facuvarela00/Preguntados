@@ -84,9 +84,24 @@ class juegoIniciadoModel
         $sql = "UPDATE preguntas SET utilizada = 0 WHERE id = '$idPregunta'";
         $result = $this->database->execute($sql);
     }
+    public function agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida)
+    {
 
+        $sql = "SELECT puntajesPorPartida FROM Ranking WHERE mail = '$correo'";
+        $result = $this->database->queryAssoc($sql);
+        $puntajesActuales = json_decode($result['puntajesPorPartida'], true);
+            if ($puntajesActuales === 0) {
+                $puntajesActuales = [];
+            }
+        $puntajesActuales[] = $puntajeDeLaPartida;
+        $puntajesActualizados = json_encode($puntajesActuales);
+        $puntajeTotal = array_sum($puntajesActuales);
 
-
+        $sqlUpdate = "UPDATE Ranking SET puntajesPorPartida = '$puntajesActualizados' WHERE mail = '$correo'";
+        $sqlUpdate2 = "UPDATE Ranking SET puntajeTotal = '$puntajeTotal' WHERE mail = '$correo'";
+        $this->database->execute($sqlUpdate);
+        $this->database->execute($sqlUpdate2);
+    }
 }
 
 ?>

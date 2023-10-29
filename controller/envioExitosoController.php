@@ -1,5 +1,5 @@
 <?php
-class perderController
+class envioExitosoController
 {
     private $modelo;
     private $renderizado;
@@ -12,8 +12,6 @@ class perderController
 
     public function execute()
     {
-        $_SESSION['juegoIniciado']=0;
-        $this->renderizado->render("/perder");
-
+        $this->renderizado->render("/envioExitoso");
     }
 }

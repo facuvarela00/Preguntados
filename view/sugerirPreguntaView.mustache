@@ -1,0 +1,27 @@
+<main>
+<section class="sugerirPregunta">
+<h1>¡ Bienvenido !</h1>
+<h2>Ingrese a continuación la pregunta que desea sugerir para Anime Test:</h2>
+<form action="/sugerirPregunta/sugerirPreguntaUsuario" method="POST">
+        <input type="text" placeholder="Ingrese su pregunta sugerida" name="preguntaSugerida" required>
+        <h2>Ingrese posibles respuestas: </h2>
+        <input type="text" placeholder="Respuesta A" name="respuestaSugeridaA" required>
+        <input type="text" placeholder="Respuesta B" name="respuestaSugeridaB" required>
+        <input type="text" placeholder="Respuesta C" name="respuestaSugeridaC" required>
+        <input type="text" placeholder="Respuesta D" name="respuestaSugeridaD" required>
+
+        <label for="categoria">Seleccione una categoría:</label>
+        <select id="categoria" name="id_categoria">
+        <div>
+        <option value="1" name="1">POKEMON</option>
+        <option value="2" name="2">SHINGEKI NO KYOJIN</option>
+        <option value="3" name="3">BANANA FISH</option>
+        <option value="4" name="4">DEATH NOTE</option>
+        <option value="5" name="5">HAIKYUU</option>
+        </div>
+        </select>
+        <br>
+        <input type="submit" class="preguntaSugerida" value="Enviar">
+</form>
+</section>
+</main>

@@ -27,7 +27,8 @@ class loginController
         if($busquedaMailExistente){
             $busquedaClaveCoincidente=$this->modelo->obtenerClave($correo,$password);
             if($busquedaClaveCoincidente){
-                $_SESSION['correo'] = $correo;
+                $_SESSION['correo']=$correo;
+                $_SESSION['nombre'] = $this->modelo->buscarNombre($correo);
                 header("location:/homeJuego");
                 exit();
             }

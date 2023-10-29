@@ -1,6 +1,6 @@
 <?php
 
-class homeJuegoModel
+class envioExitosoModel
 {
     private $database;
 
@@ -8,5 +8,8 @@ class homeJuegoModel
     {
         $this->database = $database;
     }
+
+
+
 
 }
