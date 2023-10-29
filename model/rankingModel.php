@@ -28,6 +28,7 @@ class rankingModel{
             );
         }
         return $rankingPersonalData;
+        
     }
 
     public function obtenerPuntajeTotalGlobal(){
