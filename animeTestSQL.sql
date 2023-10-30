@@ -1,5 +1,9 @@
 CREATE DATABASE animetest; 
 
+CREATE TABLE roles(
+id INT(1) PRIMARY KEY,
+rol VARCHAR(30) NOT NULL);
+
 CREATE TABLE usuarios(
 id INT(11) PRIMARY KEY AUTO_INCREMENT,
 nombreCompleto VARCHAR(100) NOT NULL,
@@ -8,8 +12,9 @@ fechaNac DATE NOT NULL,
 genero VARCHAR(20) NOT NULL,
 mail VARCHAR(100) UNIQUE NOT NULL,
 password VARCHAR(100) NOT NULL,
-imagen VARCHAR(100) NOT NULL
-);
+rol INT(1) NOT NULL,
+imagen VARCHAR(100) NOT NULL,
+FOREIGN KEY(rol) REFERENCES roles(id));
 
 CREATE TABLE categorias(
 id INT(11)  PRIMARY KEY AUTO_INCREMENT,
@@ -44,6 +49,17 @@ respuestaSugeridaD VARCHAR(50) NOT NULL,
 id_categoria int(11) NOT NULL,
 FOREIGN KEY(id_categoria) REFERENCES categorias(id));
 
+
+INSERT INTO roles(id,rol)
+VALUES 
+("1","Administrador"),
+("2","Editor"),
+("3","Jugador");
+
+INSERT INTO usuarios (nombreCompleto, username, fechaNac,genero, mail, password,rol, imagen)
+VALUES 
+("Usuario Administrador", "Admin1","2002-02-22","Femenino","admin@gmail.com", "SuperContraseñaSecreta", "1", "admin.jpg"),
+("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg");
 
 INSERT INTO categorias (categoria)
 VALUES 
