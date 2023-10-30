@@ -14,7 +14,7 @@ class loginModel
         $sql1 = "SELECT password FROM usuarios WHERE mail = '$correo'";
         $resultado = $this->database->queryAssoc($sql1);
 
-        if (!empty($resultado)){
+        if (!empty($resultado) && $this->obtenerRol($correo)==3){
 
             if (password_verify($password, $resultado['password'])) {
                 return true;
@@ -22,8 +22,28 @@ class loginModel
             else{
                 return false;
             }
+        }else if(!empty($resultado) && $this->obtenerRol($correo)!=3){
+            if ($password == $resultado['password']) {
+                return true;
+            }
+            else{
+                return false;
+            }
         }else{
             return false;
+        }
+
+    }
+
+    public function obtenerRol($correo)
+    {
+        $sql1 = "SELECT rol FROM usuarios WHERE mail = '$correo'";
+        $resultado = $this->database->queryAssoc($sql1);
+
+        if (empty($resultado)){
+                return -1;
+        }else{
+            return $resultado['rol'];
         }
 
     }

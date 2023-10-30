@@ -21,13 +21,13 @@ class loginController
 
         $correo=$_POST['correo'];
         $password=$_POST['password'];
-        $rol=$_POST['rol'];
         $error="";
         $busquedaMailExistente=$this->modelo->obtenerMail($correo);
 
         if($busquedaMailExistente){
             $busquedaClaveCoincidente=$this->modelo->obtenerClave($correo,$password);
             if($busquedaClaveCoincidente){
+                $rol=$this-> modelo-> obtenerRol($correo);
                 $_SESSION['correo']=$correo;
                 $_SESSION['nombre'] = $this->modelo->buscarNombre($correo);
                 if($rol==3){
@@ -36,8 +36,11 @@ class loginController
                 }else if($rol==2){
                     header("location:/homeEditor");
                     exit();
-                }else{
+                }else if($rol==1){
                     header("location:/homeAdmin");
+                    exit();
+                }else{
+                    header("location:/login");
                     exit();
                 }
             }

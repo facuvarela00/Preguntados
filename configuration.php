@@ -122,14 +122,14 @@ class Configuration{
     }
 
     public function getHomeAdminController(){
-        return new homeAdminController($this->getHomeAdminController(), $this->getRenderer());
+        return new homeAdminController($this->getHomeAdminModel(), $this->getRenderer());
     }
     public function getHomeEditorModel(){
         return new homeEditorModel($this->getDatabase());
     }
 
     public function getHomeEditorController(){
-        return new homeEditorController($this->getHomeEditorController(), $this->getRenderer());
+        return new homeEditorController($this->getHomeEditorModel(), $this->getRenderer());
     }
 
 }
