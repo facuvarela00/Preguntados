@@ -13,6 +13,8 @@ include_once('model/rankingModel.php');
 include_once('model/sugerirPreguntaModel.php');
 include_once('model/envioExitosoModel.php');
 include_once('model/perfilModel.php');
+include_once('model/homeAdminModel.php');
+include_once('model/homeEditorModel.php');
 
 
 
@@ -25,6 +27,8 @@ include_once('controller/rankingController.php');
 include_once('controller/sugerirPreguntaController.php');
 include_once('controller/envioExitosoController.php');
 include_once('controller/perfilController.php');
+include_once('controller/homeEditorController.php');
+include_once('controller/homeAdminController.php');
 
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
@@ -111,6 +115,21 @@ class Configuration{
     }
     public function getPerfilController(){
         return new perfilController($this->getPerfilModel(), $this->getRenderer());
+    }
+
+    public function getHomeAdminModel(){
+        return new homeAdminModel($this->getDatabase());
+    }
+
+    public function getHomeAdminController(){
+        return new homeAdminController($this->getHomeAdminController(), $this->getRenderer());
+    }
+    public function getHomeEditorModel(){
+        return new homeEditorModel($this->getDatabase());
+    }
+
+    public function getHomeEditorController(){
+        return new homeEditorController($this->getHomeEditorController(), $this->getRenderer());
     }
 
 }

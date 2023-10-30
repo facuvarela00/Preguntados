@@ -36,7 +36,6 @@ class registroController{
                 $error = 'El correo ya está registrado';
             } else {
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-                
                 $resultadoEmail = enviarEmailBienvenida($mailValido);
                 if ($resultadoEmail != true) {
                     $error = $resultadoEmail;
