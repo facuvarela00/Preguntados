@@ -16,12 +16,15 @@ class rankingController{
             $correo = $_SESSION['correo'];
             $rankingPersonal = $this->modelo->hacerRankingPersonal($correo);
             $rankingGlobal=$this->modelo->hacerRankingGlobal();
+            $puntajeTotal=$this->modelo->obtenerPuntajeTotalPersonal($correo);
             $error="";
 
             $data = array(
                 'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,
+                'puntajeTotal' =>$puntajeTotal,
             );
+
 
             if (isset($rankingPersonal)&&isset($rankingGlobal)){
                 $this->renderizado->render('/ranking', $data);

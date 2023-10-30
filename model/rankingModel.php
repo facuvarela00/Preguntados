@@ -28,6 +28,13 @@ class rankingModel{
             );
         }
         return $rankingPersonalData;
+        
+    }
+    public function obtenerPuntajeTotalPersonal($correo){
+        $sql = "SELECT puntajeTotal FROM ranking WHERE mail='$correo' ";
+        $puntajeTotal = $this->database->queryAssoc($sql);
+
+        return $puntajeTotal['puntajeTotal'];
     }
 
     public function obtenerPuntajeTotalGlobal(){

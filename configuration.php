@@ -12,6 +12,7 @@ include_once('model/perderModel.php');
 include_once('model/rankingModel.php');
 include_once('model/sugerirPreguntaModel.php');
 include_once('model/envioExitosoModel.php');
+include_once('model/perfilModel.php');
 
 
 
@@ -23,6 +24,7 @@ include_once('controller/perderController.php');
 include_once('controller/rankingController.php');
 include_once('controller/sugerirPreguntaController.php');
 include_once('controller/envioExitosoController.php');
+include_once('controller/perfilController.php');
 
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
@@ -103,7 +105,13 @@ class Configuration{
     public function getEnvioExitosoController(){
         return new envioExitosoController($this->getEnvioExitosoModel(), $this->getRenderer());
     }
- 
+
+    public function getPerfilModel(){
+        return new perfilModel($this->getDatabase());
+    }
+    public function getPerfilController(){
+        return new perfilController($this->getPerfilModel(), $this->getRenderer());
+    }
 
 }
 ?>
