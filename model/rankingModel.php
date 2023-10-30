@@ -28,7 +28,7 @@ class rankingModel{
             );
         }
         return $rankingPersonalData;
-        
+
     }
     public function obtenerPuntajeTotalPersonal($correo){
         $sql = "SELECT puntajeTotal FROM ranking WHERE mail='$correo' ";

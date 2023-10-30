@@ -6,10 +6,9 @@ class registroModel {
         $this-> database = $database;
     }
 
-    public function agregarUsuario ($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password){
+    public function agregarUsuario ($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $rol){
 
-
-        $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, imagen) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password','$rutaImagen')";
+        $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, rol, imagen) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password', '$rol', '$rutaImagen')";
         $sql2= "INSERT INTO ranking (mail, puntajesPorPartida, puntajeTotal) VALUES ('$mail',0,0)";
         try {
             $this->database->execute($sql);
