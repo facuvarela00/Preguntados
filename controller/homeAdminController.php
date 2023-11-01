@@ -13,8 +13,12 @@ class homeAdminController
 
     public function execute()
     {
-        $error = "";
-        $this->renderizado->render('/homeAdmin');
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==1){
+            $this->renderizado->render('/homeAdmin');
+        }
+        else{
+            $this->renderizado->render('/login');
+        }
     }
 
 

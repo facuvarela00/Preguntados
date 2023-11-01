@@ -39,8 +39,7 @@ class juegoIniciadoModel
     }
 
     public function buscarPregunta($idCategoria){
-        $utilizada = 0;
-        $sql = "SELECT * FROM preguntas WHERE id_categoria LIKE '$idCategoria' AND utilizada LIKE '$utilizada'";
+        $sql = "SELECT * FROM preguntas WHERE id_categoria LIKE '$idCategoria' AND utilizada = 0";
         $result = $this->database->queryID($sql);
 
         if (isset($result)){

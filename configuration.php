@@ -8,10 +8,8 @@ include_once('model/registroModel.php');
 include_once('model/loginModel.php');
 include_once('model/homeJuegoModel.php');
 include_once('model/juegoIniciadoModel.php');
-include_once('model/perderModel.php');
 include_once('model/rankingModel.php');
 include_once('model/sugerirPreguntaModel.php');
-include_once('model/envioExitosoModel.php');
 include_once('model/perfilModel.php');
 include_once('model/homeAdminModel.php');
 include_once('model/homeEditorModel.php');
@@ -23,10 +21,8 @@ include_once('controller/registroController.php');
 include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');
 include_once('controller/juegoIniciadoController.php');
-include_once('controller/perderController.php');
 include_once('controller/rankingController.php');
 include_once('controller/sugerirPreguntaController.php');
-include_once('controller/envioExitosoController.php');
 include_once('controller/perfilController.php');
 include_once('controller/homeEditorController.php');
 include_once('controller/homeAdminController.php');
@@ -84,12 +80,6 @@ class Configuration{
         return new JuegoIniciadoController($this->getJuegoIniciadoModel(), $this->getRenderer());
     }
 
-    public function getPerderModel(){
-        return new perderModel($this->getDatabase());
-    }
-    public function getPerderController(){
-        return new perderController($this->getPerderModel(), $this->getRenderer());
-    }
     public function getRankingModel(){
         return new rankingModel($this->getDatabase());
     }
@@ -102,13 +92,6 @@ class Configuration{
     }
     public function getSugerirPreguntaController(){
         return new sugerirPreguntaController($this->getSugerirPreguntaModel(), $this->getRenderer());
-    }
-
-    public function getEnvioExitosoModel(){
-        return new envioExitosoModel($this->getDatabase());
-    }
-    public function getEnvioExitosoController(){
-        return new envioExitosoController($this->getEnvioExitosoModel(), $this->getRenderer());
     }
 
     public function getPerfilModel(){

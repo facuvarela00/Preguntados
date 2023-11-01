@@ -90,7 +90,7 @@ VALUES
 (2,'5',0),
 (2,'1',0),
 (2,'7',0),
-(3,'Una cancion',1),
+(3,'Una cancion',0),
 (3,'Una institucion',0),
 (3,'El villano principal',0),
 (3,'Una droga',1),

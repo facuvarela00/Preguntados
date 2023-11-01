@@ -12,7 +12,9 @@ class homeJuegoController{
 
     public function execute()
     {
-        if (isset($_SESSION['correo'])){
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==3){
+
+            $_SESSION['juegoIniciado']=0;
             $nombre = $_SESSION['nombre'];
             $data = [
                 'nombre'=>$nombre,
@@ -24,10 +26,8 @@ class homeJuegoController{
         }
 
     }
-
     public function iniciarJuego(){
-        $_SESSION['juegoIniciado']=1;
-            header("location:/juegoIniciado/iniciarJuego");
+        header("Location:/juegoIniciado/iniciarJuego");
     }
 
     public function cerrarSesion(){

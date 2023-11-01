@@ -31,15 +31,17 @@ class sugerirPreguntaController {
     
             $this->modelo->agregarSugerencia($preguntaSugerida, $respuestaSugeridaA, $respuestaSugeridaB, $respuestaSugeridaC, $respuestaSugeridaD, $id_categoria);
 
-            header("Location: /envioExitoso");
+            header("Location: /sugerirPregunta/envioExitoso");
 
         } else{
 
             header("Location: /sugerirPregunta");
 
         }
+    }
 
-    
+    public function envioExitoso(){
+        $this->renderizado->render("/envioExitoso");
     }
 
 }

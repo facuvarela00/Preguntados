@@ -1,6 +1,7 @@
 <?php
 
-class rankingController{
+class rankingController
+{
     private $modelo;
     private $renderizado;
 
@@ -14,29 +15,24 @@ class rankingController{
     {
         if (isset($_SESSION['correo'])) {
             $correo = $_SESSION['correo'];
+
             $rankingPersonal = $this->modelo->hacerRankingPersonal($correo);
-            $rankingGlobal=$this->modelo->hacerRankingGlobal();
-            $puntajeTotal=$this->modelo->obtenerPuntajeTotalPersonal($correo);
-            $error="";
+            $rankingGlobal = $this->modelo->hacerRankingGlobal();
+            $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
 
             $data = array(
                 'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,
-                'puntajeTotal' =>$puntajeTotal,
+                'puntajeTotal' => $puntajeTotal,
             );
 
-
-            if (isset($rankingPersonal)&&isset($rankingGlobal)){
+            if ($rankingPersonal != 0 && $rankingGlobal != 0) {
                 $this->renderizado->render('/ranking', $data);
-            }elseif (!isset($rankingPersonal)){
-                $error="No tiene partidas jugadas.";
-                $this->renderizado->render('/ranking', $error);
-            }else{
-                $error="No existe ranking global aún.";
-                $this->renderizado->render('/ranking', $error);
+            } else {
+                $this->renderizado->render('/ranking',$data);
             }
 
-        }else{
+        } else {
             $this->renderizado->render("/login");
         }
     }

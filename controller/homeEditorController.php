@@ -13,9 +13,11 @@ class homeEditorController
 
     public function execute()
     {
-        $error = "";
-        $this->renderizado->render('/homeEditor');
-    }
-
-
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
+            $this->renderizado->render('/homeEditor');
+        }
+        else{
+             $this->renderizado->render('/login');
+        }
+}
 }

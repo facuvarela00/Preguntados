@@ -19,15 +19,20 @@ class rankingModel{
     {
         $contador = 0;
         $puntajesPersonales = $this->obtenerPuntajePersonal($correo);
-        rsort($puntajesPersonales);
-        foreach ($puntajesPersonales as $puntaje) {
-            $contador++;
-            $rankingPersonalData[] = array(
-                'posicion' => $contador,
-                'puntaje' => $puntaje
-            );
+        if($puntajesPersonales!=0){
+            rsort($puntajesPersonales);
+            foreach ($puntajesPersonales as $puntaje) {
+                $contador++;
+                $rankingPersonalData[] = array(
+                    'posicion' => $contador,
+                    'puntaje' => $puntaje
+                );
+            }
+            return $rankingPersonalData;
+        }else{
+            return 0;
         }
-        return $rankingPersonalData;
+
 
     }
     public function obtenerPuntajeTotalPersonal($correo){
@@ -46,10 +51,9 @@ class rankingModel{
     public function hacerRankingGlobal(){
         $contador = 0;
         $puntajesTotales = $this->obtenerPuntajeTotalGlobal();
+        if($puntajesTotales){
         rsort($puntajesTotales);
-
         $rankingGlobalData = array();
-
         foreach ($puntajesTotales as $puntaje) {
             $contador++;
             $rankingGlobalData[] = array(
@@ -58,8 +62,10 @@ class rankingModel{
                 'puntaje' => $puntaje['puntajeTotal'] // Obtén el puntaje total de la fila actual
             );
         }
-
         return $rankingGlobalData;
+        }else{
+            return 0;
+        }
     }
 
 

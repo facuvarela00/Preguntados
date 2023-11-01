@@ -13,7 +13,6 @@ class loginController
 
     public function execute()
     {
-        $error = "";
         $this->renderizado->render('/login');
     }
 
@@ -28,6 +27,7 @@ class loginController
             $busquedaClaveCoincidente=$this->modelo->obtenerClave($correo,$password);
             if($busquedaClaveCoincidente){
                 $rol=$this-> modelo-> obtenerRol($correo);
+                $_SESSION['rolActual']=$rol;
                 $_SESSION['correo']=$correo;
                 $_SESSION['nombre'] = $this->modelo->buscarNombre($correo);
                 if($rol==3){
