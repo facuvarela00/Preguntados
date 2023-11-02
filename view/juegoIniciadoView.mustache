@@ -14,6 +14,14 @@
                 <input type="submit" value="{{respuestas.3}}" name="{{respuestasCorrecta.3}}">
             </form>
         </article>
+        <article>
+        <div id="reportar">
+         <form action="reportarPregunta" method="POST">
+         <input type="hidden" name="pregunta" value="{{pregunta}}">
+            <input type="submit" value="Reportar">
+         </form>
+        </div>
+        </article>
     </section>
 </main>
 

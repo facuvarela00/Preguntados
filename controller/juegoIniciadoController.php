@@ -45,6 +45,7 @@ class juegoIniciadoController{
 
     public function mostrarPreguntaAleatoria()
     {
+
         if($_SESSION['juegoIniciado']==1){
             $preguntasRealizadas=0;
             $min = 1;
@@ -78,6 +79,11 @@ class juegoIniciadoController{
 
             }while (($pregunta=="")&&($totalPreguntas!=$preguntasRealizadas));
 
+            if (!empty($categoria) && $pregunta != "") {
+                $_SESSION['preguntaActualId'] = $pregunta['id'];
+                $_SESSION['preguntaActualTexto'] = $pregunta['pregunta'];
+            }
+
             if ($totalPreguntas==$preguntasRealizadas){
                 header("Location:/homeJuego");
             }
@@ -86,6 +92,7 @@ class juegoIniciadoController{
         }
 
     }
+
     public function perder(){
         $_SESSION['juegoIniciado']=0;
         $this->renderizado->render("/perder");
@@ -99,6 +106,27 @@ class juegoIniciadoController{
         }
     }
 
+    public function reportarPregunta(){
+
+        $pregunta = $_POST['pregunta'];
+
+        $correo = $_SESSION['correo'];
+
+        $result = $this->modelo->agregarReporte($pregunta, $correo);
+
+        if($result){
+            header("Location:envioExitosoReporte");
+        } else{
+            header("Location:/homeJuego");
+        }
+    }
+
+    public function envioExitosoReporte(){
+
+        $this->renderizado->render('/envioExitosoReporte');
+
+    }
+    
 }
 ?>
 
