@@ -101,6 +101,39 @@ class juegoIniciadoModel
         $this->database->execute($sqlUpdate);
         $this->database->execute($sqlUpdate2);
     }
+
+    public function obtenerIdPregunta($pregunta) {
+        
+        $sql = "SELECT id FROM preguntas WHERE pregunta = '$pregunta' ";
+       
+        $result = $this->database->queryAssoc($sql);
+
+        return $result;
+    }
+
+
+    public function agregarReporte($textoPregunta, $usuarioCorreo) {
+
+        $idPregunta = $this->obtenerIdPregunta($textoPregunta);
+
+        $idPreguntaII = intval($idPregunta['id']);
+
+        if(!empty($idPreguntaII) && !empty($textoPregunta) && !empty($usuarioCorreo)){
+    
+        $sql = "INSERT INTO preguntas_reportadas (id_pregunta, mail, pregunta_reportada) 
+        VALUES ('$idPreguntaII', '$usuarioCorreo', '$textoPregunta')";
+
+        $pregunta = $this->database->execute($sql);
+        
+        return true;
+
+    } else{
+    
+        return false;
+
+    }
+
+}
 }
 
 ?>

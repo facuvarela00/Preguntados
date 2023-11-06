@@ -49,6 +49,13 @@ respuestaSugeridaD VARCHAR(50) NOT NULL,
 id_categoria int(11) NOT NULL,
 FOREIGN KEY(id_categoria) REFERENCES categorias(id));
 
+CREATE TABLE preguntas_reportadas(
+id int(11) PRIMARY KEY AUTO_INCREMENT,
+id_pregunta INT(11) NOT NULL,
+mail VARCHAR(100) NOT NULL,
+pregunta_reportada VARCHAR(200) NOT NULL,
+FOREIGN KEY(id_pregunta) REFERENCES preguntas(id),
+FOREIGN KEY(mail) REFERENCES usuarios(mail));
 
 INSERT INTO roles(id,rol)
 VALUES 

@@ -1,4 +1,3 @@
------------------CAMI-------------------
 Agregar el contador de tiempo
 Cambiar el fondo depende de la categoría (Section class)
 CSS
@@ -6,8 +5,3 @@ Hacer perfil editor
 view de agregar pregunta OK
 Hacer perfil del usuario + Hacer lo del QR
 Ver validación con PHPMailer y token
-
---------------FACU-------------------
-TIRA ERROR SI ENTRO AL RANKING SIN HABER JUGADO (PUEDO USAR PHP O TENGO QUE HACER UNA VISTA NUEVA CON EL ERROR?)
-TIRA ERROR EN EL RANKING ALGO DE MUSTACHE Y OFFSET
-AGREGAR LOS CONNECTION CLOSE EN CADA FUNCION DE LOS MODEL
