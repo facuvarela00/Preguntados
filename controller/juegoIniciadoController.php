@@ -109,11 +109,10 @@ class juegoIniciadoController{
         }
     }
 
-<<<<<<< HEAD
 
     public function iniciarContador(){
         $tiempo_inicial = time();
-        $duracion = 20;
+        $duracion = 5;
         $tiempo_finalizacion = $tiempo_inicial + $duracion;
         return $tiempo_finalizacion;
     }
@@ -122,7 +121,6 @@ class juegoIniciadoController{
 
     }
 
-=======
     public function reportarPregunta(){
 
         $pregunta = $_POST['pregunta'];
@@ -143,8 +141,7 @@ class juegoIniciadoController{
         $this->renderizado->render('/envioExitosoReporte');
 
     }
-    
->>>>>>> 5cafd35e42eeb6c4c8a1824831c936a0148341b8
+
 }
 ?>
 

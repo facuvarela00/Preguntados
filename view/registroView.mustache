@@ -37,16 +37,31 @@
             <input type="file" name="imagen" id="imagen" required>
             <br><br>
 
-            <!-- MAPA
-            <script src="../model/initMap.js"></script>
+            <label for="mapa"> Seleccione su Ubicación</label>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNfDhFbufJ0z9sUm8N0zRteT2D__xiXpg&callback=initMap" async defer></script>
+
+            <script src="initMap.js"></script>
+
+            <!--<script>
+                function initMap() {
+                    const myLatlng = { lat: -25.363, lng: 131.044 };
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 8,
+                        center: myLatlng,
+                    });
+                    const marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map,
+                        title: "Mi Ubicación",
+                    });
+                }
+            </script>-->
+
             <div id="map" style="height: 400px; width: 100%"></div>
             <input type="hidden" id="lat" name="lat" value="" required>
             <input type="hidden" id="lng" name="lng" value="" required>
-            <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNfDhFbufJ0z9sUm8N0zRteT2D__xiXpg&callback=initMap&v=weekly"
-                    defer
-            ></script>
-            -->
+
+
             <span style="color: #f44336">{{error}}</span>
             <input type="submit" class="botonFormularioInicio" value="Registrarse">
         </div>

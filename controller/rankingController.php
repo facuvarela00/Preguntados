@@ -21,6 +21,7 @@ class rankingController
             $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
             $idPersonal = $this->modelo->obtenerIdPersonal($correo); //OBTENGO ID DEL USUARIO
 
+
             $data = array(
                 'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,

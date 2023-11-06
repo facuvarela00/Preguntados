@@ -3,7 +3,6 @@ include_once('helper/MySqlDatabase.php');
 include_once("helper/MustacheRender.php");
 include_once("helper/Router.php");
 
-
 include_once('model/registroModel.php');
 include_once('model/loginModel.php');
 include_once('model/homeJuegoModel.php');
@@ -14,9 +13,6 @@ include_once('model/perfilModel.php');
 include_once('model/homeAdminModel.php');
 include_once('model/homeEditorModel.php');
 
-
-
-
 include_once('controller/registroController.php');
 include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');
@@ -26,7 +22,6 @@ include_once('controller/sugerirPreguntaController.php');
 include_once('controller/perfilController.php');
 include_once('controller/homeEditorController.php');
 include_once('controller/homeAdminController.php');
-
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 class Configuration{

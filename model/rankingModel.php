@@ -19,7 +19,8 @@ class rankingModel{
         $respuesta="";
         $sql = "SELECT * FROM usuarios WHERE mail like '$correo'";
         $respuesta = $this->database->queryID($sql);
-        return $respuesta;
+
+        return $respuesta['id'];
     }
 
     public function hacerRankingPersonal($correo)
