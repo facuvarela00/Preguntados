@@ -24,6 +24,7 @@ include_once('controller/homeEditorController.php');
 include_once('controller/homeAdminController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
+include_once('third-party/phpqrcode/qrlib.php');
 class Configuration{
     private $configFile = 'config/config.ini';
 

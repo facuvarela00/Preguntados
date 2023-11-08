@@ -12,8 +12,9 @@ class homeJuegoController{
 
     public function execute()
     {
-        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==3){
 
+
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==3){
             $_SESSION['juegoIniciado']=0;
             $nombre = $_SESSION['nombre'];
             $data = [
@@ -22,6 +23,7 @@ class homeJuegoController{
             $this->renderizado->render('/homeJuego', $data);
         }
         else{
+
             $this->renderizado->render('/login');
         }
 

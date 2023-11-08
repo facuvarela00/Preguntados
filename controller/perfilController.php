@@ -1,8 +1,4 @@
 <?php
-
-
-use PHPMailer\phpqrcode\bindings\tcpdf\QRcode;
-
 class perfilController
 {
     private $modelo;
@@ -51,11 +47,10 @@ class perfilController
         return $datos;
     }
 
-    public function generadorQR(){ //genera en qr sin guardar la imagen en ningun lado
-        include("third-party/phpqrcode/qrlib.php");
+    public function generadorQR(){
         $datos = $this->traerDatosUsuario();
         if(!empty($datos)){
-            $url_perfil = "https://localhost/perfil.php?id=" . $_GET['id'];
+            $url_perfil = "https://localhost/perfil?id=" . $_GET['id'];
             QRcode::png($url_perfil,false,QR_ECLEVEL_L,8);
 
             $qrData = ob_get_clean();

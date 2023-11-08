@@ -10,6 +10,8 @@ class juegoIniciadoController{
     }
 
     public function execute(){
+
+
         if(isset($_SESSION['correo'])) {
             header ("Location:/homeJuego");
         }else{
@@ -112,7 +114,7 @@ class juegoIniciadoController{
 
     public function iniciarContador(){
         $tiempo_inicial = time();
-        $duracion = 5;
+        $duracion = 30;
         $tiempo_finalizacion = $tiempo_inicial + $duracion;
         return $tiempo_finalizacion;
     }

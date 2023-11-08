@@ -1,17 +1,16 @@
 <main>
     <section class="contador">
         <div id="contador" data-contador="{{ contador }}">Redirigiendo en {{ contador }} segundos</div>
-        <script src="../public/js/contador.js"></script>
         <script>
             var tiempoRestante = parseInt(document.getElementById('contador').getAttribute('data-contador'));
 
             function actualizarContador() {
-                tiempoRestante--;
-                document.getElementById('contador').innerHTML = 'Redirigiendo en ' + tiempoRestante + ' segundos';
 
                 if (tiempoRestante <= 0) {
                     window.location.href = '/juegoIniciado/perder';
                 }
+                document.getElementById('contador').innerHTML = 'Redirigiendo en ' + tiempoRestante + ' segundos';
+                tiempoRestante--;
             }
 
             var intervalo = setInterval(actualizarContador, 1000);
