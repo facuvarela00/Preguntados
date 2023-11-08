@@ -1,0 +1,7 @@
+Agregar el contador de tiempo
+Cambiar el fondo depende de la categoría (Section class)
+CSS
+Hacer perfil editor
+view de agregar pregunta OK
+Hacer perfil del usuario + Hacer lo del QR
+Ver validación con PHPMailer y token

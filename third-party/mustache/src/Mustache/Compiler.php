@@ -117,6 +117,7 @@ class Mustache_Compiler
                 case Mustache_Tokenizer::T_PARTIAL:
                     $code .= $this->partial(
                         $node[Mustache_Tokenizer::NAME],
+                        isset($node[Mustache_Tokenizer::DYNAMIC]) ? $node[Mustache_Tokenizer::DYNAMIC] : false,
                         isset($node[Mustache_Tokenizer::INDENT]) ? $node[Mustache_Tokenizer::INDENT] : '',
                         $level
                     );
@@ -125,6 +126,7 @@ class Mustache_Compiler
                 case Mustache_Tokenizer::T_PARENT:
                     $code .= $this->parent(
                         $node[Mustache_Tokenizer::NAME],
+                        isset($node[Mustache_Tokenizer::DYNAMIC]) ? $node[Mustache_Tokenizer::DYNAMIC] : false,
                         isset($node[Mustache_Tokenizer::INDENT]) ? $node[Mustache_Tokenizer::INDENT] : '',
                         $node[Mustache_Tokenizer::NODES],
                         $level
@@ -286,7 +288,6 @@ class Mustache_Compiler
     private function blockArg($nodes, $id, $start, $end, $otag, $ctag, $level)
     {
         $key = $this->block($nodes);
-        $keystr = var_export($key, true);
         $id = var_export($id, true);
 
         return sprintf($this->prepare(self::BLOCK_ARG, $level), $id, $key);
@@ -321,7 +322,6 @@ class Mustache_Compiler
     }
 
     const SECTION_CALL = '
-        // %s section
         $value = $context->%s(%s);%s
         $buffer .= $this->section%s($context, $indent, $value);
     ';
@@ -333,12 +333,12 @@ class Mustache_Compiler
 
             if (%s) {
                 $source = %s;
-                $result = call_user_func($value, $source, %s);
+                $result = (string) call_user_func($value, $source, %s);
                 if (strpos($result, \'{{\') === false) {
                     $buffer .= $result;
                 } else {
                     $buffer .= $this->mustache
-                        ->loadLambda((string) $result%s)
+                        ->loadLambda($result%s)
                         ->renderInternal($context);
                 }
             } elseif (!empty($value)) {
@@ -392,11 +392,10 @@ class Mustache_Compiler
         $id      = var_export($id, true);
         $filters = $this->getFilters($filters, $level);
 
-        return sprintf($this->prepare(self::SECTION_CALL, $level), $id, $method, $id, $filters, $key);
+        return sprintf($this->prepare(self::SECTION_CALL, $level), $method, $id, $filters, $key);
     }
 
     const INVERTED_SECTION = '
-        // %s inverted section
         $value = $context->%s(%s);%s
         if (empty($value)) {
             %s
@@ -419,26 +418,51 @@ class Mustache_Compiler
         $id      = var_export($id, true);
         $filters = $this->getFilters($filters, $level);
 
-        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $id, $method, $id, $filters, $this->walk($nodes, $level));
+        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $method, $id, $filters, $this->walk($nodes, $level));
+    }
+
+    const DYNAMIC_NAME = '$this->resolveValue($context->%s(%s), $context)';
+
+    /**
+     * Generate Mustache Template dynamic name resolution PHP source.
+     *
+     * @param string $id      Tag name
+     * @param bool   $dynamic True if the name is dynamic
+     *
+     * @return string Dynamic name resolution PHP source code
+     */
+    private function resolveDynamicName($id, $dynamic)
+    {
+        if (!$dynamic) {
+            return var_export($id, true);
+        }
+
+        $method = $this->getFindMethod($id);
+        $id     = ($method !== 'last') ? var_export($id, true) : '';
+
+        // TODO: filters?
+
+        return sprintf(self::DYNAMIC_NAME, $method, $id);
     }
 
     const PARTIAL_INDENT = ', $indent . %s';
     const PARTIAL = '
-        if ($head = $this->mustache->loadPartial(%s)) {
-            $buffer .= $head->renderInternal($context%s);
+        if ($partial = $this->mustache->loadPartial(%s)) {
+            $buffer .= $partial->renderInternal($context%s);
         }
     ';
 
     /**
-     * Generate Mustache Template head call PHP source.
+     * Generate Mustache Template partial call PHP source.
      *
-     * @param string $id     Partial name
-     * @param string $indent Whitespace indent to apply to head
+     * @param string $id      Partial name
+     * @param bool   $dynamic Partial name is dynamic
+     * @param string $indent  Whitespace indent to apply to partial
      * @param int    $level
      *
-     * @return string Generated head call PHP source code
+     * @return string Generated partial call PHP source code
      */
-    private function partial($id, $indent, $level)
+    private function partial($id, $dynamic, $indent, $level)
     {
         if ($indent !== '') {
             $indentParam = sprintf(self::PARTIAL_INDENT, var_export($indent, true));
@@ -448,7 +472,7 @@ class Mustache_Compiler
 
         return sprintf(
             $this->prepare(self::PARTIAL, $level),
-            var_export($id, true),
+            $this->resolveDynamicName($id, $dynamic),
             $indentParam
         );
     }
@@ -472,23 +496,25 @@ class Mustache_Compiler
      * Generate Mustache Template inheritance parent call PHP source.
      *
      * @param string $id       Parent tag name
+     * @param bool   $dynamic  Tag name is dynamic
      * @param string $indent   Whitespace indent to apply to parent
      * @param array  $children Child nodes
      * @param int    $level
      *
      * @return string Generated PHP source code
      */
-    private function parent($id, $indent, array $children, $level)
+    private function parent($id, $dynamic, $indent, array $children, $level)
     {
         $realChildren = array_filter($children, array(__CLASS__, 'onlyBlockArgs'));
+        $partialName = $this->resolveDynamicName($id, $dynamic);
 
         if (empty($realChildren)) {
-            return sprintf($this->prepare(self::PARENT_NO_CONTEXT, $level), var_export($id, true));
+            return sprintf($this->prepare(self::PARENT_NO_CONTEXT, $level), $partialName);
         }
 
         return sprintf(
             $this->prepare(self::PARENT, $level),
-            var_export($id, true),
+            $partialName,
             $this->walk($realChildren, $level + 1)
         );
     }
@@ -507,7 +533,7 @@ class Mustache_Compiler
 
     const VARIABLE = '
         $value = $this->resolveValue($context->%s(%s), $context);%s
-        $buffer .= %s%s;
+        $buffer .= %s($value === null ? \'\' : %s);
     ';
 
     /**

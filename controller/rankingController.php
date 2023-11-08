@@ -19,11 +19,14 @@ class rankingController
             $rankingPersonal = $this->modelo->hacerRankingPersonal($correo);
             $rankingGlobal = $this->modelo->hacerRankingGlobal();
             $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
+            $idPersonal = $this->modelo->obtenerIdPersonal($correo); //OBTENGO ID DEL USUARIO
+
 
             $data = array(
                 'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,
                 'puntajeTotal' => $puntajeTotal,
+                'idPersonal' => $idPersonal,//LO GUARDO EN EL ARRAY
             );
 
             if ($rankingPersonal != 0 && $rankingGlobal != 0) {

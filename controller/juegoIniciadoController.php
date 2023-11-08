@@ -10,6 +10,8 @@ class juegoIniciadoController{
     }
 
     public function execute(){
+
+
         if(isset($_SESSION['correo'])) {
             header ("Location:/homeJuego");
         }else{
@@ -52,6 +54,8 @@ class juegoIniciadoController{
             $max= $this->modelo->cantidadTotalDeCategorias();
             $totalPreguntasString= $this->modelo->cantidadTotalDePreguntas();
             $totalPreguntas = intval($totalPreguntasString);
+            $tiempo_finalizacion= $this->iniciarContador();
+            $tiempo_restante = max($tiempo_finalizacion - time(), 0);
             do{
                 $numeroAleatorio = rand($min, $max);
                 $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
@@ -71,7 +75,8 @@ class juegoIniciadoController{
                         'pregunta' => $pregunta['pregunta'],
                         'respuestas' => $respuestas,
                         'respuestasCorrecta' => $respuestasCorrecta,
-                        'puntosPartida' => $puntosPartida
+                        'puntosPartida' => $puntosPartida,
+                        'contador'=>$tiempo_restante
                     ];
                     $this->renderizado->render('/juegoIniciado', $data);
                     exit();
@@ -106,6 +111,18 @@ class juegoIniciadoController{
         }
     }
 
+
+    public function iniciarContador(){
+        $tiempo_inicial = time();
+        $duracion = 30;
+        $tiempo_finalizacion = $tiempo_inicial + $duracion;
+        return $tiempo_finalizacion;
+    }
+
+    public function almacenarTiempoActual(){
+
+    }
+
     public function reportarPregunta(){
 
         $pregunta = $_POST['pregunta'];
@@ -126,7 +143,7 @@ class juegoIniciadoController{
         $this->renderizado->render('/envioExitosoReporte');
 
     }
-    
+
 }
 ?>
 

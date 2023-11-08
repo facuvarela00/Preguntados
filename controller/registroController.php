@@ -30,7 +30,7 @@ class registroController{
         $nombreImagen = $mail;
         $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
         $error="";
-    
+
         if ($password === $confirmarPassword && $mailValido!="") {
 
             $hash = rand(0, 1000);
@@ -53,14 +53,14 @@ class registroController{
         } else {
             $error = 'Las contraseñas son diferentes';
         }
-    
+
         if ($error!=""){
             $this->renderizado->render('/registro', ['error' => $error]);
             exit();
         }
     }
 
-    /* ORIGINAL SIN CONTROL DE ROLES
+    /* ORIGINAL CON MAP
     public function validarRegistro() {
 
         $nombreCompleto=$_POST["name"];
@@ -74,15 +74,18 @@ class registroController{
         $imagen = $_FILES['imagen'];
         $nombreImagen = $mail;
         $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
+        $lat = $_POST['lat'];
+        $lng = $_POST['lng'];
         $error="";
 
         if ($password === $confirmarPassword && $mailValido!="") {
-            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password))) {
+            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $lat,$lng))) {
                 $error = 'El correo ya está registrado';
             } else {
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-
                 $resultadoEmail = enviarEmailBienvenida($mailValido);
+
+
                 if ($resultadoEmail != true) {
                     $error = $resultadoEmail;
                 } else {
@@ -100,8 +103,8 @@ class registroController{
             $this->renderizado->render('/registro', ['error' => $error]);
             exit();
         }
-    }*/
-
+    }
+    */
 
     public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash){
 
@@ -113,11 +116,12 @@ class registroController{
         return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol, $hash, $activo);
 
     }
-    /*ORIGINAL SIN CONTROL DE ROLES
-    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password){
-        $passwordHash=$this->encriptarPassword($password);
-        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $passwordHash);
 
+    /*ORIGINAL CON MAP
+        public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password,$lat,$lng){
+        $passwordHash=$this->encriptarPassword($password);
+        $rol=3;
+        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol,$lat,$lng);
     }
     */
     ////////////////FUNCIONES DE VERIFICACION////////////////////

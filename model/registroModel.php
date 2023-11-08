@@ -19,6 +19,7 @@ class registroModel {
         }
     }
 
+
     public function activarCuenta($correo){
 
         $query = ("UPDATE INTO usuarios (activo) VALUES ('SI')");
@@ -39,6 +40,22 @@ class registroModel {
 
 
     }
+
+    /* CON MAPA
+     public function agregarUsuario ($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $rol,$lat,$lng){
+
+        $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, rol, imagen,latitud, longitud) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password', '$rol', '$rutaImagen', '$lat', '$lng')";
+        $sql2= "INSERT INTO ranking (mail, puntajesPorPartida, puntajeTotal) VALUES ('$mail',0,0)";
+        try {
+            $this->database->execute($sql);
+            $this->database->execute($sql2);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }*/
+
+>>>>>>> 0503cd6318bb98d24cdf70cec244b97be922558a
 
 }
 ?>

@@ -15,6 +15,14 @@ class rankingModel{
         return $puntajesPersonales;
     }
 
+    public function obtenerIdPersonal($correo){
+        $respuesta="";
+        $sql = "SELECT * FROM usuarios WHERE mail like '$correo'";
+        $respuesta = $this->database->queryID($sql);
+
+        return $respuesta['id'];
+    }
+
     public function hacerRankingPersonal($correo)
     {
         $contador = 0;
