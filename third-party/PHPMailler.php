@@ -8,7 +8,7 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 
-function enviarEmailBienvenida($correo) {
+function enviarEmailBienvenida($correo, $hash) {
 
 $mail = new PHPMailer(true);
 
@@ -17,19 +17,26 @@ try {
     $mail->isSMTP();           
     $mail->Host       = 'outlook.office365.com';
     $mail->SMTPAuth   = true;                   
-    $mail->Username   = 'animetestunlam@outlook.com';
+    $mail->Username   = 'unlamprueba1@outlook.com';
     $mail->Password   = 'Unlam2023';
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('animetestunlam@outlook.com');
+    $mail->setFrom('unlamprueba1@outlook.com');
     $mail->addAddress($correo);
     
     //$mail->addAttachment('preguntados.png');
 
+    $username=$_POST["username"];
+    $passwordUsuario = $_POST["password"];
+    $emailUsuario = $_POST["correo"];
+    /*$hashObtenido = $_POST["hash"];*/
+
     $mail->isHTML(true);
-    $mail->Subject = 'Registro - Preguntados UNLaM';
-    $mail->Body ='¡Tu registro fue exitoso!';
+    $mail->Subject = 'Registro - Anime Test';
+    $mail->Body ='¡Bienvenido!
+    Valida tu cuenta a través del siguiente <a href="http://localhost/registro/activarCuenta?correo='.$emailUsuario.'">LINK</a>. 
+    <h2>Tu código de validación es '.$hash.'</h2>.';
     
     $mail->send();
     return true; //'El correo se envió correctamente'

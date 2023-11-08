@@ -16,7 +16,6 @@ include_once('model/homeEditorModel.php');
 
 
 
-
 include_once('controller/registroController.php');
 include_once('controller/loginController.php');
 include_once('controller/homeJuegoController.php');

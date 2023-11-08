@@ -32,11 +32,15 @@ class registroController{
         $error="";
     
         if ($password === $confirmarPassword && $mailValido!="") {
-            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password))) {
+
+            $hash = rand(0, 1000);
+
+            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash))) {
                 $error = 'El correo ya está registrado';
             } else {
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-                $resultadoEmail = enviarEmailBienvenida($mailValido);
+                $resultadoEmail = enviarEmailBienvenida($mailValido, $hash);
+                echo'Por favor, revise su correo y valide su cuenta';
                 if ($resultadoEmail != true) {
                     $error = $resultadoEmail;
                 } else {
@@ -99,10 +103,14 @@ class registroController{
     }*/
 
 
-    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password){
+    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash){
+
         $passwordHash=$this->encriptarPassword($password);
+
         $rol=3;
-        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol);
+        $activo = "NO";
+
+        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol, $hash, $activo);
 
     }
     /*ORIGINAL SIN CONTROL DE ROLES
@@ -130,6 +138,32 @@ class registroController{
                 return $email;}
             else{
                 return "";
+        }
+    }
+
+    public function activarCuenta(){
+
+        $correo = $_GET["correo"];
+
+        $this->renderizado->render('/activarCuenta');
+
+    }
+    
+    public function validarCuenta(){
+
+        $correo = $_GET["correo"];
+
+        var_dump($correo);
+        exit();
+
+        $hash = buscarHashUsuario($correo);
+
+        $hashIngresado=$_POST["hashUsuario"];
+
+        if(validarRegistro && $hashIngresado == $hash){
+
+        $this->model->activarCuenta();
+
         }
     }
 
