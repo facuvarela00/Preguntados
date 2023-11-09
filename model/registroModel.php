@@ -18,27 +18,26 @@ class registroModel {
             return false;
         }
     }
+    public function cuentaActivada($correo){
+        $sql = "SELECT activo FROM usuarios WHERE mail= '$correo'";
+        $result = $this->database->queryAssoc($sql);
 
+        if ($result['activo']=='SI'){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public function activarCuenta($correo){
-
-        $query = ("UPDATE INTO usuarios (activo) VALUES ('SI')");
-
-        $result = $this->database->execute($query);
-
+        $sql = "UPDATE usuarios SET activo = 'SI' WHERE mail= '$correo'";
+        $result = $this->database->execute($sql);
     }
 
     public function buscarHashUsuario($correo){
-
         $sql = "SELECT hash FROM usuarios WHERE mail = '$correo'";
-
         $result = $this->database->queryAssoc($sql);
-
-        var_dump($result);
-        
-        exit();
-
-
+        return $result['hash'];
     }
 
     /* CON MAPA

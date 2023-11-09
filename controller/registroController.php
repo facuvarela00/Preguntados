@@ -146,28 +146,24 @@ class registroController{
     }
 
     public function activarCuenta(){
-
         $correo = $_GET["correo"];
-
-        $this->renderizado->render('/activarCuenta');
+        $_SESSION['correoAValidar']=$correo;
+        if (!$this->modelo->cuentaActivada($correo)){
+            $this->renderizado->render('/activarCuenta');
+        }else{
+            header("Location:/login");
+        }
 
     }
     
     public function validarCuenta(){
+        $correo =  $_SESSION['correoAValidar'];
 
-        $correo = $_GET["correo"];
-
-        var_dump($correo);
-        exit();
-
-        $hash = buscarHashUsuario($correo);
-
+        $hash = $this->modelo->buscarHashUsuario($correo);
         $hashIngresado=$_POST["hashUsuario"];
-
-        if(validarRegistro && $hashIngresado == $hash){
-
-        $this->model->activarCuenta();
-
+        if($hashIngresado == $hash){
+        $this->modelo->activarCuenta($correo);
+        header("Location:/login");
         }
     }
 
