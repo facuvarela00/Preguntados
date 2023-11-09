@@ -54,9 +54,6 @@ class registroModel {
             return false;
         }
     }*/
-
->>>>>>> 0503cd6318bb98d24cdf70cec244b97be922558a
-
 }
 ?>
 
