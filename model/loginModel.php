@@ -72,6 +72,19 @@ class loginModel
             return "";
         }
     }
+    public function cuentaActivada($correo){
+        $sql = "SELECT activo FROM usuarios WHERE mail= '$correo'";
+        $result = $this->database->queryAssoc($sql);
+
+        if ($result['activo']=='SI'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
+
+
 
 ?>

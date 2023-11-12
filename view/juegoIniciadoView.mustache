@@ -25,6 +25,7 @@
         </article>
         <article class="container">
             <form action="validarRespuesta" method="POST" >
+                <input type="hidden" value="{{idPregunta}}" name="idPregunta">
                 <input type="submit" value="{{respuestas.0}}" name="{{respuestasCorrecta.0}}">
                 <input type="submit" value="{{respuestas.1}}" name="{{respuestasCorrecta.1}}">
                 <input type="submit" value="{{respuestas.2}}" name="{{respuestasCorrecta.2}}">

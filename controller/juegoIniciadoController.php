@@ -33,38 +33,45 @@ class juegoIniciadoController{
     {
         if(isset($_POST['1'])){
             $_SESSION['puntosPartida']+=1;
+            $idPreg=$_POST['idPregunta'];
+            $idPreg=intval($idPreg);
+            $this->modelo->preguntaAcertada($idPreg);
             unset($_SESSION['preguntaActual']);
             header("Location: mostrarPreguntaAleatoria");
         }else if(isset($_POST['0'])){
-
             $correo=$_SESSION['correo'];
             $puntajeDeLaPartida=$_SESSION['puntosPartida'];
+            $this->modelo->actualizarPreguntasUsuario($correo,$puntajeDeLaPartida);
+            $this->modelo->actualizarNivelUsuario($correo);
             $this->modelo->agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida);
+
             /*$_SESSION['puntosTotalesPersonal']+=$_SESSION['puntosPartida'];*/
             header("Location:perder");
         }
     }
+                                /* VERSION FUNCIONAL 11/11/2023 23:49*/
 
-    public function mostrarPreguntaAleatoria()
+   /* public function mostrarPreguntaAleatoria()
     {
-
         if($_SESSION['juegoIniciado']==1){
             $preguntasRealizadas=0;
             $min = 1;
             $max= $this->modelo->cantidadTotalDeCategorias();
-            $totalPreguntasString= $this->modelo->cantidadTotalDePreguntas();
-            $totalPreguntas = intval($totalPreguntasString);
+            $totalPreguntas= intval($this->modelo->cantidadTotalDePreguntas());
             $tiempo_finalizacion= $this->iniciarContador();
             $tiempo_restante = max($tiempo_finalizacion - time(), 0);
             do{
                 $numeroAleatorio = rand($min, $max);
                 $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
                 $pregunta = $this->modelo->buscarPregunta($categoria['id']);
+
                 if ($pregunta!=""){
-                $this->almacenarPreguntaActual($pregunta['id']);
+                    $this->almacenarPreguntaActual($pregunta['id']);
                 }
+
                 if (!empty($categoria) && $pregunta!=""){
                     $preguntasRealizadas+=1;
+                    $this->modelo->preguntaEntregada($pregunta);
                     $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
                     $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
                     $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
@@ -73,6 +80,62 @@ class juegoIniciadoController{
                     $data = [
                         'categoria' => $categoria['categoria'],
                         'pregunta' => $pregunta['pregunta'],
+                        'idPregunta'=>$pregunta['id'],
+                        'respuestas' => $respuestas,
+                        'respuestasCorrecta' => $respuestasCorrecta,
+                        'puntosPartida' => $puntosPartida,
+                        'contador'=>$tiempo_restante
+                    ];
+                    $this->renderizado->render('/juegoIniciado', $data);
+                    exit();
+                }
+
+            }while (($pregunta=="")&&($totalPreguntas!=$preguntasRealizadas));
+
+            if (!empty($categoria) && $pregunta != "") {
+                $_SESSION['preguntaActualId'] = $pregunta['id'];
+                $_SESSION['preguntaActualTexto'] = $pregunta['pregunta'];
+            }
+
+            if ($totalPreguntas==$preguntasRealizadas){
+                header("Location:/homeJuego");
+            }
+        }else{
+            header("Location:/homeJuego");
+        }
+
+    }*/
+
+    public function mostrarPreguntaAleatoria()
+    {
+        if($_SESSION['juegoIniciado']==1){
+            $preguntasRealizadas=0;
+            $min = 1;
+            $max= $this->modelo->cantidadTotalDeCategorias();
+            $totalPreguntas= intval($this->modelo->cantidadTotalDePreguntas());
+            $tiempo_finalizacion= $this->iniciarContador();
+            $tiempo_restante = max($tiempo_finalizacion - time(), 0);
+            do{
+                $numeroAleatorio = rand($min, $max);
+                $categoria = $this->modelo->buscarCategoria($numeroAleatorio);
+                $pregunta = $this->modelo->buscarPregunta($categoria['id']);
+
+                if ($pregunta!=""){
+                $this->almacenarPreguntaActual($pregunta['id']);
+                }
+
+                if (!empty($categoria) && $pregunta!=""){
+                    $preguntasRealizadas+=1;
+                    $this->modelo->preguntaEntregada($pregunta);
+                    $arrayRespuestas = $this->modelo->buscarRespuestas($pregunta['id']);
+                    $respuestas = array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+                    $respuestasCorrecta = array_map(function($item) {return $item['esCorrecta'];}, $arrayRespuestas);
+
+                    $puntosPartida= $_SESSION['puntosPartida'];
+                    $data = [
+                        'categoria' => $categoria['categoria'],
+                        'pregunta' => $pregunta['pregunta'],
+                        'idPregunta'=>$pregunta['id'],
                         'respuestas' => $respuestas,
                         'respuestasCorrecta' => $respuestasCorrecta,
                         'puntosPartida' => $puntosPartida,
@@ -97,7 +160,6 @@ class juegoIniciadoController{
         }
 
     }
-
     public function perder(){
         $_SESSION['juegoIniciado']=0;
         $this->renderizado->render("/perder");
@@ -114,13 +176,9 @@ class juegoIniciadoController{
 
     public function iniciarContador(){
         $tiempo_inicial = time();
-        $duracion = 30;
+        $duracion = 200;
         $tiempo_finalizacion = $tiempo_inicial + $duracion;
         return $tiempo_finalizacion;
-    }
-
-    public function almacenarTiempoActual(){
-
     }
 
     public function reportarPregunta(){
