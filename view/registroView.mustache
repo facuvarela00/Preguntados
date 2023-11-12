@@ -37,30 +37,87 @@
             <input type="file" name="imagen" id="imagen" required>
             <br><br>
 
-            <label for="mapa"> Seleccione su Ubicación</label>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNfDhFbufJ0z9sUm8N0zRteT2D__xiXpg&callback=initMap" async defer></script>
+            <div id="map" style="width: 500px; height: 300px;"></div>
+            <input type="hidden" id="latitud" name="latitud" value="">
+            <input type="hidden" id="longitud" name="longitud" value="">
+            <input type="hidden" id="pais" name="pais" value="">
+            <input type="hidden" id="ciudad" name="ciudad" value="">
 
-            <script src="initMap.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2iKSD1Xd0bd7xWDN_yRTBjyiJ1x0C_rI&callback=initMap" async defer></script>
+            <script>
+                var map;
+                var geocoder;
+                var selectedLatLng = null;
+                var selectedCountry = null;
+                var marker = null;
+                var geocoderResults = null;
 
-            <!--<script>
                 function initMap() {
-                    const myLatlng = { lat: -25.363, lng: 131.044 };
-                    const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 8,
-                        center: myLatlng,
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: { lat: 0, lng: 0 },
+                        zoom: 2,
                     });
-                    const marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map,
-                        title: "Mi Ubicación",
+
+                    geocoder = new google.maps.Geocoder();
+
+                    map.addListener('click', function (e) {
+                        if (marker) {
+                            marker.setMap(null); // Elimina el marcador anterior
+                        }
+                        selectedLatLng = e.latLng;
+                        geocodeLatLng(geocoder, map, selectedLatLng);
                     });
                 }
-            </script>-->
 
-            <div id="map" style="height: 400px; width: 100%"></div>
-            <input type="hidden" id="lat" name="lat" value="" required>
-            <input type="hidden" id="lng" name="lng" value="" required>
+                function geocodeLatLng(geocoder, map, latlng) {
+                    geocoder.geocode({ location: latlng }, function (results, status) {
+                        if (status === 'OK') {
+                            geocoderResults = results;
+                            if (results[1]) {
+                                selectedCountry = getCountryFromGeocoderResults(results);
+                                document.getElementById('pais').value = selectedCountry;
+                                document.getElementById('ciudad').value = getCityFromGeocoderResults(
+                                        results
+                                );
 
+                                // Actualiza los valores de latitud y longitud en los campos ocultos
+                                document.getElementById('latitud').value = latlng.lat();
+                                document.getElementById('longitud').value = latlng.lng();
+
+                                // Agrega un marcador en el lugar donde hiciste clic
+                                marker = new google.maps.Marker({
+                                    position: latlng,
+                                    map: map,
+                                });
+                            } else {
+                                alert('No se encontraron resultados de geocodificación.');
+                            }
+                        }
+                    });
+                }
+
+                function getCountryFromGeocoderResults(results) {
+                    for (var i = 0; i < results.length; i++) {
+                        for (var j = 0; j < results[i].address_components.length; j++) {
+                            if (results[i].address_components[j].types[0] === 'country') {
+                                return results[i].address_components[j].long_name;
+                            }
+                        }
+                    }
+                    return 'No se pudo determinar el país.';
+                }
+
+                function getCityFromGeocoderResults(results) {
+                    for (var i = 0; i < results.length; i++) {
+                        for (var j = 0; j < results[i].address_components.length; j++) {
+                            if (results[i].address_components[j].types.includes('locality')) {
+                                return results[i].address_components[j].long_name;
+                            }
+                        }
+                    }
+                    return 'No se pudo determinar la ciudad.';
+                }
+            </script>
 
             <span style="color: #f44336">{{error}}</span>
             <input type="submit" class="botonFormularioInicio" value="Registrarse">

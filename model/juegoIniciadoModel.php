@@ -112,28 +112,107 @@ class juegoIniciadoModel
     }
 
 
-    public function agregarReporte($textoPregunta, $usuarioCorreo) {
-
+    public function agregarReporte($textoPregunta, $usuarioCorreo)
+    {
         $idPregunta = $this->obtenerIdPregunta($textoPregunta);
-
         $idPreguntaII = intval($idPregunta['id']);
+        if (!empty($idPreguntaII) && !empty($textoPregunta) && !empty($usuarioCorreo)) {
+            $sql = "INSERT INTO preguntas_reportadas (id_pregunta, mail, pregunta_reportada) VALUES ('$idPreguntaII', '$usuarioCorreo', '$textoPregunta')";
+            $pregunta = $this->database->execute($sql);
+            return true;
+        } else {
+            return false;
+        }
+    }
+        public function preguntaEntregada($pregunta){
+            $id=$pregunta['id'];
+            $cantidadEntregada=$pregunta['cantidadEntregada'];
+            $cantidadEntregada ++;
+            $sql= "UPDATE Preguntas SET cantidadEntregada = '$cantidadEntregada' WHERE id = '$id'";
+            $this->database->execute($sql);
+        }
 
-        if(!empty($idPreguntaII) && !empty($textoPregunta) && !empty($usuarioCorreo)){
-    
-        $sql = "INSERT INTO preguntas_reportadas (id_pregunta, mail, pregunta_reportada) 
-        VALUES ('$idPreguntaII', '$usuarioCorreo', '$textoPregunta')";
+        public function buscarPreguntaPorID($id){
+            $sql = "SELECT * FROM preguntas WHERE id='$id'";
+            $result=$this->database->queryID($sql);
+            return $result;
+        }
+      public function preguntaAcertada($id){
+        $pregunta= $this->buscarPreguntaPorID($id);
+        $acertada=$pregunta['cantidadAcertada'];
+        $acertada++;
+        $sql= "UPDATE Preguntas SET cantidadAcertada = '$acertada' WHERE id = '$id'";
+          $this->database->execute($sql);
+    }
 
-        $pregunta = $this->database->execute($sql);
-        
-        return true;
+    public function buscarUsuarioPorCorreo($correo){
+        $sql = "SELECT * FROM usuarios WHERE mail='$correo'";
+        $result=$this->database->queryAssoc($sql);
+        return $result;
+    }
+    public function actualizarPreguntasUsuario($correo,$puntajeDeLaPartida){
+        $usuario=$this->buscarUsuarioPorCorreo($correo);
+        $preguntasRecibidas=$usuario['preguntasRecibidas']+$puntajeDeLaPartida+1;
+        $preguntasAcertadas=$usuario['preguntasAcertadas']+$puntajeDeLaPartida;
 
-    } else{
-    
-        return false;
+        $sql= "UPDATE usuarios SET preguntasRecibidas = '$preguntasRecibidas', preguntasAcertadas='$preguntasAcertadas' WHERE mail = '$correo'";
+        $this->database->execute($sql);
+
 
     }
 
-}
+   /* public function actualizarDificultadPregunta($pregunta){
+        $usuario=$this->buscarUsuarioPorCorreo($correo);
+        $preguntasRecibidas=$usuario['preguntasRecibidas'];
+        $preguntasAcertadas=$usuario['preguntasAcertadas'];
+
+        $nivelUsuario=(100*$preguntasAcertadas)/$preguntasRecibidas;
+
+        if($nivelUsuario>=0&&$nivelUsuario<=33){
+            $nivel="poser";
+        }elseif($nivelUsuario>=33&&$nivelUsuario<=66){
+            $nivel="papulince";
+        }else{
+            $nivel="otaku";
+        }
+        /* 0-33 dificil / 33-66 medio /66-100 facil*/
+       /* if($usuario['preguntasRecibidas']<10){
+            $min=0;
+            $max=10;
+        }
+
+        $sql= "UPDATE usuarios SET nivelUsuario = '$nivel' WHERE mail = '$correo'";
+        $this->database->execute($sql);
+
+    }*/
+    public function actualizarNivelUsuario($correo){
+        $usuario=$this->buscarUsuarioPorCorreo($correo);
+        $preguntasRecibidas=$usuario['preguntasRecibidas'];
+        $preguntasAcertadas=$usuario['preguntasAcertadas'];
+
+        $nivelUsuario=(100*$preguntasAcertadas)/$preguntasRecibidas;
+
+        if($nivelUsuario>=0&&$nivelUsuario<=33){
+            $nivel="poser";
+        }elseif($nivelUsuario>=33&&$nivelUsuario<=66){
+            $nivel="papulince";
+        }else{
+            $nivel="otaku";
+        }
+       /* 0-33 dificil / 33-66 medio /66-100 facil*/
+        if($usuario['preguntasRecibidas']<10){
+            $min=0;
+            $max=10;
+        }
+
+
+
+
+
+        $sql= "UPDATE usuarios SET nivelUsuario = '$nivel' WHERE mail = '$correo'";
+        $this->database->execute($sql);
+
+    }
 }
 
 ?>
