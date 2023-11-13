@@ -7,48 +7,42 @@ class juegoIniciadoModel
     {
         $this->database = $database;
     }
-    public function cantidadTotalDeCategorias(){
 
-        $sql = "SELECT COUNT(*) as total_categorias FROM categorias";
-        $result = $this->database->queryAssoc($sql);
-        if ($result !== false) {
-          $totalCategorias = $result['total_categorias'];
-          return $totalCategorias;
-        }else{
-            return NULL;
-        }
-
-    }
-
-    public function cantidadTotalDePreguntas(){
-
-        $sql = "SELECT COUNT(*) as total_preguntas FROM preguntas";
-        $result = $this->database->queryAssoc($sql);
-        if ($result !== false) {
-            $totalPreguntas = $result['total_preguntas'];
-            return $totalPreguntas;
-        }else{
-            return NULL;
-        }
-
-    }
     public function buscarCategoria($numeroAleatorio){
         $sql = "SELECT * FROM categorias WHERE id = '$numeroAleatorio'";
         $resultado = $this->database->queryID($sql);
         return $resultado;
     }
 
-    public function buscarPregunta($idCategoria){
-        $sql = "SELECT * FROM preguntas WHERE id_categoria LIKE '$idCategoria' AND utilizada = 0";
-        $result = $this->database->queryID($sql);
+    public function buscarPreguntaPorID($id){
+        $sql = "SELECT * FROM preguntas WHERE id='$id'";
+        $result=$this->database->queryID($sql);
+        return $result;
+    }
 
-        if (isset($result)){
-            $preguntaElegida = $this->fueUtilizada($result);
-            return $preguntaElegida;
+    public function buscarUsuarioPorCorreo($correo){
+        $sql = "SELECT * FROM usuarios WHERE mail='$correo'";
+        $result=$this->database->queryAssoc($sql);
+        return $result;
+    }
+    public function buscarPreguntasPorNivelUsuario($nivelUsuario){
+
+        if ($nivelUsuario>=0&&$nivelUsuario<=33){
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >66 AND nivelPregunta <=100 ";
+        }elseif($nivelUsuario>33&&$nivelUsuario<=66){
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >33 AND nivelPregunta <=66";
         }else{
-            return "";
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >=0 AND nivelPregunta <=33";
         }
 
+        $result = $this->database->query($sql);
+        return $result;
+
+    }
+    public function buscarPreguntasRestantes(){
+        $sql = "SELECT * FROM preguntas WHERE utilizada = 0";
+        $result = $this->database->queryID($sql);
+        return $result;
     }
 
 
@@ -57,15 +51,14 @@ class juegoIniciadoModel
             $idpregunta=$preguntaSeleccionada['id'];
             $sql = "UPDATE preguntas SET utilizada = '$utilizada' WHERE id = '$idpregunta'";
             $result = $this->database->execute($sql);
+            $this->preguntaEntregada($preguntaSeleccionada);
             return $preguntaSeleccionada;
     }
 
     public function buscarRespuestas($idPregunta){
 
-
         $sql = 'SELECT * FROM respuestas WHERE id_pregunta =' . $idPregunta . ';';
         $resultado = $this->database->query($sql);
-        //$resultado es un arreglo multidimensional que contiene todas las filas seleccionadas de la base de datos.
 
         return $resultado;
     }
@@ -73,7 +66,6 @@ class juegoIniciadoModel
     public function reestablecerPreguntas(){
         $sql = "SELECT * FROM preguntas WHERE utilizada=1";
         $result = $this->database->query($sql);
-
         foreach ($result as $preguntaSeleccionada){
             $this->noFueUtilizada($preguntaSeleccionada['id']);
         }
@@ -85,7 +77,6 @@ class juegoIniciadoModel
     }
     public function agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida)
     {
-
         $sql = "SELECT puntajesPorPartida FROM Ranking WHERE mail = '$correo'";
         $result = $this->database->queryAssoc($sql);
         $puntajesActuales = json_decode($result['puntajesPorPartida'], true);
@@ -103,11 +94,8 @@ class juegoIniciadoModel
     }
 
     public function obtenerIdPregunta($pregunta) {
-        
         $sql = "SELECT id FROM preguntas WHERE pregunta = '$pregunta' ";
-       
         $result = $this->database->queryAssoc($sql);
-
         return $result;
     }
 
@@ -132,24 +120,15 @@ class juegoIniciadoModel
             $this->database->execute($sql);
         }
 
-        public function buscarPreguntaPorID($id){
-            $sql = "SELECT * FROM preguntas WHERE id='$id'";
-            $result=$this->database->queryID($sql);
-            return $result;
-        }
+
       public function preguntaAcertada($id){
         $pregunta= $this->buscarPreguntaPorID($id);
         $acertada=$pregunta['cantidadAcertada'];
         $acertada++;
         $sql= "UPDATE Preguntas SET cantidadAcertada = '$acertada' WHERE id = '$id'";
-          $this->database->execute($sql);
+        $this->database->execute($sql);
     }
 
-    public function buscarUsuarioPorCorreo($correo){
-        $sql = "SELECT * FROM usuarios WHERE mail='$correo'";
-        $result=$this->database->queryAssoc($sql);
-        return $result;
-    }
     public function actualizarPreguntasUsuario($correo,$puntajeDeLaPartida){
         $usuario=$this->buscarUsuarioPorCorreo($correo);
         $preguntasRecibidas=$usuario['preguntasRecibidas']+$puntajeDeLaPartida+1;
@@ -158,33 +137,9 @@ class juegoIniciadoModel
         $sql= "UPDATE usuarios SET preguntasRecibidas = '$preguntasRecibidas', preguntasAcertadas='$preguntasAcertadas' WHERE mail = '$correo'";
         $this->database->execute($sql);
 
-
+        $this->actualizarNivelUsuario($correo);
     }
 
-   /* public function actualizarDificultadPregunta($pregunta){
-        $usuario=$this->buscarUsuarioPorCorreo($correo);
-        $preguntasRecibidas=$usuario['preguntasRecibidas'];
-        $preguntasAcertadas=$usuario['preguntasAcertadas'];
-
-        $nivelUsuario=(100*$preguntasAcertadas)/$preguntasRecibidas;
-
-        if($nivelUsuario>=0&&$nivelUsuario<=33){
-            $nivel="poser";
-        }elseif($nivelUsuario>=33&&$nivelUsuario<=66){
-            $nivel="papulince";
-        }else{
-            $nivel="otaku";
-        }
-        /* 0-33 dificil / 33-66 medio /66-100 facil*/
-       /* if($usuario['preguntasRecibidas']<10){
-            $min=0;
-            $max=10;
-        }
-
-        $sql= "UPDATE usuarios SET nivelUsuario = '$nivel' WHERE mail = '$correo'";
-        $this->database->execute($sql);
-
-    }*/
     public function actualizarNivelUsuario($correo){
         $usuario=$this->buscarUsuarioPorCorreo($correo);
         $preguntasRecibidas=$usuario['preguntasRecibidas'];
@@ -192,27 +147,22 @@ class juegoIniciadoModel
 
         $nivelUsuario=(100*$preguntasAcertadas)/$preguntasRecibidas;
 
-        if($nivelUsuario>=0&&$nivelUsuario<=33){
-            $nivel="poser";
-        }elseif($nivelUsuario>=33&&$nivelUsuario<=66){
-            $nivel="papulince";
-        }else{
-            $nivel="otaku";
-        }
-       /* 0-33 dificil / 33-66 medio /66-100 facil*/
-        if($usuario['preguntasRecibidas']<10){
-            $min=0;
-            $max=10;
-        }
+        $sql= "UPDATE usuarios SET nivelUsuario = '$nivelUsuario' WHERE mail = '$correo'";
+        $this->database->execute($sql);
+    }
 
+    public function actualizarNivelPregunta($idPregunta){
+        $pregunta= $this->buscarPreguntaPorID($idPregunta);
+        $cantidadEntregada=$pregunta['cantidadEntregada'];
+        $cantidadAcertada=$pregunta['cantidadAcertada'];
 
+        $nivelPregunta=(100*$cantidadAcertada)/$cantidadEntregada;
 
-
-
-        $sql= "UPDATE usuarios SET nivelUsuario = '$nivel' WHERE mail = '$correo'";
+        $sql= "UPDATE preguntas SET nivelPregunta='$nivelPregunta' WHERE id='$idPregunta'";
         $this->database->execute($sql);
 
     }
+
 }
 
 ?>

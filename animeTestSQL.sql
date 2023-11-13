@@ -74,10 +74,10 @@ VALUES
 ("1","Administrador"),
 ("2","Editor"),
 ("3","Jugador");
-/*SE AGREGAN LOS CAMPOS HASH Y ACTIVO*/
-INSERT INTO usuarios (nombreCompleto, username, fechaNac,genero, mail, password,rol, imagen, hash, activo)
-VALUES ("Usuario Administrador", "Admin1","2002-02-22","Femenino","admin@gmail.com", "SuperContraseñaSecreta", "1", "admin.jpg", "113344", "SI"),
-("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg", "123456", "SI");
+
+INSERT INTO usuarios (nombreCompleto, username, fechaNac,genero, mail, password,rol, imagen, hash, activo,latitud,longitud,pais,ciudad,nivelUsuario,preguntasRecibidas,preguntasAcertadas)
+VALUES ("Usuario Administrador", "Admin1","2002-02-22","Femenino","admin@gmail.com", "SuperContraseñaSecreta", "1", "admin.jpg", "113344", "SI","0.0","0.0","Argentina","Buenos Aires", 20, 0,0),
+("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg", "123456", "SI","0.0","0.0","Argentina","Buenos Aires", 20, 0,0);
 
 INSERT INTO categorias (categoria)
 VALUES 
@@ -89,64 +89,63 @@ VALUES
 
 INSERT INTO preguntas (pregunta,utilizada,id_categoria, nivelPregunta, cantidadEntregada, cantidadAcertada)
 VALUES 
-('Rhyhorn es tipo...', 0, 1, 5, 0, 0),
-('¿Cuantos perros legendarios hay?', 0, 1, 5, 0, 0),
-('¿Cuál es el tipo inicial de Pokémon de Ash en la serie de anime?', 0, 1, 5, 0, 0),
-('¿Quién es el Profesor Pokémon que da a los entrenadores su primer Pokémon?', 0, 1, 5, 0, 0),
-('¿Cuál es el Pokémon legendario que tiene el poder del tiempo?', 0, 1, 5, 0, 0),
-('¿Qué tipo de Pokémon es Charizard?', 0, 1, 5, 0, 0),
-('¿Cuál es el Pokémon inicial de tipo agua en la región de Kanto?', 0, 1, 5, 0, 0),
-('¿Cuál es el Pokémon que evoluciona de Magikarp?', 0, 1, 5, 0, 0),
-('¿Quién es el villano principal en el mundo de Pokémon?', 0, 1, 5, 0, 0),
-('¿Cuál es el nombre del equipo maligno en la región de Sinnoh?', 0, 1, 5, 0, 0),
-('¿Cuál es el legendario que representa la luna en Pokémon Sol y Luna?', 0, 1, 5, 0, 0),
-('¿Cuál es el Pokémon inicial de tipo planta en la región de Galar?', 0, 1, 5, 0, 0),
-('Nombre de la revista en donde se publica el manga de SNK', 0, 2, 5, 0, 0),
-('¿Cuál es el nombre de la primera esposa de Grisha Jaeger?', 0, 2, 5, 0, 0),
-('¿Quiénes son los personajes principales?', 0, 2, 5, 0, 0),
-('¿Cuál es la trama principal de la serie?', 0, 2, 5, 0, 0),
-('¿Dónde se desarrolla la historia de Attack on Titan?', 0, 2, 5, 0, 0),
-('¿Qué son los Titanes en el mundo de Attack on Titan?', 0, 2, 5, 0, 0),
-('¿Cuál es el objetivo de la Legión de Reconocimiento?', 0, 2, 5, 0, 0),
-('¿Qué es el muro más externo en la serie?', 0, 2, 5, 0, 0),
-('¿Quién es Eren Yeager y cuál es su papel en la historia?', 0, 2, 5, 0, 0),
-('¿Qué son los titanes cambiantes?', 0, 2, 5, 0, 0),
-('¿Quiénes son los antagonistas principales en Attack on Titan?', 0, 2, 5, 0, 0),
-('¿Cuál es el significado de la frase "¡Soy tu enemigo!"?', 0, 2, 5, 0, 0),
-('¿Quién es el protagonista principal de "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Qué es "Banana Fish" en la serie?', 0, 3, 5, 0, 0),
-('¿Dónde tiene lugar principalmente la historia de "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Quién es el líder de la pandilla de Ash en "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Qué tipo de arma es "Banana Fish" en la serie?', 0, 3, 5, 0, 0),
-('¿Quién es el hermano mayor de Ash en "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Quién es el fotógrafo que ayuda a Ash y Eiji en "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Cuál es el objetivo principal de Ash en "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Qué significado tiene "Banana Fish" como nombre?', 0, 3, 5, 0, 0),
-('¿Quién es el villano principal en "Banana Fish"?', 0, 3, 5, 0, 0),
-('¿Quienes son los autores de Death Note?', 0, 4, 5, 0, 0),
-('¿Cual es la primera víctima en la cual Light prueba la Death Note?', 0, 4, 5, 0, 0),
-('¿Cuál es el nombre completo del protagonista de "Death Note"?', 0, 4, 5, 0, 0),
-('¿Cuál es el nombre del shinigami que deja caer el Death Note al mundo humano?', 0, 4, 5, 0, 0),
-('¿Qué es necesario para que el Death Note tenga efecto en una persona?', 0, 4, 5, 0, 0),
-('¿Quién se hace conocido como "L" en la serie "Death Note"?', 0, 4, 5, 0, 0),
-('¿Cómo mueren las personas cuyos nombres se escriben en el Death Note?', 0, 4, 5, 0, 0),
-('¿Quién es el rival principal de Light en su intento por atraparlo?', 0, 4, 5, 0, 0),
-('¿Qué es lo que lleva consigo un shinigami?', 0, 4, 5, 0, 0),
-('¿Cómo se llama el cuaderno que Misa Amane usa en "Death Note"?', 0, 4, 5, 0, 0),
-('¿Qué es lo que debe hacer un usuario de Death Note para evitar ir al infierno después de morir?', 0, 4, 5, 0, 0),
-('¿Qué se requiere para que alguien sea un legítimo usuario del Death Note?', 0, 4, 5, 0, 0),
-('¿Contra que equipo debuto Yamaguchi con su saque?', 0, 5, 5, 0, 0),
-('¿Quién es el protagonista principal de "Haikyuu!"?', 0, 5, 5, 0, 0),
-('¿Cuál es la posición de juego de Hinata en el equipo de voleibol?', 0, 5, 5, 0, 0),
-('¿Cuál es la escuela secundaria de Kageyama?', 0, 5, 5, 0, 0),
-('¿Quién es el capitán del equipo Karasuno?', 0, 5, 5, 0, 0),
-('¿Cuál es el apodo de Karasuno High School?', 0, 5, 5, 0, 0),
-('¿Qué escuela es conocida por su equipo con uniformes negros?', 0, 5, 5, 0, 0),
-('¿Quién es el entrenador del equipo Karasuno?', 0, 5, 5, 0, 0),
-('¿Cuál es el segundo nombre de Shoyo Hinata?', 0, 5, 5, 0, 0),
-('¿En qué año Hinata comienza la preparatoria?', 0, 5, 5, 0, 0),
-('¿Cuál es el título de la canción de apertura de la primera temporada de "Haikyuu!"?', 0, 5, 5, 0, 0);
-
+('Rhyhorn es tipo...', 0, 1, 80, 15, 12),
+('¿Cuantos perros legendarios hay?', 0, 1, 80, 15, 12),
+('¿Cuál es el tipo inicial de Pokémon de Ash en la serie de anime?', 0, 1, 80, 15, 12),
+('¿Quién es el Profesor Pokémon que da a los entrenadores su primer Pokémon?', 0, 1, 80, 15, 12),
+('¿Cuál es el Pokémon legendario que tiene el poder del tiempo?', 0, 1, 47, 15, 7),
+('¿Qué tipo de Pokémon es Charizard?', 0, 1, 47, 15, 7),
+('¿Cuál es el Pokémon inicial de tipo agua en la región de Kanto?', 0, 1, 47, 15, 7),
+('¿Cuál es el Pokémon que evoluciona de Magikarp?', 0, 1, 47, 15, 7),
+('¿Quién es el villano principal en el mundo de Pokémon?', 0, 1, 20, 15, 3),
+('¿Cuál es el nombre del equipo maligno en la región de Sinnoh?', 0, 1, 20, 15, 3),
+('¿Cuál es el legendario que representa la luna en Pokémon Sol y Luna?', 0, 1, 20, 15, 3),
+('¿Cuál es el Pokémon inicial de tipo planta en la región de Galar?', 0, 1, 20, 15, 3),
+('Nombre de la revista en donde se publica el manga de SNK', 0, 2, 80, 15, 12),
+('¿Cuál es el nombre de la primera esposa de Grisha Jaeger?', 0, 2, 80, 15, 12),
+('¿Quiénes son los personajes principales?', 0, 2, 80, 15, 12),
+('¿Cuál es la trama principal de la serie?', 0, 2, 80, 15, 12),
+('¿Dónde se desarrolla la historia de Attack on Titan?', 0, 2, 47, 15, 7),
+('¿Qué son los Titanes en el mundo de Attack on Titan?', 0, 2, 47, 15, 7),
+('¿Cuál es el objetivo de la Legión de Reconocimiento?', 0, 2, 47, 15, 7),
+('¿Qué es el muro más externo en la serie?', 0, 2, 47, 15, 7),
+('¿Quién es Eren Yeager y cuál es su papel en la historia?', 0, 2, 20, 15, 3),
+('¿Qué son los titanes cambiantes?', 0, 2, 20, 15, 3),
+('¿Quiénes son los antagonistas principales en Attack on Titan?', 0, 2, 20, 15, 3),
+('¿Cuál es el significado de la frase "¡Soy tu enemigo!"?', 0, 2, 20, 15, 3),
+('¿Quién es el protagonista principal de "Banana Fish"?', 0, 3, 80, 15, 12),
+('¿Qué es "Banana Fish" en la serie?', 0, 3, 80, 15, 12),
+('¿Dónde tiene lugar principalmente la historia de "Banana Fish"?', 0, 3, 80, 15, 12),
+('¿Quién es el líder de la pandilla de Ash en "Banana Fish"?', 0, 3, 80, 15, 12),
+('¿Qué tipo de arma es "Banana Fish" en la serie?', 0, 3, 47, 15, 7),
+('¿Quién es el hermano mayor de Ash en "Banana Fish"?', 0, 3, 47, 15, 7),
+('¿Quién es el fotógrafo que ayuda a Ash y Eiji en "Banana Fish"?', 0, 3, 47, 15, 7),
+('¿Cuál es el objetivo principal de Ash en "Banana Fish"?', 0, 3, 47, 15, 7),
+('¿Qué significado tiene "Banana Fish" como nombre?', 0, 3, 20, 15, 3),
+('¿Quién es el villano principal en "Banana Fish"?', 0, 3, 20, 15, 3),
+('¿Quienes son los autores de Death Note?', 0, 4, 80, 15, 12),
+('¿Cual es la primera víctima en la cual Light prueba la Death Note?', 0, 4, 80, 15, 12),
+('¿Cuál es el nombre completo del protagonista de "Death Note"?', 0, 4, 80, 15, 12),
+('¿Cuál es el nombre del shinigami que deja caer el Death Note al mundo humano?', 0, 4, 80, 15, 12),
+('¿Qué es necesario para que el Death Note tenga efecto en una persona?', 0, 4, 47, 15, 7),
+('¿Quién se hace conocido como "L" en la serie "Death Note"?', 0, 4, 47, 15, 7),
+('¿Cómo mueren las personas cuyos nombres se escriben en el Death Note?', 0, 4, 47, 15, 7),
+('¿Quién es el rival principal de Light en su intento por atraparlo?', 0, 4, 47, 15, 7),
+('¿Qué es lo que lleva consigo un shinigami?', 0, 4, 47, 15, 7),
+('¿Cómo se llama el cuaderno que Misa Amane usa en "Death Note"?', 0, 4, 20, 15, 3),
+('¿Qué es lo que debe hacer un usuario de Death Note para evitar ir al infierno después de morir?', 0, 4, 20, 15, 3),
+('¿Qué se requiere para que alguien sea un legítimo usuario del Death Note?', 0, 4, 20, 15, 3),
+('¿Contra que equipo debuto Yamaguchi con su saque?', 0, 5, 80, 15, 12),
+('¿Quién es el protagonista principal de "Haikyuu!"?', 0, 5, 80, 15, 12),
+('¿Cuál es la posición de juego de Hinata en el equipo de voleibol?', 0, 5, 80, 15, 12),
+('¿Cuál es la escuela secundaria de Kageyama?', 0, 5, 80, 15, 12),
+('¿Quién es el capitán del equipo Karasuno?', 0, 5, 47, 15, 7),
+('¿Cuál es el apodo de Karasuno High School?', 0, 5, 47, 15, 7),
+('¿Qué escuela es conocida por su equipo con uniformes negros?', 0, 5, 47, 15, 7),
+('¿Quién es el entrenador del equipo Karasuno?', 0, 5, 47, 15, 7),
+('¿Cuál es el segundo nombre de Shoyo Hinata?', 0, 5, 20, 15, 3),
+('¿En qué año Hinata comienza la preparatoria?', 0, 5, 20, 15, 3),
+('¿Cuál es el título de la canción de apertura de la primera temporada de "Haikyuu!"?', 0, 5, 20, 15, 3);
 
 
 INSERT INTO respuestas (id_pregunta,respuesta,esCorrecta)
@@ -379,41 +378,4 @@ VALUES
 (57, 'Fly High', 0),
 (57, 'Hikari Are', 0),
 (57, 'Ah Yeah!!', 0);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
