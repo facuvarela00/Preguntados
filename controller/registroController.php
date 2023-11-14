@@ -10,7 +10,6 @@ class registroController{
     }
 
     public function execute() {
-        $error = "";
         $this->renderizado->render('/registro');
     }
 
@@ -29,13 +28,17 @@ class registroController{
         $imagen = $_FILES['imagen'];
         $nombreImagen = $mail;
         $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
+        $latitud=$_POST["latitud"];
+        $longitud=$_POST["longitud"];
+        $pais=$_POST["pais"];
+        $ciudad=$_POST["ciudad"];
         $error="";
 
         if ($password === $confirmarPassword && $mailValido!="") {
 
             $hash = rand(0, 1000);
 
-            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash))) {
+            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash,$latitud,$longitud,$pais,$ciudad))) {
                 $error = 'El correo ya está registrado';
             } else {
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
@@ -60,70 +63,18 @@ class registroController{
         }
     }
 
-    /* ORIGINAL CON MAP
-    public function validarRegistro() {
-
-        $nombreCompleto=$_POST["name"];
-        $username=$_POST["username"];
-        $fechaNac=$_POST["year"];
-        $genero=$_POST["genero"];
-        $mail = $_POST["correo"];
-        $password = $_POST["password"];
-        $confirmarPassword = $_POST["confirmarPassword"];
-        $mailValido = $this->validarFormatoMail($mail);
-        $imagen = $_FILES['imagen'];
-        $nombreImagen = $mail;
-        $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
-        $lat = $_POST['lat'];
-        $lng = $_POST['lng'];
-        $error="";
-
-        if ($password === $confirmarPassword && $mailValido!="") {
-            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $lat,$lng))) {
-                $error = 'El correo ya está registrado';
-            } else {
-                move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-                $resultadoEmail = enviarEmailBienvenida($mailValido);
 
 
-                if ($resultadoEmail != true) {
-                    $error = $resultadoEmail;
-                } else {
-                    header("location:/login");
-                    exit();
-                }
-            }
-        } else if ($mailValido=="") {
-            $error = 'Correo inválido';
-        } else {
-            $error = 'Las contraseñas son diferentes';
-        }
-
-        if ($error!=""){
-            $this->renderizado->render('/registro', ['error' => $error]);
-            exit();
-        }
-    }
-    */
-
-    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash){
+    public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash,$latitud,$longitud,$pais,$ciudad){
 
         $passwordHash=$this->encriptarPassword($password);
-
         $rol=3;
         $activo = "NO";
 
-        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol, $hash, $activo);
+        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol, $hash, $activo,$latitud,$longitud,$pais,$ciudad);
 
     }
 
-    /*ORIGINAL CON MAP
-        public function guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password,$lat,$lng){
-        $passwordHash=$this->encriptarPassword($password);
-        $rol=3;
-        return $this->modelo->agregarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail,$passwordHash,$rol,$lat,$lng);
-    }
-    */
     ////////////////FUNCIONES DE VERIFICACION////////////////////
     public function encriptarPassword($password)  {
         return password_hash($password, PASSWORD_DEFAULT );
@@ -148,6 +99,7 @@ class registroController{
     public function activarCuenta(){
         $correo = $_GET["correo"];
         $_SESSION['correoAValidar']=$correo;
+
         if (!$this->modelo->cuentaActivada($correo)){
             $this->renderizado->render('/activarCuenta');
         }else{
@@ -158,12 +110,15 @@ class registroController{
     
     public function validarCuenta(){
         $correo =  $_SESSION['correoAValidar'];
-
         $hash = $this->modelo->buscarHashUsuario($correo);
         $hashIngresado=$_POST["hashUsuario"];
+
+
         if($hashIngresado == $hash){
         $this->modelo->activarCuenta($correo);
         header("Location:/login");
+        }else{
+            header("Location:activarCuenta?correo=$correo");
         }
     }
 

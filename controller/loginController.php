@@ -13,6 +13,7 @@ class loginController
 
     public function execute()
     {
+        session_destroy();
         $this->renderizado->render('/login');
     }
 
@@ -25,7 +26,8 @@ class loginController
 
         if($busquedaMailExistente){
             $busquedaClaveCoincidente=$this->modelo->obtenerClave($correo,$password);
-            if($busquedaClaveCoincidente){
+
+            if($busquedaClaveCoincidente&&$this->modelo->cuentaActivada($correo)){
                 $rol=$this-> modelo-> obtenerRol($correo);
                 $_SESSION['rolActual']=$rol;
                 $_SESSION['correo']=$correo;
@@ -58,38 +60,6 @@ class loginController
         }
 
     }
-    /*FUNCION ORIGINAL SIN CONTROL DE ROLES
-    public function validarLogin(){
-
-        $correo=$_POST['correo'];
-        $password=$_POST['password'];
-        $rol=$_POST['rol'];
-        $error="";
-        $busquedaMailExistente=$this->modelo->obtenerMail($correo);
-
-        if($busquedaMailExistente){
-            $busquedaClaveCoincidente=$this->modelo->obtenerClave($correo,$password);
-            if($busquedaClaveCoincidente){
-                $_SESSION['correo']=$correo;
-                $_SESSION['nombre'] = $this->modelo->buscarNombre($correo);
-                header("location:/homeJuego");
-                exit();
-            }
-            else{
-                $error= 'El Correo o Contraseña es Incorrecto';
-            }
-        }
-        else{
-            $error= 'El Correo o Contraseña es Incorrecto';
-
-        }
-        if ($error!=""){
-            $this->renderizado->render('/login', ['error' => $error]);
-            exit();
-        }
-
-    }*/
-
 
 
 }

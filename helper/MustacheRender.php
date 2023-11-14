@@ -18,7 +18,11 @@ class MustacheRender{
         if(!isset($_SESSION['correo'])){
             $contentAsString = file_get_contents('view/head/header.mustache');
         }else{
-            if(isset($_SESSION['juegoIniciado'])&&($_SESSION['juegoIniciado']==1)){
+            if($_SESSION['correo']=="admin@gmail.com"){
+                $contentAsString = file_get_contents('view/head/headerAdmin.mustache');
+            }elseif($_SESSION['correo']=="editor@gmail.com"){
+                $contentAsString = file_get_contents('view/head/headerEditor.mustache');
+            }elseif(isset($_SESSION['juegoIniciado'])&&($_SESSION['juegoIniciado']==1)){
                 $contentAsString = file_get_contents('view/head/headerIniciado.mustache');
             }else{
                 $contentAsString = file_get_contents('view/head/headerLogged.mustache');
