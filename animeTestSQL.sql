@@ -59,6 +59,7 @@ respuestaSugeridaB VARCHAR(50) NOT NULL,
 respuestaSugeridaC VARCHAR(50) NOT NULL,
 respuestaSugeridaD VARCHAR(50) NOT NULL,
 id_categoria int(11) NOT NULL,
+nivelPregunta int(11) NOT NULL,
 FOREIGN KEY(id_categoria) REFERENCES categorias(id));
 
 CREATE TABLE preguntas_reportadas(
