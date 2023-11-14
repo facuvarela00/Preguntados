@@ -1,5 +1,9 @@
-<main>
-    <section class="contador">
+<head>
+    <link rel="stylesheet" href="/public/css/estilos.css">
+</head>
+<main class="fondoHome">
+    <section class="contador"><br>
+
         <div id="contador" data-contador="{{ contador }}">Redirigiendo en {{ contador }} segundos</div>
         <script>
             var tiempoRestante = parseInt(document.getElementById('contador').getAttribute('data-contador'));
@@ -16,15 +20,15 @@
             var intervalo = setInterval(actualizarContador, 1000);
         </script>
     </section>
-    <section>
+    <section class="obtenidos">
         <p>Puntos Obtenidos: {{puntosPartida}}</p>
     </section>
     <section class="{{categoria}}">
-        <article>
+        <article class="preguntaAleatoria">
             <h1 class="pregunta">{{pregunta}}</h1>;
         </article>
         <article class="container">
-            <form action="validarRespuesta" method="POST" >
+            <form action="validarRespuesta" method="POST" class="preguntas">
                 <input type="submit" value="{{respuestas.0}}" name="{{respuestasCorrecta.0}}">
                 <input type="submit" value="{{respuestas.1}}" name="{{respuestasCorrecta.1}}">
                 <input type="submit" value="{{respuestas.2}}" name="{{respuestasCorrecta.2}}">
@@ -32,7 +36,7 @@
             </form>
         </article>
         <article>
-        <div id="reportar">
+        <div class="reportar">
          <form action="reportarPregunta" method="POST">
          <input type="hidden" name="pregunta" value="{{pregunta}}">
             <input type="submit" value="Reportar">

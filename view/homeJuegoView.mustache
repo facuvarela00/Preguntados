@@ -1,15 +1,29 @@
 <main class="fondoHome">
     <section class="contenedorMain">
      <article>
-        <h1 class="titulo">{{nombre}}</h1>
+        <h2 class="h2">Anime Test</h2>
+        <h2 class="h2">Bienvenida {{nombre}}</h2>
       </article>
       <article>
-          <form action="/homeJuego/iniciarJuego" method="POST">
-              <input class="botonIniciar" type="submit" value="Iniciar Partida">
+      <div class="carrusel">
+            <div><img src="/public/pokemon.jpeg" alt="Categoria1"></div>
+            <div><img src="/public/shingeki_no_kyojin.jpg" alt="Categoria2"></div>
+            <div><img src="/public/banana_fish.webp" alt="Categoria3"></div>
+            <div><img src="/public/death_note.jpg" alt="Categoria4"></div>
+            <div><img src="/public/haikyuu.jpg" alt="Categoria5"></div>
+      </div>
+      </article>
+      <article class="homeJuegoII">
+          <form action="/homeJuego/iniciarJuego" class="botonIniciar"  method="POST">
+              <input type="submit" value="Iniciar partida">
           </form>
-          <a href="/perfil">PERFIL</a>
-          <a href="/sugerirPregunta">Sugerir Pregunta</a>
+          <br>
+          <a href="/perfil" class="opcionesHome">PERFIL</a>
+          <br>
+          <a href="/sugerirPregunta" class="opcionesHome">SUGERIR PREGUNTA</a>
+          <br>
       </article>
     </section>
+    <script src="/public/js/js.js"></script>
 </main>
 
