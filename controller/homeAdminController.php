@@ -42,7 +42,7 @@ class homeAdminController
 
         /*$cantidadTotalPreguntas=$this->modelo->verCantidadPreguntas();*/
 
-        /*$graficoPreguntasPorCategoria=$this->graficoPreguntasPorCategoria();*/ //ERROR
+        $graficoPreguntasPorCategoria=$this->graficoPreguntasPorCategoria();
 
         $this->renderizado->render('/preguntasDB',['graficoPreguntasPorCategoria' => $graficoPreguntasPorCategoria]);
     }
@@ -65,25 +65,45 @@ class homeAdminController
     }
 
     public function graficoPreguntasPorCategoria() {
-        $resultado= $this->modelo->verCantidadPreguntasPorCategoria();
+        // Obtener datos para el gráfico
+        $resultado = $this->modelo->verCantidadPreguntasPorCategoria();
 
+        // Crear un gráfico de torta
         $grafico = new PieGraph(600, 400);
         $grafico->title->Set("Preguntas por Categoría");
 
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
+
         $torta = new PiePlot($datosTorta);
         $torta->SetLegends($etiquetas);
 
         $grafico->Add($torta);
 
-        // Obtener los datos de la imagen como una cadena
-        ob_start();
-        $grafico->Stroke();
-        $graficoData = ob_get_clean();
+        // Ruta donde se guardará el gráfico
+        $directorioActual = "C:/xampp/htdocs";
+        $rutaCarpeta = $directorioActual . "/public/graficos/";
 
-        return $graficoData;
+        // Nombre del archivo
+        $nombreArchivo = 'grafico_preguntas_por_categoria.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        // Eliminar el archivo existente si hay uno
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+
+        // Guardar el gráfico como imagen
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
     }
+
+
+
+
+
+
 
 
 
