@@ -64,7 +64,7 @@ h2{
     box-shadow: 0 5px #999;
 }
 
-.opcionesHome:hover{
+.opcionesHome:hover, .opcionesHome2:hover{
     background-color: #817392; 
     font-weight: bolder;
     transition: transform 0.3s ease, background-color 0.3s ease;
@@ -72,6 +72,32 @@ h2{
     color: white;
 }
 
+.opcionesHome2{
+    width: 30%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+}
+
+#sugerida{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
 .homeJuegoII{
     display: flex;
     justify-content: center;
@@ -194,12 +220,52 @@ header, .headerIniciado {
 }
 
 #perdiste{
-    background-color: red;
-    border: 1px solid white;
     color: white;
-    margin: 50px;
-    padding-top: 35px;
-    padding-bottom: 35px;
+    text-align: center;
+    font-size: 80px;
+    animation: aparecer 2s;
+}
+
+.perder{
+    font-family: 'Cinzel', serif;
+    background-image: url("/public/perder.webp");
+    background-size: cover;
+    height: 90vh;
+    width: 100%;
+    position: relative;
+    padding-top: 20px;
+}
+
+.container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container2 h2{
+        background-color: white;
+        font-weight: bold;
+        width: 15%;
+        color: black;
+        border: none;
+        padding: 8px 18px;
+        font-size: 20px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        border-radius: 15px;
+        box-shadow: 0 5px #999;
+        position: absolute;
+        bottom: 0; 
+}
+
+.container2 h2:hover{
+    background-color: #817392; 
+    font-weight: bolder;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: scale(1.05);
+    color: white;
 }
 
 form {
@@ -370,11 +436,11 @@ form {
     border: none;
 }
 
-.registroAnimeTest {
+.registroAnimeTest, .sugerirPregunta {
     position: relative;
-  }
+}
   
-  .registroAnimeTest::before {
+.registroAnimeTest::before , .sugerirPregunta::before{
     content: '';
     position: absolute;
     top: 0;
@@ -385,8 +451,11 @@ form {
     background-size: cover;
     opacity: 0.4;
     z-index: -1;
-  }
-  
+}
+
+.sugerirPregunta h2{
+    color: black;
+}
 
 /*/////////////////////////////////// LOGIN ///////////////////////////////////*/
 /*
@@ -562,4 +631,84 @@ footer{
 .reportar input[type="submit"]:hover {
     background-color: #cea32c; 
     font-weight: bold;
+}
+
+/*/////////////////////////////////// RANKING ///////////////////////////////////*/
+
+.fondoRanking {
+    padding: 20px; 
+    font-family: 'Arial', sans-serif; 
+    position: relative;
+}
+
+.fondoRanking::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-image: url("/public/fondoAnime.jpg");
+    background-size: cover;
+    opacity: 0.4;
+    z-index: -1;
+}
+
+.contenedorRanking {
+    max-width: 800px; 
+    margin: 0 auto; 
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    border-radius: 8px; 
+}
+
+.error {
+    color: #d9534f; 
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.rankingPersonal h1,
+.rankingGlobal p {
+    color: #333; 
+    margin-bottom: 10px; 
+}
+
+table {
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-bottom: 20px; 
+}
+
+table th,
+table td {
+    text-align: center; 
+    padding: 10px; 
+    border-bottom: 1px solid #ddd;
+    border: 1px solid black;
+}
+
+table th {
+    background-color: #817392; 
+    color: white; 
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+a {
+    color: black;
+    text-decoration: none; 
+}
+
+a:hover {
+    text-decoration: underline; 
+}
+
+.fondoRanking h1{
+    text-align: center;
+    font-size: 30px;
+    color: black;
 }
