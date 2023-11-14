@@ -28,10 +28,8 @@ class sugerirPreguntaController {
             $respuestaSugeridaD = $_POST['respuestaSugeridaD'];
             $categoria = $_POST['id_categoria'];
             $id_categoria = intval($categoria);
-            $id_dificultad = intval($id_dificultad);
-    
-            $this->modelo->agregarSugerencia($preguntaSugerida, $respuestaSugeridaA, $respuestaSugeridaB, $respuestaSugeridaC, $respuestaSugeridaD, $id_categoria, $id_dificultad);
-
+            $nivelPregunta=$_POST['dificultad'];
+            $this->modelo->agregarSugerencia($preguntaSugerida, $respuestaSugeridaA, $respuestaSugeridaB, $respuestaSugeridaC, $respuestaSugeridaD, $id_categoria,$nivelPregunta);
             header("Location: /sugerirPregunta/envioExitoso");
 
         } else{

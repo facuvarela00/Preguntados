@@ -25,7 +25,8 @@ include_once('controller/homeAdminController.php');
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once('third-party/phpqrcode/qrlib.php');
-
+require_once ('third-party/jpgraph/src/jpgraph.php');
+require_once ('third-party/jpgraph/src/jpgraph_pie.php');
 class Configuration{
     private $configFile = 'config/config.ini';
 
