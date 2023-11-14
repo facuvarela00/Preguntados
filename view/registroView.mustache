@@ -1,39 +1,47 @@
+<h1 class="h1">Anime Test</h1>
 
-<h1 class="titulo">Anime Test</h1>
-
-
-<section>
+<section class="registroAnimeTest">
     <form action="/registro/validarRegistro" method="POST" enctype="multipart/form-data">
-        <h3 style="text-align: center">Registrarse</h3>
-        <div class="container">
+        <div class="containerRegistro0">
+        <h3>Registrarse</h3>
+        </div>
+        <div class="containerRegistro">
 
             <label for="name"><b>Nombre completo</b></label>
-            <input type="text" placeholder="Ingrese su nombre completo" name="name"  required><br><br>
+            <input type="text" placeholder="Ingrese su nombre completo" name="name"  required>
+            <br><br>
 
             <label style="text-align: center" for="username"><b>Nombre de usuario</b></label>
-            <input type="text" placeholder="Ingrese su nombre de usuario" name="username"  required><br><br>
+            <input type="text" placeholder="Ingrese su nombre de usuario" name="username"  required>
+            <br><br>
 
             <label for="year"><b>Año de nacimiento</b></label>
-            <input type="date" placeholder="Año de nacimiento" name="year"  required><br><br>
+            <input type="date" placeholder="Año de nacimiento" name="year"  required>
+            <br><br>
 
 
-            <label for="genero">Género:</label>
+            <label for="genero" id="genero">Género:</label>
             <select id="genero" name="genero" required>
                 <option value="femenino">Femenino</option>
                 <option value="masculino">Masculino</option>
                 <option value="otro" selected>Otro</option>
-            </select><br><br>
+            </select>
+            <br><br>
 
             <label for="correo"><b>Direccion de Correo</b></label>
             <input type="text" placeholder="Ingrese direccion de Correo" name="correo"  required>
+            <br><br>
 
             <label for="password"><b>Contraseña</b></label>
             <input type="password" placeholder="Ingrese la Contraseña" name="password" required>
+            <br><br>
 
             <label for="password"><b>Confirmar Contraseña</b></label>
             <input type="password" placeholder="Ingrese nuevamente la Contraseña" name="confirmarPassword" required>
+            <br><br>
 
-            <label for="imagen"> Seleccione una foto de perfil </label>
+            <label for="imagen" id="foto"> Seleccione una foto de perfil </label>
+            <br><br>
             <input type="file" name="imagen" id="imagen" required>
             <br><br>
 
@@ -120,11 +128,12 @@
             </script>
 
             <span style="color: #f44336">{{error}}</span>
+            
             <input type="submit" class="botonFormularioInicio" value="Registrarse">
-        </div>
+        </div> 
     </form>
 </section>
 
-<section>
-    <p class="psw">Ya tienes una cuenta? <a href="/login">Ingresa!</a></p>
+<section class="ingresa">
+    <p>¿Ya tienes una cuenta? <a href="/login">¡Ingresá!</a></p>
 </section>
