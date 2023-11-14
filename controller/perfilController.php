@@ -10,31 +10,28 @@ class perfilController
         $this->renderizado = $renderizado;
     }
 
-    public function execute()
-    {
-        if (isset($_GET['id'])) {
+    public function execute(){
+            if (isset($_GET['id'])) {
+                $id=intval($_GET['id']);
+                $usuario=$this->modelo->buscarUsuario($id);
 
-            $id=intval($_GET['id']);
-            $usuario=$this->modelo->buscarUsuario($id);
+                $correo = $usuario['mail'];
+                $user = $usuario['username'];
+                $img = $usuario['imagen'];
+                $this -> generadorQR($id);
 
-            $correo = $usuario['mail'];
-            $user = $usuario['username'];
-            $img = $usuario['imagen'];
-            $this -> generadorQR($id);
+                $data = array(
+                    'correo' => $correo,
+                    'user' => $user,
+                    'img' => $img,
+                    'id' => $id,
+                );
 
-            $data = array(
-                'correo' => $correo,
-                'user' => $user,
-                'img' => $img,
-                'id' => $id,
-            );
-
-            $this->renderizado->render('/perfil', $data);
-
-        } else {
-            $this->renderizado->render('/ranking');
-        }
-
+                $this->renderizado->render('/perfil', $data);
+            }
+            else{
+                $this->renderizado->render('/perfilPersonal');
+             }
     }
 
     public function traerDatosUsuario(){

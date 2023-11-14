@@ -31,8 +31,14 @@ class juegoIniciadoController{
 
     public function validarRespuesta()
     {
-        $idPreg=$_POST['idPregunta'];
-        $idPreg=intval($idPreg);
+        if($_SESSION['reportada']==1){
+            $idPreg=$_SESSION['idPreguntaReportada'];
+        }else{
+            $idPreg=$_POST['idPregunta'];
+            $idPreg=intval($idPreg);
+        }
+
+        var_dump($idPreg);
 
         if(isset($_POST['1'])){
             $_SESSION['puntosPartida']+=1;
@@ -42,12 +48,18 @@ class juegoIniciadoController{
             header("Location: mostrarPreguntaAleatoria");
 
         }else if(isset($_POST['0'])){
+
             $correo=$_SESSION['correo'];
             $puntajeDeLaPartida=$_SESSION['puntosPartida'];
             $this->modelo->actualizarPreguntasUsuario($correo,$puntajeDeLaPartida);
             $this->modelo->actualizarNivelPregunta($idPreg);
             $this->modelo->agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida);
-
+            if($_SESSION['reportada']==1){
+                printf("holaaaaa");
+                $_SESSION['reportada']=0;
+                header("Location:/homeJuego");
+                exit();
+            }
             /*$_SESSION['puntosTotalesPersonal']+=$_SESSION['puntosPartida'];*/
             header("Location:perder");
         }
@@ -146,9 +158,14 @@ class juegoIniciadoController{
         return $tiempo_finalizacion;
     }
     public function reportarPregunta(){
+        $_SESSION['idPreguntaReportada']="";
         $pregunta = $_POST['pregunta'];
         $correo = $_SESSION['correo'];
         $result = $this->modelo->agregarReporte($pregunta, $correo);
+        $idPregunta=$this->modelo->obtenerIdPregunta($pregunta);
+        $idPregunta=intval($idPregunta['id']);
+        $_SESSION['reportada']=1;
+        $_SESSION['idPreguntaReportada']=$idPregunta;
         if($result){
             header("Location:envioExitosoReporte");
         } else{
