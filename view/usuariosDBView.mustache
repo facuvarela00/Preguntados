@@ -2,9 +2,9 @@
 <img src="/public/graficos/{{graficoCantidadUsuariosPorGenero}}" alt="Usuarios por Genero">
 <img src="/public/graficos/{{graficoCantidadUsuariosPorGrupoEdad}}" alt="Usuarios por Grupo Edad">
 <img src="/public/graficos/{{graficoCantidadUsuariosPorPais}}" alt="Usuarios por Pais">
-<div id="data-box">
+<div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 400px; align-self: center">
 <p>{{#usuarios}}</p>
-    <form action="graficoAcertadasPorUsuario" method="POST">
+    <form action="usuarios" method="POST">
         <input type="submit" class="user-button" data-correo="{{.}}" name="correo" value="{{.}}">
     </form>
 <p>{{/usuarios}}</p>

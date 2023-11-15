@@ -15,7 +15,7 @@ class homeAdminModel
         return $resultado;
     }
     public function verUsuarios(){
-        $sql="SELECT mail FROM usuarios";
+        $sql="SELECT * FROM usuarios";
         $resultado=$this->database->query($sql);
 
         return $resultado;
@@ -85,7 +85,17 @@ class homeAdminModel
         return $edad->y; // 'y' representa el número de años en la diferencia
     }
     public function verCantidadPartidasJugadas(){
-            //AGREGAR TABLA DE PARTIDAS? CON CADA UNA DE LOS DATOS DE LA MISMA Y QUIEN LA JUGÓ?
+        $sql = "SELECT puntajesPorPartida FROM ranking";
+        $resultado = $this->database->query($sql);
+        $totalPartidas = 0;
+
+        foreach ($resultado as $fila) {
+            $puntajes = json_decode($fila['puntajesPorPartida']);
+            if (is_array($puntajes)) {
+                $totalPartidas += count($puntajes);
+            }
+        }
+        return $totalPartidas;
     }
     public function verPreguntas(){
         $sql="SELECT * FROM preguntas";

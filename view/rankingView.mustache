@@ -1,5 +1,5 @@
 <main class="fondoRanking">
-    <section class="contenedorRanking">
+    <section class="contenedorRanking" style=" display: flex; flex-direction:column; justify-content: center; align-items: center; height: 100vh; ">
         <article class="error">
             {{error}}
         </article>
@@ -7,26 +7,29 @@
         <article class="rankingPersonal">
             <h1>RANKING PERSONAL</h1>
             <p><strong>PUNTAJE TOTAL PERSONAL: {{puntajeTotal}}</strong></p>
-            <table>
-                <thead>
-                <tr>
-                    <th>Posición</th>
-                    <th>Puntaje</th>
-                </tr>
-                </thead>
-                <tbody>
-                {{#rankingPersonal}}
+            <div id="scrollable-box" style="height: 300px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+                <table>
+                    <thead>
                     <tr>
-                        <td>{{posicion}}°</td>
-                        <td>{{puntaje}}</td>
+                        <th>Posición</th>
+                        <th>Puntaje</th>
                     </tr>
-                {{/rankingPersonal}}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {{#rankingPersonal}}
+                        <tr>
+                            <td>{{posicion}}°</td>
+                            <td>{{puntaje}}</td>
+                        </tr>
+                    {{/rankingPersonal}}
+                    </tbody>
+                </table>
+            </div>
         </article>
 
         <article class="rankingGlobal">
             <h1>RANKING GLOBAL</h1>
+            <div id="scrollable-box" style="height: 300px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
             <table>
                 <thead>
                 <tr>
@@ -47,6 +50,7 @@
                 {{/rankingGlobal}}
                 </tbody>
             </table>
+            </div>
             <br>
         </article>
     </section>

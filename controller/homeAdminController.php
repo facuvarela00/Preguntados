@@ -14,7 +14,17 @@ class homeAdminController
     public function execute()
     {
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==1){
-            $this->usuarios();
+            $cantidadUsuarios=$this->modelo->verCantidadUsuarios();
+            $usuarios=$this->modelo->verUsuarios();
+            $cantidadPreguntas=$this->modelo->verCantidadPreguntas();
+            $preguntas=$this->modelo->verPreguntas();
+            $data = [
+                'cantidadUsuarios'=>$cantidadUsuarios,
+                'usuarios'=>$usuarios,
+                'cantidadPreguntas'=>$cantidadPreguntas,
+                'preguntas'=>$preguntas,
+            ];
+            $this->renderizado->render('/homeAdmin',$data);
             exit();
         }
         else{
@@ -25,12 +35,10 @@ class homeAdminController
     public function usuarios(){
         $usuarios= $this->modelo->verUsuarios();
         $correos = array_column($usuarios, 'mail');
+
         $graficoPorcentajeAcertadasPorUsuario=$this->acertadasPorUsuario();
-
         $graficoCantidadUsuariosPorPais=$this->graficoCantidadUsuariosPorPais();
-
         $graficoCantidadUsuariosPorGenero=$this->graficoCantidadUsuariosPorGenero();
-
         $graficoCantidadUsuariosPorGrupoEdad=$this->graficoCantidadUsuariosPorGrupoEdad();
 
         $data = [
@@ -45,24 +53,23 @@ class homeAdminController
         exit();
     }
     public function preguntas(){
-
-        /*$preguntas=$this->modelo->verPreguntas();*/
-
+        $cantidadPartidasJugadas=$this->modelo->verCantidadPartidasJugadas();
         $cantidadTotalPreguntas=$this->modelo->verCantidadPreguntas();
-
         $graficoPreguntasPorCategoria=$this->graficoPreguntasPorCategoria();
 
         $data = [
             'cantidadTotalPreguntas'=>$cantidadTotalPreguntas,
             'graficoPreguntasPorCategoria'=>$graficoPreguntasPorCategoria,
-
+            'cantidadPartidasJugadas'=>$cantidadPartidasJugadas,
         ];
 
         $this->renderizado->render('/preguntasDB',$data);
     }
 
     public function acertadasPorUsuario(){
+
         if(!isset($_POST['correo'])){
+
             $usuario="admin@gmail.com";
         }else{
             $usuario=$_POST['correo'];
@@ -74,11 +81,12 @@ class homeAdminController
         $datos = [
             'acertadas'=>$acertadas,
             'erradas'=>$erradas,
-
         ];
+
         return $this->graficoPorcentajeAcertadasPorUsuario($usuario,$datos);
     }
     public function graficoPorcentajeAcertadasPorUsuario($usuario,$datos){
+
         $resultado = $datos;
 
         $grafico = new PieGraph(600, 400);
@@ -96,7 +104,6 @@ class homeAdminController
         if (file_exists($rutaFinal)) {
             unlink($rutaFinal);
         }
-
         $grafico->Stroke($rutaFinal);
 
         return $nombreArchivo;
