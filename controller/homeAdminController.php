@@ -14,8 +14,8 @@ class homeAdminController
     public function execute()
     {
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==1){
-           $this->usuarios();
-           exit();
+            $this->usuarios();
+            exit();
         }
         else{
             $this->renderizado->render('/login');
@@ -33,13 +33,13 @@ class homeAdminController
 
         $graficoCantidadUsuariosPorGrupoEdad=$this->graficoCantidadUsuariosPorGrupoEdad();
 
-             $data = [
-                 'usuarios'=>$correos,
-                 'graficoCantidadUsuariosPorGrupoEdad'=>$graficoCantidadUsuariosPorGrupoEdad,
-                 'graficoCantidadUsuariosPorGenero'=>$graficoCantidadUsuariosPorGenero,
-                 'graficoCantidadUsuariosPorPais'=>$graficoCantidadUsuariosPorPais,
-                 'graficoPorcentajeAcertadasPorUsuario'=> $graficoPorcentajeAcertadasPorUsuario
-             ];
+        $data = [
+            'usuarios'=>$correos,
+            'graficoCantidadUsuariosPorGrupoEdad'=>$graficoCantidadUsuariosPorGrupoEdad,
+            'graficoCantidadUsuariosPorGenero'=>$graficoCantidadUsuariosPorGenero,
+            'graficoCantidadUsuariosPorPais'=>$graficoCantidadUsuariosPorPais,
+            'graficoPorcentajeAcertadasPorUsuario'=> $graficoPorcentajeAcertadasPorUsuario
+        ];
 
         $this->renderizado->render('/usuariosDB',$data);
         exit();
@@ -76,7 +76,7 @@ class homeAdminController
             'erradas'=>$erradas,
 
         ];
-       return $this->graficoPorcentajeAcertadasPorUsuario($usuario,$datos);
+        return $this->graficoPorcentajeAcertadasPorUsuario($usuario,$datos);
     }
     public function graficoPorcentajeAcertadasPorUsuario($usuario,$datos){
         $resultado = $datos;
