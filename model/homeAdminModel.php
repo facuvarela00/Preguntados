@@ -9,9 +9,15 @@ class homeAdminModel
         $this->database = $database;
     }
 
+    public function buscarUsuarioPorCorreo($correo){
+        $sql="SELECT * FROM usuarios WHERE mail='$correo'";
+        $resultado=$this->database->queryAssoc($sql);
+        return $resultado;
+    }
     public function verUsuarios(){
-        $sql="SELECT * FROM usuarios";
+        $sql="SELECT mail FROM usuarios";
         $resultado=$this->database->query($sql);
+
         return $resultado;
     }
     public function verUsuariosNuevos(){
@@ -92,26 +98,21 @@ class homeAdminModel
         return intval($resultado['total']);
     }
     public function verCantidadPreguntasPorCategoria(){
-    $sql="SELECT pregunta,id_categoria FROM preguntas";
-    $resultado=$this->database->query($sql);
+        $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id";
+        $resultado = $this->database->query($sql);
 
-    $contadores = array();
-    foreach ($resultado as $row) {
-        $categoria = $row['id_categoria'];
-        if (!isset($contadores[$categoria])) {
-            $contadores[$categoria] = 1;
-        } else {
-            $contadores[$categoria]++;
+        $contadores = array();
+        foreach ($resultado as $row) {
+            $categoria = $row['categoria'];
+            if (!isset($contadores[$categoria])) {
+                $contadores[$categoria] = 1;
+            } else {
+                $contadores[$categoria]++;
+            }
         }
+        return $contadores;
     }
-    return $contadores;
-    }
-    public function verPorcentajePreguntasAcertadasPorUsuario($usuario){
-        $correo=$usuario['mail'];
-        $sql="SELECT preguntasRecibidas,preguntasAcertadas FROM usuarios WHERE mail='$correo'";
-        $resultado=$this->database->query($sql);
-        return $resultado;
-    }
+
     public function verCantidadPreguntasCreadas(){
         /* NOSE A QUE SE REFIERE */
     }

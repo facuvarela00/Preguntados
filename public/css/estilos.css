@@ -712,3 +712,9 @@ a:hover {
     font-size: 30px;
     color: black;
 }
+
+#data-box {
+    width: 400px;
+    height: 300px;
+    overflow-y: scroll;
+}
