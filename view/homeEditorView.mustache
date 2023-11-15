@@ -1,10 +1,74 @@
 <main class="fondoHome">
     <section class="contenedorMain">
-     <article>
-        <h1 class="titulo">{{nombre}}</h1>
-      </article>
       <article>
-          <p>HOLA MR/MRS EDITOR</p>
+          <h2>Panel de Preguntas</h2>
+          <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+          <style>
+              table,th,td{
+                  border: 1px solid;
+              }
+
+              table{
+                  width: 80%;
+                  border-collapse: collapse;
+              }
+          </style>
+          <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+
+          <form action="/mostrarTabla" method="post">
+              <label for="buscar">Buscar: </label>
+              <input type="text" name="buscar" id="buscar">
+          </form>
+
+          <p></p>
+
+          <table>
+              <thead>
+                <th>Id</th>
+                <th>Categoria</th>
+                <th>Pregunta</th>
+                <th></th>
+                <th></th>
+              </thead>
+              <tbody id="content">
+              {{#arrayPreguntas}}
+                  <tr>
+                      <td>{{id}}</td>
+                      <td>{{categorias}}</td>
+                      <td>{{preguntas}}</td>
+                      <td>
+                          <a href="/Editar">Editar</a>
+                      </td>
+                      <td>
+                          <a href="/Eliminar">Eliminar</a>
+                      </td>
+                  </tr>
+              {{/arrayPreguntas}}
+              </tbody>
+          </table>
+
+          <script>
+
+              getData();
+
+              document.getElementById("campo").addEventListener("keyup", getData);
+
+              function getData(){
+                  let input =document.getElementById("buscar").value;
+                  let content = document.getElementById("content");
+                  let ejecuter = "/mostrarTabla";
+                  let formData = new FormData();
+                  formData.append("buscar",input);
+
+                  fetch(ejecuter,{
+                      method:"POST",
+                      body: formData
+                  }).then(response => response.json())
+                          .then(data=>{
+                              content.innerHTML = data
+                          }).catch(err => console.log(err))
+              }
+          </script>
       </article>
     </section>
 </main>
