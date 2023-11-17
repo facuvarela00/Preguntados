@@ -14,7 +14,6 @@ class perfilController
             if (isset($_GET['id'])) {
                 $id=intval($_GET['id']);
                 $usuario=$this->modelo->buscarUsuario($id);
-
                 $user = $usuario['username'];
                 $img = $usuario['imagen'];
                 $genero = $usuario['genero'];
@@ -35,7 +34,31 @@ class perfilController
                 $this->renderizado->render('/perfil', $data);
             }
             else{
-                $this->renderizado->render('/perfilPersonal');
+                $correo=$_SESSION['correo'];
+                $usuario=$this->modelo->buscarUsuarioMail($correo);
+
+                $nombreCompleto=$usuario['nombreCompleto'];
+                $user=$usuario['username'];
+                $fechaNac=$usuario['fechaNac'];
+                $genero=$usuario['genero'];
+                $mail=$usuario['mail'];
+                $img=$usuario['imagen'];
+                $pais=$usuario['pais'];
+                $ciudad=$usuario['ciudad'];
+                $nivel=$usuario['nivelUsuario'];
+
+                $data = [
+                    'nombreCompleto'=>$nombreCompleto,
+                    'user'=>$user,
+                    'fechaNac'=>$fechaNac,
+                    'genero'=>$genero,
+                    'mail'=>$mail,
+                    'img'=>$img,
+                    'pais'=>$pais,
+                    'ciudad'=>$ciudad,
+                    'nivel'=>$nivel,
+                ];
+                $this->renderizado->render('/perfilPersonal',$data);
              }
     }
 
