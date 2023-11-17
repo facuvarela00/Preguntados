@@ -66,6 +66,13 @@ class homeEditorModel
         return $arrayTabla;
     }
 
+    public function eliminarPregunta($idPregunta){
+       //hay que borrar tambien la pregunta en la tabla de reportadas?
+        $sql = "DELETE FROM respuestas WHERE id_pregunta='$idPregunta'";
+        $sql2 = "DELETE FROM preguntas WHERE id='$idPregunta'";
+        $this->database->execute($sql);
+        $this->database->execute($sql2);
+    }
 }
 
 ?>

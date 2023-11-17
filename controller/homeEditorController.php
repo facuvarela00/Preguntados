@@ -60,7 +60,7 @@ class homeEditorController
         echo json_encode($html, JSON_UNESCAPED_UNICODE);
     }
 
-    PUBLIC FUNCTION editar(){
+   public function editar(){
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
             $idPregunta = $_POST['editar'];
             $pregunta =$this->modelo->traerPregunta($idPregunta);
@@ -77,4 +77,16 @@ class homeEditorController
             $this->renderizado->render('/login');
         }
     }
+
+    public function eliminar(){
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
+            $idPregunta = $_POST['eliminar'];
+            $this->modelo->eliminarPregunta($idPregunta);
+            header("Location:homeEditor");
+        }
+        else{
+            $this->renderizado->render('/login');
+        }
+    }
+
 }
