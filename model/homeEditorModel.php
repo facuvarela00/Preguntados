@@ -16,8 +16,8 @@ class homeEditorModel
     }
 
     public function traerPregunta($id){
-        $sql = "SELECT * FROM preguntas where id = $id";
-        $pregunta = $this->database->queryID($sql);
+        $sql = "SELECT pregunta FROM preguntas where id = $id";
+        $pregunta = $this->database->queryAssoc($sql);
         return $pregunta;
     }
 

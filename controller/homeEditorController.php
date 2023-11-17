@@ -67,8 +67,8 @@ class homeEditorController
             $arrayRespuestas = $this->modelo->traerRespuestasDePregunta($idPregunta);
             $respuestas= array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
             $data = [
-                'idPregunta' => $idPregunta,
-                'pregunta' => $pregunta,
+
+                'pregunta' => $pregunta['pregunta'],
                 'respuestas' => $respuestas,
             ];
             $this->renderizado->render("/editarPregunta", $data);
