@@ -65,6 +65,7 @@ class rankingModel{
         foreach ($puntajesTotales as $puntaje) {
             $contador++;
             $rankingGlobalData[] = array(
+                'idPersonal'=>$this->buscarIDporCorreo($puntaje['mail']),
                 'mail' => $puntaje['mail'], // Obtén el correo electrónico de la fila actual
                 'posicion' => $contador,
                 'puntaje' => $puntaje['puntajeTotal'] // Obtén el puntaje total de la fila actual
@@ -76,6 +77,11 @@ class rankingModel{
         }
     }
 
+    public function buscarIDporCorreo($correo){
 
+        $sql = "SELECT id FROM usuarios WHERE mail='$correo' ";
+        $result=$this->database->queryAssoc($sql);
+        return $result['id'];
+    }
 
 }

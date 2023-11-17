@@ -1,15 +1,15 @@
 <main>
     <section class="contenedorPerfil">
-        <article class="error">
-            {{error}}
-        </article>
-        <article class="perfil">
-            <div style="display: flex; flex-direction: row">
-                <div style="width: 60px; height: 60px;"><img src="{{img}}"></div>
-                <p>{{user}}</p>
-            </div>
-            <div style="width: 400px; height: 400px;"><img src="/public/QR_Usuario/{{id}}.png" alt=""> </div>
-
+       <article>
+           <img src="/public/imagenesPerfil/{{img}}">
+       </article>
+       <article>
+           <p>Usuario: {{user}}</p>
+           <p>Género: {{genero}}</p>
+           <p>País: {{pais}}</p>
+       </article>
+        <article style="width: 400px; height: 400px;">
+            <img src="/public/QR_Usuario/{{id}}.png" alt="">
         </article>
     </section>
 </main>

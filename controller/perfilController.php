@@ -15,16 +15,21 @@ class perfilController
                 $id=intval($_GET['id']);
                 $usuario=$this->modelo->buscarUsuario($id);
 
-                $correo = $usuario['mail'];
                 $user = $usuario['username'];
                 $img = $usuario['imagen'];
+                $genero = $usuario['genero'];
+                $pais = $usuario['pais'];
+                $nivel= $usuario['nivelUsuario'];
                 $this -> generadorQR($id);
 
                 $data = array(
-                    'correo' => $correo,
+
                     'user' => $user,
                     'img' => $img,
                     'id' => $id,
+                    'genero' => $genero,
+                    'pais' => $pais,
+                    'nivel' => $nivel,
                 );
 
                 $this->renderizado->render('/perfil', $data);
