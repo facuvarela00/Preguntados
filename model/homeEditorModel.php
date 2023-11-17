@@ -15,6 +15,12 @@ class homeEditorModel
         return $arrayPreguntas;
     }
 
+    public function traerPregunta($id){
+        $sql = "SELECT * FROM preguntas where id = $id";
+        $pregunta = $this->database->queryID($sql);
+        return $pregunta;
+    }
+
     public function traerRespuestas(){
         $sql = "SELECT * FROM respuestas";
         $arrayRespuestas = $this->database->query($sql);
@@ -28,8 +34,8 @@ class homeEditorModel
     }
 
     public function traerRespuestasDePregunta($id){
-        $sql = "SELECT * FROM preguntas where id like '$id'";
-        $arrayRespuestas = $this->database->queryID($sql);
+        $sql = "SELECT respuesta FROM respuestas WHERE id_pregunta = '$id'";
+        $arrayRespuestas = $this->database->query($sql);
         return $arrayRespuestas;
     }
 
@@ -39,10 +45,11 @@ class homeEditorModel
         return $arrayPreguntas;
     }
 
-    public function tabla($columns, $where){
+    public function tabla(){
         $campo = isset($_POST['buscar']) ? $_POST['buscar'] : null;
         $columns=['ID', 'Categorías', 'Preguntas'];
 
+        $arrayTabla='';
         $where = '';
         if($campo != null){
             $where = "WHERE (";
@@ -53,10 +60,9 @@ class homeEditorModel
             }
             $where = substr_replace($where, "", -3);
             $where .= ")";
+            $sql='Select ' . implode(", ", $columns) . 'FROM preguntas' . $where . ';';
+            $arrayTabla = $this->database->queryAssoc($sql);
         }
-
-        $sql='Select ' . implode(", ", $columns) . 'FROM preguntas' . $where . ';';
-        $arrayTabla = $this->database->queryAssoc($sql);
         return $arrayTabla;
     }
 

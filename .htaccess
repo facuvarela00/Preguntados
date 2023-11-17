@@ -14,4 +14,5 @@ Options -Indexes
     RewriteRule ^(.*)/(.*)$ index.php?controller=$1&method=$2 [L,QSA]
     RewriteRule ^(.*)$ index.php?controller=$1 [L,QSA]
     RewriteRule ^perfil/([0-9]+)$ /perfil.php?id=$1 [L,QSA]
+    RewriteRule ^editarPregunta/([0-9]+)$ /editarPregunta.php?id=$1 [L,QSA]
 </IfModule>

@@ -54,29 +54,29 @@ class homeAdminController
         exit();
     }
     public function preguntas() {
-    $cantidadPartidasJugadas = $this->modelo->verCantidadPartidasJugadas();
-    $cantidadTotalPreguntas = $this->modelo->verCantidadPreguntas();
-    $graficoPreguntasPorCategoria = $this->graficoPreguntasPorCategoria();
+        $cantidadPartidasJugadas = $this->modelo->verCantidadPartidasJugadas();
+        $cantidadTotalPreguntas = $this->modelo->verCantidadPreguntas();
+        $graficoPreguntasPorCategoria = $this->graficoPreguntasPorCategoria();
 
-    $data = [
-        'cantidadTotalPreguntas' => $cantidadTotalPreguntas,
-        'graficoPreguntasPorCategoria' => $graficoPreguntasPorCategoria,
-        'cantidadPartidasJugadas' => $cantidadPartidasJugadas,
-        'mostrarBotonGenerar' => isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1 ? false : true,
-    ];
-    if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1){
-        $htmlContent = $this->renderizado->generateHtmlPDF('/preguntasDB', $data);
-    }else{
-        $htmlContent = $this->renderizado->generateHtml('/preguntasDB', $data);
-    }
+        $data = [
+            'cantidadTotalPreguntas' => $cantidadTotalPreguntas,
+            'graficoPreguntasPorCategoria' => $graficoPreguntasPorCategoria,
+            'cantidadPartidasJugadas' => $cantidadPartidasJugadas,
+            'mostrarBotonGenerar' => isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1 ? false : true,
+        ];
+        if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1){
+            $htmlContent = $this->renderizado->generateHtmlPDF('/preguntasDB', $data);
+        }else{
+            $htmlContent = $this->renderizado->generateHtml('/preguntasDB', $data);
+        }
 
         if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1) {
-        $pdfFilename = 'preguntas_report.pdf';
-        PdfGenerator::generatePdf($htmlContent, $pdfFilename);
-    } else {
-        echo $htmlContent;
+            $pdfFilename = 'preguntas_report.pdf';
+            PdfGenerator::generatePdf($htmlContent, $pdfFilename);
+        } else {
+            echo $htmlContent;
+        }
     }
-}
 
     public function acertadasPorUsuario(){
 

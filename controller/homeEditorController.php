@@ -14,7 +14,7 @@ class homeEditorController
     public function execute()
     {
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
-            /*PREGUNTAS: (home)
+            /*PREGUNTAS: (home) - LISTO
              * DAR DE ALTA
              * DAR DE BAJA
              * MODIFICAR
@@ -25,13 +25,12 @@ class homeEditorController
              * APROBAR
              * RECHAZAR
              */
-            $registros =$this->modelo->tabla();
-            $categorias =$this->modelo->traerCategorias();
-            $arrayPreguntas =$this->modelo->traerPreguntas();
-
-            $data = array(
-                'arrayPreguntas' => $arrayPreguntas,
-            );
+            //$registros =$this->modelo->tabla(); //XD Falla
+            //$categorias =$this->modelo->traerCategorias();
+            $preguntas =$this->modelo->traerPreguntas();
+            $data = [
+               'preguntas' => $preguntas,
+            ];
             $this->renderizado->render('/homeEditor', $data);
         }
         else{
@@ -49,8 +48,8 @@ class homeEditorController
                 $html .= '<td>'. $row['id'] .'</td>';
                 $html .= '<td>'. $row['categoria'] .'</td>';
                 $html .= '<td>'. $row['pregunta'] .'</td>';
-                $html .= '<td><a href="">Editar</a></td>';
-                $html .= '<td><a href="">Eliminar</a></td>';
+                $html .= '<td><a href="/editarPreguntaController">Editar</a></td>';
+                $html .= '<td><a href="/homeEditor/Eliminar">Eliminar</a></td>';
                 $html .= '</tr>';
             }
         }else{
@@ -59,5 +58,23 @@ class homeEditorController
             $html .= '</tr>';
         }
         echo json_encode($html, JSON_UNESCAPED_UNICODE);
+    }
+
+    PUBLIC FUNCTION editar(){
+        if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
+            $idPregunta = $_POST['editar'];
+            $pregunta =$this->modelo->traerPregunta($idPregunta);
+            $arrayRespuestas = $this->modelo->traerRespuestasDePregunta($idPregunta);
+            $respuestas= array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
+            $data = [
+                'idPregunta' => $idPregunta,
+                'pregunta' => $pregunta,
+                'respuestas' => $respuestas,
+            ];
+            $this->renderizado->render("/editarPregunta", $data);
+        }
+        else{
+            $this->renderizado->render('/login');
+        }
     }
 }
