@@ -1,7 +1,3 @@
-Agregar el contador de tiempo
-Cambiar el fondo depende de la categoría (Section class)
-CSS
-Hacer perfil editor
-view de agregar pregunta OK
-Hacer perfil del usuario + Hacer lo del QR
-Ver validación con PHPMailer y token
+Ajax, perfiles *admin, jugador / vista jugador perfil, editor, fecha y hora en el ranking
+
+envioExitoso, perfil jugador full datos y secundario

@@ -1,8 +1,10 @@
 <main>
 <section class="sugerirPregunta">
 <br>
-<h1>¡ Bienvenido !</h1>
-<form action="/sugerirPregunta/sugerirPreguntaUsuario" class="containerRegistro" method="POST">
+<div class="div">
+<h1 class="h1">¡ Bienvenido !</h1>
+</div>
+<form action="/sugerirPregunta/sugerirPreguntaUsuario" class="containerRegistroSugerir" method="POST">
         <h2>Ingrese a continuación la pregunta que desea sugerir para Anime Test:</h2>
         <input type="text" placeholder="Ingrese su pregunta sugerida" name="preguntaSugerida" required>
         <h2>Ingrese posibles respuestas: </h2>
@@ -30,7 +32,6 @@
         </div>
     </select>
         <br>
-
         <label for="dificultad"><h2>Seleccione una dificultad:</h2></label>
         <select id="dificultad" name="id_dificultad">
         <div>

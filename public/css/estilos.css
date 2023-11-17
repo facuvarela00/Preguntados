@@ -171,14 +171,41 @@ header, .headerIniciado {
     border-bottom: white 1px solid;
 }
 
-.h1 {
+.h1 h1{
     text-align: center;
-    padding: 5x;
+    padding-top: 5px;
+    padding-bottom: 5px;
     color: black;
     font-size: 30px;
     font-weight: bold;
     font-family: 'Anime Ace', sans-serif;
     animation: aparecer 2s ease-in-out;
+}
+
+.sugerirPregunta h1{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Anime Ace', sans-serif;
+    width: 20%;
+    animation: aparecer 2s ease-in-out;
+    border-radius: 20%;
+}
+
+.sugerirPregunta{
+    margin-bottom: 15px;
+}
+
+.h1{
+    background-color: white;
+    width: 100%;
+}
+
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes aparecer {
@@ -364,6 +391,7 @@ form {
     justify-content: center;
     align-items: center;
     color: black;
+    padding: 2px;
 }
 
 .ingresa a{
@@ -388,6 +416,8 @@ form {
     animation: aparecer 2s ease-in-out;
 }
 
+
+
 .juegoIniciadoI{
     display: flex;
     justify-content: center;
@@ -408,7 +438,7 @@ form {
     color: #ffffff;
 }
 
-.containerRegistro, .container input[type=text], select {
+.containerRegistro, .containerRegistroSugerir, .container input[type=text], select {
     width: 100%;
     padding: 22px 30px;
     margin: 8px 0;
@@ -418,7 +448,8 @@ form {
     box-sizing: border-box;
   }
   
-  .containerRegistro input[type=submit], .containerRegistro input[type=submit]{
+
+  .containerRegistro input[type=submit], .containerRegistroSugerir input[type=submit]{
     width: 100%;
     background-color: #04AA6D;
     color: white;
@@ -428,13 +459,10 @@ form {
     cursor: pointer;
   }
   
-.containerRegistro input[type=submit]:hover {
+.containerRegistro input[type=submit]:hover , .containerRegistroSugerir input[type=submit]:hover{
     background-color: #2ec235;
   }
 
-.containerRegistro{
-    border: none;
-}
 
 .registroAnimeTest, .sugerirPregunta {
     position: relative;
@@ -654,13 +682,18 @@ footer{
     z-index: -1;
 }
 
-.contenedorRanking {
+.contenedorRanking , .containerRegistro, .containerRegistroSugerir{
     max-width: 800px; 
     margin: 0 auto; 
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     padding: 20px; 
     border-radius: 8px; 
+}
+
+.containerRegistro{
+    margin-bottom: 3em;
+    margin-top: 3em;
 }
 
 .error {
@@ -707,7 +740,7 @@ a:hover {
     text-decoration: underline; 
 }
 
-.fondoRanking h1{
+.fondoRanking h1 {
     text-align: center;
     font-size: 30px;
     color: black;

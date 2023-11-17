@@ -1,21 +1,22 @@
-<h1 class="h1">Anime Test</h1>
 
 <section class="registroAnimeTest">
-<form action="/login/validarLogin" method="POST">
-    <div class="containerRegistro0">
-    <h3 style="text-align: center">Iniciar sesion</h3>
-    </div>
+<div class="h1">
+<h1 class="h1">Anime Test</h1>
+<h1 class="h1">Iniciar sesion</h1>
+</div>
     <div class="imgcontainer">
-    </div>{{error}}
-    <div class="containerRegistro">
+    </div>{{error}} 
+    <form action="/login/validarLogin" method="POST">
+        <div class="containerRegistro">
         <label for="correo"><b>Direccion de Correo</b></label>
-        <input type="text" placeholder="Ingrese direccion de Correo" name="correo" required>
+        <input type="text" placeholder="Ingrese direccion de Correo" name="correo" required><br><br>
         <label for="password"><b>Contraseña</b></label>
         <input type="password" placeholder="Ingrese la Contraseña" name="password" required>
         <span style="color: #f44336">{{error}}</span>
+        <br><br>
         <input type="submit" class="botonFormularioInicio" value="Iniciar Sesion">
-    </div>
-</form>
+        </div>
+        </form>
 </section>
 
 <section class="ingresa">
