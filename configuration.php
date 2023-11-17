@@ -114,5 +114,6 @@ class Configuration{
         return new homeEditorController($this->getHomeEditorModel(), $this->getRenderer());
     }
 
+
 }
 ?>

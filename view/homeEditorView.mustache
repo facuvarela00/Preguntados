@@ -9,46 +9,51 @@
               }
 
               table{
-                  width: 80%;
                   border-collapse: collapse;
+                  background-color: white;
               }
           </style>
           <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
-
-          <form action="/mostrarTabla" method="post">
-              <label for="buscar">Buscar: </label>
-              <input type="text" name="buscar" id="buscar">
+          <form style="display: flex; flex-direction: column; align-items: center;  justify-content: center;" action="/mostrarTabla" method="post">
+              <label style="color: white; font-size: 1.5em" for="buscar">Buscar: </label>
+              <input style="width: 500px; height: 1em"  type="text" name="buscar" id="buscar">
           </form>
 
-          <p></p>
-
-          <table>
-              <thead>
-                <th>Id</th>
-                <th>Categoria</th>
-                <th>Pregunta</th>
-                <th></th>
-                <th></th>
-              </thead>
-              <tbody id="content">
-              {{#arrayPreguntas}}
+          <div style="margin-bottom: 1em"><a style="color: #817392; font-size: 1.5em;" href="">Agregar Pregunta</a></div>
+          <div id="scrollable-box" style="overflow-y: scroll; height: 600px">
+              <table>
+                  <thead>
                   <tr>
-                      <td>{{id}}</td>
-                      <td>{{categorias}}</td>
-                      <td>{{preguntas}}</td>
-                      <td>
-                          <a href="/Editar">Editar</a>
-                      </td>
-                      <td>
-                          <a href="/Eliminar">Eliminar</a>
-                      </td>
+                      <th>ID Pregunta</th>
+                      <th>Pregunta</th>
+                      <th>ID Categoria</th>
+                      <th></th>
+                      <th></th>
                   </tr>
-              {{/arrayPreguntas}}
-              </tbody>
-          </table>
-
+                  </thead>
+                  <tbody>
+                  {{#preguntas}}
+                      <tr>
+                          <td>{{id}}</td>
+                          <td>{{pregunta}}</td>
+                          <td>{{id_categoria}}</td>
+                          <td>
+                              <form action="/homeEditor/editar" method="POST" >
+                                  <input type="hidden" value="{{id}}" name="editar">
+                                  <input type="submit" value="Editar" name="">
+                              </form>
+                          </td>
+                          <td>
+                              <form action="/Eliminar" method="POST" >
+                                  <input type="submit" value="Eliminar" name="{{id}}">
+                              </form>
+                          </td>
+                      </tr>
+                  {{/preguntas}}
+                  </tbody>
+              </table>
+          </div>
           <script>
-
               getData();
 
               document.getElementById("campo").addEventListener("keyup", getData);
