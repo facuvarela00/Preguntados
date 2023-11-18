@@ -81,6 +81,7 @@ class juegoIniciadoController{
                 $preguntaSeleccionada=$arrayPreguntasNivelUsuario[$numeroAleatorio];
                 $this->almacenarPreguntaActual($preguntaSeleccionada['id']);
                 $this->modelo->fueUtilizada($preguntaSeleccionada);
+
                 return $preguntaSeleccionada;
             }else{
                 $arrayPreguntasRestantes=$this->modelo->buscarPreguntasRestantes();
@@ -165,11 +166,8 @@ class juegoIniciadoController{
         $idPregunta=intval($idPregunta['id']);
         $_SESSION['reportada']=1;
         $_SESSION['idPreguntaReportada']=$idPregunta;
-        if($result){
-            header("Location:envioExitosoReporte");
-        } else{
-            header("Location:/homeJuego");
-        }
+        header("Location:envioExitosoReporte");
+
     }
 
     public function envioExitosoReporte(){

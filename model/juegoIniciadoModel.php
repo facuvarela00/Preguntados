@@ -27,12 +27,12 @@ class juegoIniciadoModel
     }
     public function buscarPreguntasPorNivelUsuario($nivelUsuario){
 
-        if ($nivelUsuario>=0&&$nivelUsuario<=33){
-            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >66 AND nivelPregunta <=100 ";
-        }elseif($nivelUsuario>33&&$nivelUsuario<=66){
-            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >33 AND nivelPregunta <=66";
+        if ($nivelUsuario=='Noob'){
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta='Facil'";
+        }elseif($nivelUsuario=='Pro'){
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta='Dificil'";
         }else{
-            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta >=0 AND nivelPregunta <=33";
+            $sql = "SELECT * FROM preguntas WHERE utilizada = 0 AND nivelPregunta='Medio'";
         }
 
         $result = $this->database->query($sql);
@@ -96,6 +96,14 @@ class juegoIniciadoModel
     public function obtenerIdPregunta($pregunta) {
         $sql = "SELECT id FROM preguntas WHERE pregunta = '$pregunta' ";
         $result = $this->database->queryAssoc($sql);
+
+        return $result;
+    }
+
+    public function buscarPreguntaAssoc($id) {
+        $sql = "SELECT * FROM preguntas WHERE id = '$id'";
+        $result = $this->database->queryAssoc($sql);
+
         return $result;
     }
 
@@ -104,9 +112,11 @@ class juegoIniciadoModel
     {
         $idPregunta = $this->obtenerIdPregunta($textoPregunta);
         $idPreguntaII = intval($idPregunta['id']);
-        if (!empty($idPreguntaII) && !empty($textoPregunta) && !empty($usuarioCorreo)) {
-            $sql = "INSERT INTO preguntas_reportadas (id_pregunta, mail, pregunta_reportada) VALUES ('$idPreguntaII', '$usuarioCorreo', '$textoPregunta')";
-            $pregunta = $this->database->execute($sql);
+        $pregunta=$this->buscarPreguntaAssoc($idPreguntaII);
+
+        if ($pregunta['reportada']=='NO') {
+            $sql = "UPDATE preguntas SET reportada = 'SI' WHERE id = '$idPreguntaII'";
+            $this->database->execute($sql);
             return true;
         } else {
             return false;
@@ -147,7 +157,20 @@ class juegoIniciadoModel
 
         $nivelUsuario=(100*$preguntasAcertadas)/$preguntasRecibidas;
 
-        $sql= "UPDATE usuarios SET nivelUsuario = '$nivelUsuario' WHERE mail = '$correo'";
+        if($preguntasRecibidas>15){
+            if($nivelUsuario>67&&$nivelUsuario<=100){
+                $nivel="Pro";
+            }elseif($nivelUsuario>33&&$nivelUsuario<=67){
+                $nivel="Avanzado";
+            }else{
+                $nivel="Noob";
+            }
+        }else{
+            $nivel="Noob";
+        }
+
+
+        $sql= "UPDATE usuarios SET nivelUsuario = '$nivel' WHERE mail = '$correo'";
         $this->database->execute($sql);
     }
 
@@ -158,10 +181,20 @@ class juegoIniciadoModel
 
         $nivelPregunta=(100*$cantidadAcertada)/$cantidadEntregada;
 
-        $sql= "UPDATE preguntas SET nivelPregunta='$nivelPregunta' WHERE id='$idPregunta'";
+
+            if($nivelPregunta>67&&$nivelPregunta<=100){
+                $nivel="Facil";
+            }elseif($nivelPregunta>33&&$nivelPregunta<=67){
+                $nivel="Medio";
+            }else{
+                $nivel="Dificil";
+            }
+
+        $sql= "UPDATE preguntas SET nivelPregunta='$nivel' WHERE id='$idPregunta'";
         $this->database->execute($sql);
 
     }
+
 
 }
 

@@ -14,6 +14,7 @@ class homeAdminController
 
     public function execute()
     {
+
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==1){
             $cantidadUsuarios=$this->modelo->verCantidadUsuarios();
             $usuarios=$this->modelo->verUsuarios();
@@ -94,7 +95,9 @@ class homeAdminController
             'acertadas'=>$acertadas,
             'erradas'=>$erradas,
         ];
-
+        if($recibidas==0){
+            return "no-data.png";
+        }
         return $this->graficoPorcentajeAcertadasPorUsuario($usuario,$datos);
     }
     public function graficoPorcentajeAcertadasPorUsuario($usuario,$datos){

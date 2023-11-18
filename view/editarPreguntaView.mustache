@@ -4,13 +4,14 @@
 <h1>Editor de preguntas</h1>
 <form action="/editarPregunta/editar" class="" method="PUT">
         <h2>Pregunta:</h2>
-        <input type="text" placeholder="{{pregunta}}" name="pregunta" required>
+        <input type="text" value="{{pregunta}}" name="pregunta" required>
         <h2>Respuestas: </h2>
-        <input type="text" placeholder="{{respuestas.0}}" name="respuestaA" required>
-        <input type="text" placeholder="{{respuestas.1}}" name="respuestaB" required>
-        <input type="text" placeholder="{{respuestas.2}}" name="respuestaC" required>
-        <input type="text" placeholder="{{respuestas.3}}" name="respuestaD" required>
+        <input type="text" value="{{respuestas.0}}" name="respuestaA" required>
+        <input type="text" value="{{respuestas.1}}" name="respuestaB" required>
+        <input type="text" value="{{respuestas.2}}" name="respuestaC" required>
+        <input type="text" value="{{respuestas.3}}" name="respuestaD" required>
         <label for="categoria"><h2>Categoria</h2></label>
+
         <select id="categoria" name="id_categoria">
         <div>
         <option value="1" name="1">POKEMON</option>

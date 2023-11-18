@@ -64,10 +64,11 @@ class homeEditorController
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
             $idPregunta = $_POST['editar'];
             $pregunta =$this->modelo->traerPregunta($idPregunta);
+
             $arrayRespuestas = $this->modelo->traerRespuestasDePregunta($idPregunta);
             $respuestas= array_map(function($item) {return $item['respuesta'];}, $arrayRespuestas);
-            $data = [
 
+            $data = [
                 'pregunta' => $pregunta['pregunta'],
                 'respuestas' => $respuestas,
             ];
