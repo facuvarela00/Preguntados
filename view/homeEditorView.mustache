@@ -19,7 +19,11 @@
               <input style="width: 500px; height: 1em"  type="text" name="buscar" id="buscar">
           </form>
 
-          <div style="margin-bottom: 1em"><a style="color: #817392; font-size: 1.5em;" href="">Agregar Pregunta</a></div>
+          <div style="margin-bottom: 1em">
+              <form action="mostrarAgregar" method="POST">
+                  <input type="submit" name="agregar" value="Agregar Pregunta">
+              </form>
+          </div>
           <div id="scrollable-box" style="overflow-y: scroll; height: 600px">
               <table>
                   <thead>
@@ -59,27 +63,6 @@
                   </tbody>
               </table>
           </div>
-          <script>
-              getData();
-
-              document.getElementById("campo").addEventListener("keyup", getData);
-
-              function getData(){
-                  let input =document.getElementById("buscar").value;
-                  let content = document.getElementById("content");
-                  let ejecuter = "/mostrarTabla";
-                  let formData = new FormData();
-                  formData.append("buscar",input);
-
-                  fetch(ejecuter,{
-                      method:"POST",
-                      body: formData
-                  }).then(response => response.json())
-                          .then(data=>{
-                              content.innerHTML = data
-                          }).catch(err => console.log(err))
-              }
-          </script>
       </article>
     </section>
 </main>

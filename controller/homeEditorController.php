@@ -14,10 +14,7 @@ class homeEditorController
     public function execute()
     {
         if (isset($_SESSION['correo'])&&(isset($_SESSION['rolActual']))&&$_SESSION['rolActual']==2){
-            /*PREGUNTAS: (home) - LISTO
-             * DAR DE ALTA
-             * DAR DE BAJA
-             * MODIFICAR
+            /*
              * PREGUNTAS REPORTADAS:
              * APROBAR
              * DAR DE BAJA
@@ -25,8 +22,6 @@ class homeEditorController
              * APROBAR
              * RECHAZAR
              */
-            //$registros =$this->modelo->tabla(); //XD Falla
-            //$categorias =$this->modelo->traerCategorias();
             $preguntas =$this->modelo->traerPreguntas();
             $data = [
                'preguntas' => $preguntas,
@@ -36,28 +31,6 @@ class homeEditorController
         else{
              $this->renderizado->render('/login');
         }
-    }
-
-    PUBLIC FUNCTION mostrarTabla(){
-        $registros =$this->modelo->tabla();
-        $html='';
-
-        if(!empty($registros)){
-            while($row = $registros){
-                $html .= '<tr>';
-                $html .= '<td>'. $row['id'] .'</td>';
-                $html .= '<td>'. $row['categoria'] .'</td>';
-                $html .= '<td>'. $row['pregunta'] .'</td>';
-                $html .= '<td><a href="/editarPreguntaController">Editar</a></td>';
-                $html .= '<td><a href="/homeEditor/Eliminar">Eliminar</a></td>';
-                $html .= '</tr>';
-            }
-        }else{
-            $html .= '<tr>';
-            $html .= '<td colspan="7">Sin Resultados</td>';
-            $html .= '</tr>';
-        }
-        echo json_encode($html, JSON_UNESCAPED_UNICODE);
     }
 
    public function editar(){

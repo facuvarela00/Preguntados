@@ -1,0 +1,47 @@
+<main>
+<section class="sugerirPregunta">
+<br>
+<h1>¡ Bienvenido !</h1>
+<form action="/homeEditor/agregarPregunta" class="" method="POST">
+        <h2>Agregar Pregunta:</h2>
+        <input type="text" placeholder="Ingrese su pregunta" name="pregunta" required>
+        <h2>Ingrese las opciones: </h2>
+        <input type="text" placeholder="Respuesta A" name="respuestaA" required>
+        <input type="text" placeholder="Respuesta B" name="respuestaB" required>
+        <input type="text" placeholder="Respuesta C" name="respuestaC" required>
+        <input type="text" placeholder="Respuesta D" name="respuestaD" required>
+
+        <label for="categoria"><h2>Seleccione una categoría:</h2></label>
+        <select id="categoria" name="id_categoria">
+        <div>
+        <option value="1" name="1">POKEMON</option>
+        <option value="2" name="2">SHINGEKI NO KYOJIN</option>
+        <option value="3" name="3">BANANA FISH</option>
+        <option value="4" name="4">DEATH NOTE</option>
+        <option value="5" name="5">HAIKYUU</option>
+        </div>
+        </select>
+    <label for="dificultad">Dificultad:</label>
+    <select id="dificultad" name="dificultad">
+        <div>
+            <option>FACIL</option>
+            <option>MEDIA</option>
+            <option>DIFICIL</option>
+        </div>
+    </select>
+        <br>
+
+        <label for="dificultad"><h2>Seleccione una dificultad:</h2></label>
+        <select id="dificultad" name="id_dificultad">
+        <div>
+        <option value="1" name="1">FÁCIL</option>
+        <option value="2" name="2">MEDIA</option>
+        <option value="3" name="3">DIFÍCIL</option>
+        </div>
+        </select>
+        <div id="sugerida">
+        <input type="submit" class="opcionesHome2" value="Enviar">
+        </div>
+</form>
+</section>
+</main>
