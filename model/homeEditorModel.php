@@ -39,6 +39,12 @@ class homeEditorModel
         return $arrayRespuestas;
     }
 
+    public function traerIDRespuestasDePregunta($id){
+        $sql = "SELECT id FROM respuestas WHERE id_pregunta = '$id'";
+        $arrayRespuestas = $this->database->query($sql);
+        return $arrayRespuestas;
+    }
+
     public function traerPreguntaReportadas(){
         $sql = "SELECT * FROM preguntas_reportadas";
         $arrayPreguntas = $this->database->query($sql);
@@ -73,6 +79,39 @@ class homeEditorModel
         $this->database->execute($sql);
         $this->database->execute($sql2);
     }
+
+    public function modificarPreguntaRespuestas($idPregunta,$idRespuestaCorrecta,$id_categoria,$pregunta,$respuestaA,$respuestaB,$respuestaC,$respuestaD){
+        //Pregunta
+        $sql1 = "UPDATE preguntas SET pregunta='$pregunta', id_categoria = $id_categoria WHERE id = $idPregunta";
+        $this->database->execute($sql1);
+        //Respuestas
+        $arrayRespuetas = [$respuestaA,$respuestaB,$respuestaC,$respuestaD];
+        $respusetasBD=$this->traerIDRespuestasDePregunta($idPregunta);
+        for($i=0; $i<=3; $i++){
+            $idRespuesta=$respusetasBD[$i]['id'];
+            $sql2 = "UPDATE respuestas SET respuesta= '$arrayRespuetas[$i]', esCorrecta=0 WHERE id =  $idRespuesta";
+            if($idRespuesta == $idRespuestaCorrecta){
+                $sql2 = "UPDATE respuestas SET respuesta= '$arrayRespuetas[$i]', esCorrecta=1 WHERE id =  $idRespuesta";
+            }
+            $this->database->execute($sql2);
+        }
+    }
+
 }
 
+
+/*
+         for($i=0; $i<=3; $i++){
+            $idRespuesta=$respusetasBD[$i]['id'];
+            $sql2 = "UPDATE respuestas";
+            if($idRespuesta == $idRespuestaCorrecta){
+                $sql2 .= " SET respuesta= '$arrayRespuetas[$i]', esCorrecta=1 WHERE id =  $idRespuesta";
+                array_push($arraysql,$sql2);
+            }else{
+                $sql2 .= " SET respuesta='$arrayRespuetas[$i]', esCorrecta=0 WHERE id =  $idRespuesta";
+                array_push($arraysql,$sql2);
+            }
+            var_dump($arraysql[$i]);
+        }
+ */
 ?>
