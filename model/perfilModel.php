@@ -15,4 +15,11 @@ class perfilModel
         return $resultado;
     }
 
+    public function buscarUsuarioMail($correo){
+        $resultado = "";
+        $sql = "Select * from usuarios where mail = ('$correo')";
+        $resultado = $this->database->queryAssoc($sql);
+        return $resultado;
+    }
+
 }
