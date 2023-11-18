@@ -375,4 +375,3 @@ VALUES
 (57, 'Fly High', 0),
 (57, 'Hikari Are', 0),
 (57, 'Ah Yeah!!', 0);
-

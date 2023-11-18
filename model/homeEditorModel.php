@@ -21,6 +21,12 @@ class homeEditorModel
         return $pregunta;
     }
 
+    public function traerIDNuevaPregunta($pregunta){
+        $sql = "SELECT id FROM preguntas where pregunta like '$pregunta'";
+        $pregunta = $this->database->queryAssoc($sql);
+        return $pregunta;
+    }
+
     public function traerRespuestas(){
         $sql = "SELECT * FROM respuestas";
         $arrayRespuestas = $this->database->query($sql);
@@ -97,21 +103,38 @@ class homeEditorModel
         }
     }
 
-}
+    public function agregarPreguntaRespuestas($id_categoria,$pregunta,$respuestaA,$respuestaB,$respuestaC,$respuestaD,$dificultad, $correcta){
+        //Pregunta
+        $horaDeCreacion=date("Y-m-d H:i:s");
 
-
-/*
-         for($i=0; $i<=3; $i++){
-            $idRespuesta=$respusetasBD[$i]['id'];
-            $sql2 = "UPDATE respuestas";
-            if($idRespuesta == $idRespuestaCorrecta){
-                $sql2 .= " SET respuesta= '$arrayRespuetas[$i]', esCorrecta=1 WHERE id =  $idRespuesta";
-                array_push($arraysql,$sql2);
-            }else{
-                $sql2 .= " SET respuesta='$arrayRespuetas[$i]', esCorrecta=0 WHERE id =  $idRespuesta";
-                array_push($arraysql,$sql2);
-            }
-            var_dump($arraysql[$i]);
+        $cantidadEntregada=15;
+        if($dificultad=='Facil'){
+            $cantidadAcertada=12;
+        }else if($dificultad=='Medio'){
+            $cantidadAcertada=7;
+        }else{
+            $cantidadAcertada=3;
         }
- */
+        $sql1="INSERT INTO preguntas (pregunta, utilizada, id_categoria, nivelPregunta, cantidadEntregada,cantidadAcertada, reportada, horaCreacion) VALUES ('$pregunta',0,$id_categoria,'$dificultad',$cantidadEntregada,$cantidadAcertada,'NO','$horaDeCreacion')";
+        $this->database->execute($sql1);
+
+        //Respuestas
+        $arrayRespuetas = [$respuestaA,$respuestaB,$respuestaC,$respuestaD];
+        $idPreg=$this->traerIDNuevaPregunta($pregunta)['id'];
+        if(!empty($idPreg)){
+            for($i=0; $i<=3; $i++){
+                $sql2 = "INSERT INTO respuestas (id_pregunta, respuesta, esCorrecta) VALUES ($idPreg,'$arrayRespuetas[$i]',0)";
+                if($correcta == $i){
+                    $sql2 = "INSERT INTO respuestas (id_pregunta, respuesta, esCorrecta) VALUES ($idPreg,'$arrayRespuetas[$i]',1)";
+                }
+                $this->database->execute($sql2);
+            }
+        }else{
+            var_dump("ERROR");
+            exit();
+        }
+
+    }
+
+}
 ?>
