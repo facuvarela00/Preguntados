@@ -2,14 +2,16 @@
 <section class="editarPregunta">
 <br>
 <h1>Editor de preguntas</h1>
-<form action="/editarPregunta/editar" class="" method="PUT">
-        <h2>Pregunta:</h2>
-        <input type="text" placeholder="{{pregunta}}" name="pregunta" required>
-        <h2>Respuestas: </h2>
-        <input type="text" placeholder="{{respuestas.0}}" name="respuestaA" required>
-        <input type="text" placeholder="{{respuestas.1}}" name="respuestaB" required>
-        <input type="text" placeholder="{{respuestas.2}}" name="respuestaC" required>
-        <input type="text" placeholder="{{respuestas.3}}" name="respuestaD" required>
+<form action="/homeEditor/modificarPregunta" class="" method="POST">
+        <h2 style="color: black">Pregunta:</h2>
+        <input type="text" value="{{pregunta}}" name="pregunta" required>
+        <input type="hidden" name="id" value="{{idPregunta}}">
+        <h2 style="color: black">Respuestas: </h2>
+        <input type="text" id="rep0" value="{{respuestas.0}}" name="respuestaA" required>
+        <input type="text" id="rep1" value="{{respuestas.1}}" name="respuestaB" required>
+        <input type="text" id="rep2" value="{{respuestas.2}}" name="respuestaC" required>
+        <input type="text" id="rep3" value="{{respuestas.3}}" name="respuestaD" required>
+        <h2 style="color: black">Categoría: </h2>
         <label for="categoria"><h2>Categoria</h2></label>
         <select id="categoria" name="id_categoria">
         <div>
@@ -19,6 +21,16 @@
         <option value="4" name="4">DEATH NOTE</option>
         <option value="5" name="5">HAIKYUU</option>
         </div>
+        </select>
+        <h2 style="color: black">Respuesta correcta: </h2>
+        <select id="correcta" name="correcta">
+            <div>
+                <option value="" name="{{respuestas.0}}"></option>
+                <option value="{{respuestasId.0}}" name="{{respuestasId.0}}">Primera</option>
+                <option value="{{respuestasId.1}}" name="{{respuestasId.1}}">Segunda</option>
+                <option value="{{respuestasId.2}}" name="{{respuestasId.2}}">Tercera</option>
+                <option value="{{respuestasId.3}}" name="{{respuestasId.3}}">Cuarta</option>
+            </div>
         </select>
         <div id="editar">
         <input type="submit" class="" value="Enviar">

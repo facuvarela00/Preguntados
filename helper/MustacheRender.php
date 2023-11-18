@@ -33,6 +33,13 @@ class MustacheRender{
         $contentAsString .= file_get_contents('view/head/footer.mustache');
         return $this->mustache->render($contentAsString, $data);
     }
+
+    public function generateHtmlPDF($contentFile, $data = array()) {
+
+       $main=file_get_contents('view/' . $contentFile . 'View.mustache');
+
+        return $this->mustache->render($main);
+    }
 }
 
 ?>

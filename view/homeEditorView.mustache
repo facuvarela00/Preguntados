@@ -40,13 +40,19 @@
                           <td>
                               <form action="/homeEditor/editar" method="POST" >
                                   <input type="hidden" value="{{id}}" name="editar">
-                                  <input type="submit" value="Editar" name="">
+                                  <input type="submit" value="Editar" >
                               </form>
                           </td>
                           <td>
-                              <form action="/Eliminar" method="POST" >
-                                  <input type="submit" value="Eliminar" name="{{id}}">
-                              </form>
+                              <form action="/homeEditor/eliminar" method="POST" >
+                                  <input type="hidden" value="{{id}}" name="eliminar">
+                                  <input type="submit" value="Eliminar" onclick="return confirmarEliminarPregunta()"></form></td>
+                          <script>
+                              function confirmarEliminarPregunta() {
+                                  var confirmacion = confirm("¿Estás seguro de que deseas eliminar esta pregunta?");
+                                  return confirmacion;
+                              }
+                          </script>
                           </td>
                       </tr>
                   {{/preguntas}}

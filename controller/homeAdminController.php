@@ -9,6 +9,7 @@ class homeAdminController
     {
         $this->modelo = $modelo;
         $this->renderizado = $renderizado;
+
     }
 
     public function execute()
@@ -52,18 +53,29 @@ class homeAdminController
         $this->renderizado->render('/usuariosDB',$data);
         exit();
     }
-    public function preguntas(){
-        $cantidadPartidasJugadas=$this->modelo->verCantidadPartidasJugadas();
-        $cantidadTotalPreguntas=$this->modelo->verCantidadPreguntas();
-        $graficoPreguntasPorCategoria=$this->graficoPreguntasPorCategoria();
+    public function preguntas() {
+        $cantidadPartidasJugadas = $this->modelo->verCantidadPartidasJugadas();
+        $cantidadTotalPreguntas = $this->modelo->verCantidadPreguntas();
+        $graficoPreguntasPorCategoria = $this->graficoPreguntasPorCategoria();
 
         $data = [
-            'cantidadTotalPreguntas'=>$cantidadTotalPreguntas,
-            'graficoPreguntasPorCategoria'=>$graficoPreguntasPorCategoria,
-            'cantidadPartidasJugadas'=>$cantidadPartidasJugadas,
+            'cantidadTotalPreguntas' => $cantidadTotalPreguntas,
+            'graficoPreguntasPorCategoria' => $graficoPreguntasPorCategoria,
+            'cantidadPartidasJugadas' => $cantidadPartidasJugadas,
+            'mostrarBotonGenerar' => isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1 ? false : true,
         ];
+        if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1){
+            $htmlContent = $this->renderizado->generateHtmlPDF('/preguntasDB', $data);
+        }else{
+            $htmlContent = $this->renderizado->generateHtml('/preguntasDB', $data);
+        }
 
-        $this->renderizado->render('/preguntasDB',$data);
+        if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1) {
+            $pdfFilename = 'preguntas_report.pdf';
+            PdfGenerator::generatePdf($htmlContent, $pdfFilename);
+        } else {
+            echo $htmlContent;
+        }
     }
 
     public function acertadasPorUsuario(){
@@ -206,12 +218,17 @@ class homeAdminController
         return $nombreArchivo;
     }
 
-
-
-
-
-
-
+    public function desactivarCuenta(){
+        $correo=$_POST['correo'];
+        if($correo=="editor@gmail.com" || $correo=="admin@gmail.com"){
+            header("Location:homeAdmin");
+        }else{
+            $this->modelo->desactivarCuenta($correo);
+            header("Location:homeAdmin");
+        }
+    }
 
 
 }
+
+

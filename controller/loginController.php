@@ -13,7 +13,9 @@ class loginController
 
     public function execute()
     {
-        session_destroy();
+        if(isset($_SESSION['correo'])){
+            unset($_SESSION['correo']);
+        }
         $this->renderizado->render('/login');
     }
 

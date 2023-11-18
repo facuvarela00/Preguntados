@@ -27,45 +27,56 @@
             }
         </style>
         <article>
-        <p style="color:white">Actualmente hay {{cantidadUsuarios}} usuarios registrados.</p>
-        <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID Usuario</th>
-                    <th>Nombre Completo</th>
-                    <th>Nombre de Usuario</th>
-                    <th>Correo</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Genero</th>
-                    <th>Pais</th>
-                    <th>Ciudad</th>
-                    <th>Nivel</th>
-                    <th>Activo</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                {{#usuarios}}
+            <p style="color:white">Actualmente hay {{cantidadUsuarios}} usuarios registrados.</p>
+            <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+                <table>
+                    <thead>
                     <tr>
-                        <td>{{id}}</td>
-                        <td>{{nombreCompleto}}</td>
-                        <td>{{username}}</td>
-                        <td>{{mail}}</td>
-                        <td>{{fechaNac}}</td>
-                        <td>{{genero}}</td>
-                        <td>{{pais}}</td>
-                        <td>{{ciudad}}</td>
-                        <td>{{nivelUsuario}}</td>
-                        <td>{{activo}}</td>
+                        <th>ID Usuario</th>
+                        <th>Nombre Completo</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Correo</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Genero</th>
+                        <th>Pais</th>
+                        <th>Ciudad</th>
+                        <th>Nivel</th>
+                        <th>Activo</th>
+                        <th></th>
+
                     </tr>
-                {{/usuarios}}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {{#usuarios}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{nombreCompleto}}</td>
+                            <td>{{username}}</td>
+                            <td>{{mail}}</td>
+                            <td>{{fechaNac}}</td>
+                            <td>{{genero}}</td>
+                            <td>{{pais}}</td>
+                            <td>{{ciudad}}</td>
+                            <td>{{nivelUsuario}}</td>
+                            <td>{{activo}}</td>
+                            <td><form action="/homeAdmin/desactivarCuenta" method="post">
+                                <input type="hidden" value="{{mail}}" name="correo">
+                                <input type="submit" value="Desactivar" onclick="return confirmarDesactivar()"></form></td>
+                            <script>
+                                function confirmarDesactivar() {
+                                    var confirmacion = confirm("¿Estás seguro de que deseas desactivar esta cuenta?");
+
+                                    return confirmacion;
+                                }
+                            </script>
+                        </tr>
+                    {{/usuarios}}
+                    </tbody>
+                </table>
+            </div>
         </article>
         <article>
-        <p style="color:white">Actualmente hay {{cantidadPreguntas}} preguntas.</p>
+            <p style="color:white">Actualmente hay {{cantidadPreguntas}} preguntas.</p>
             <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
                 <table>
                     <thead>
@@ -76,7 +87,6 @@
                         <th>Dificultad Pregunta</th>
                         <th>Cantidad Entregada</th>
                         <th>Cantidad Acertada</th>
-
                     </tr>
                     </thead>
                     <tbody>

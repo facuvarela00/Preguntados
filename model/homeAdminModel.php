@@ -127,6 +127,11 @@ class homeAdminModel
         /* NOSE A QUE SE REFIERE */
     }
 
+    public function desactivarCuenta($correo){
+        $sql = "UPDATE usuarios SET activo = 'NO' WHERE mail = '$correo'";
+        $resultado = $this->database->execute($sql);
+    }
+
 }
 
 ?>
