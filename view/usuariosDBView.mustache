@@ -1,13 +1,48 @@
-<p>usuarios</p>
-<img src="/public/graficos/{{graficoCantidadUsuariosPorGenero}}" alt="Usuarios por Genero">
-<img src="/public/graficos/{{graficoCantidadUsuariosPorGrupoEdad}}" alt="Usuarios por Grupo Edad">
-<img src="/public/graficos/{{graficoCantidadUsuariosPorPais}}" alt="Usuarios por Pais">
-<div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 400px; align-self: center">
-<p>{{#usuarios}}</p>
-    <form action="usuarios" method="POST">
-        <input type="submit" class="user-button" data-correo="{{.}}" name="correo" value="{{.}}">
-    </form>
-<p>{{/usuarios}}</p>
-</div>
-<img src="/public/graficos/{{graficoPorcentajeAcertadasPorUsuario}}" alt="Porcentaje Acertadas por Usuario">
+<main>
+    <article>
+        <form action="/homeAdmin/filtrarGraficos" method="post">
+            <select name="filtro" id="filtro">
+                <option value="todo">Todos los Tiempos</option>
+                <option value="año">Ultimo Año</option>
+                <option value="mes">Ultimo Mes</option>
+                <option value="semana">Ultima Semana</option>
+                <option value="dia">Ultimo Día</option>
+            </select>
+            <input type="hidden" value="1" name="ejecutadaDesde">
+            <input type="submit" value="Filtrar">
+        </form>
+    </article>
+    <p>Usuarios</p>
+    <img src="/public/graficos/{{graficoCantidadUsuariosPorGenero}}" alt="Usuarios por Genero">
+    <img src="/public/graficos/{{graficoCantidadUsuariosPorGrupoEdad}}" alt="Usuarios por Grupo Edad">
+    <img src="/public/graficos/{{graficoCantidadUsuariosPorPais}}" alt="Usuarios por Pais">
+    <div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 400px; align-self: center">
+    <p>{{#usuarios}}</p>
+        <form action="usuarios" method="POST">
+            <input type="submit" class="user-button" data-correo="{{.}}" name="correo" value="{{.}}">
+        </form>
+    <p>{{/usuarios}}</p>
+    </div>
+    <img src="/public/graficos/{{graficoPorcentajeAcertadasPorUsuario}}" alt="Porcentaje Acertadas por Usuario">
 
+    <p>Usuarios Nuevos</p>
+    <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+        <table>
+            <thead>
+            <tr>
+                <th>ID Usuario</th>
+                <th>Correo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#usuariosNuevos}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{mail}}</td>
+                </tr>
+            {{/usuariosNuevos}}
+            </tbody>
+        </table>
+    </div>
+
+</main>

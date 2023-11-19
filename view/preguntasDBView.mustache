@@ -1,11 +1,46 @@
-<p>preguntas</p>
-<p>Partidas totales: {{cantidadPartidasJugadas}}</p>
-<p>Preguntas totales: {{cantidadTotalPreguntas}}</p>
-<img src="/public/graficos/{{graficoPreguntasPorCategoria}}" alt="Preguntas por Categoría">
+<main>
+    <article>
+        <form action="/homeAdmin/filtrarGraficos" method="post">
+        <select name="filtro" id="filtro">
+            <option value="todo">Todos los Tiempos</option>
+            <option value="año">Ultimo Año</option>
+            <option value="mes">Ultimo Mes</option>
+            <option value="semana">Ultima Semana</option>
+            <option value="dia">Ultimo Día</option>
+        </select>
+            <input type="hidden" value="2" name="ejecutadaDesde">
+            <input type="submit" value="Filtrar">
+        </form>
+    </article>
+    <p>Preguntas</p>
+    <p>Partidas totales: {{cantidadPartidasJugadas}}</p>
+    <p>Preguntas totales: {{cantidadTotalPreguntas}}</p>
+    <img src="/public/graficos/{{graficoPreguntasPorCategoria}}" alt="Preguntas por Categoría">
 
-{{#mostrarBotonGenerar}}
-    <form action="preguntas" method="post">
-        <input type="hidden" name="generarPDF" value="1">
-        <button type="submit">Generar PDF</button>
-    </form>
-{{/mostrarBotonGenerar}}
+    <p>Preguntas Nuevas</p>
+    <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Pregunta</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#preguntasNuevas}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{pregunta}}</td>
+                </tr>
+            {{/preguntasNuevas}}
+            </tbody>
+        </table>
+    </div>
+
+    {{#mostrarBotonGenerar}}
+        <form action="preguntas" method="post">
+            <input type="hidden" name="generarPDF" value="1">
+            <button type="submit">Generar PDF</button>
+        </form>
+    {{/mostrarBotonGenerar}}
+</main>
