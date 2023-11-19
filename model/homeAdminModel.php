@@ -186,16 +186,17 @@ class homeAdminModel
         ];
         if ($recibidas == 0) {
             return "no-data.png";
+        }else{
+            return $this->graficoPorcentajeAcertadasPorUsuario($usuario, $datos);
         }
-        return $this->graficoPorcentajeAcertadasPorUsuario($usuario, $datos);
     }
 
     public function graficoPorcentajeAcertadasPorUsuario($usuario, $datos)
     {
         $resultado = $datos;
 
-        $grafico = new PieGraph(600, 400);
-        $grafico->title->Set($usuario);
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Porcentaje Acertadas por: " .$usuario);
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
         $torta = new PiePlot($datosTorta);
@@ -221,7 +222,7 @@ class homeAdminModel
         if (empty($resultado)) {
             return "no-data.png";
         }
-        $grafico = new PieGraph(600, 400);
+        $grafico = new PieGraph(500, 300);
         $grafico->title->Set("Usuarios por Pais");
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
@@ -249,7 +250,7 @@ class homeAdminModel
         if (empty($resultado)) {
             return "no-data.png";
         }
-        $grafico = new PieGraph(600, 400);
+        $grafico = new PieGraph(500, 300);
         $grafico->title->Set("Usuarios por Genero");
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
@@ -277,7 +278,7 @@ class homeAdminModel
         if (empty($resultado)) {
             return "no-data.png";
         }
-        $grafico = new PieGraph(600, 400);
+        $grafico = new PieGraph(500, 300);
         $grafico->title->Set("Usuarios por Grupo Edad");
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
@@ -308,7 +309,7 @@ class homeAdminModel
             return "no-data.png";
         }
 
-        $grafico = new PieGraph(600, 400);
+        $grafico = new PieGraph(500, 300);
         $grafico->title->Set("Preguntas por Categoría");
         $datosTorta = array_values($resultado);
         $etiquetas = array_keys($resultado);
@@ -454,6 +455,84 @@ class homeAdminModel
         $resultado = $this->database->query($sql);
 
         return $resultado;
+    }
+
+    ////////////////////////////////PDFS USUARIOS///////////////////////////////////////
+
+    public function generarPDF($tipoDeFiltro,$filtrarEn){
+        switch($tipoDeFiltro){
+            case 'todo': $filtro="Resúmen de todos los Tiempos";
+            break;
+            case 'año': $filtro="Resúmen del Último Año";
+                break;
+            case 'mes': $filtro="Resúmen del Último Mes";
+                break;
+            case 'semana': $filtro="Resúmen de la Última Semana";
+                break;
+            case 'dia': $filtro="Resúmen Hoy";
+                break;
+            case 'default': $filtro="Resúmen todos los Tiempos";
+                break;
+        }
+        if($filtrarEn==1){
+            $html=$this->htmlUsuariosPDF($filtro);
+            $pdfFilename = 'usuarios_report.pdf';
+            $formato='landscape';
+        }else{
+            $html=$this->htmlPreguntasPDF($filtro);
+            $pdfFilename = 'preguntas_report.pdf';
+            $formato='portrait';
+        }
+
+        PdfGenerator::generatePdf($html, $pdfFilename,$formato);
+        unset($_SESSION['filtroPDF']);
+    }
+
+    public function htmlUsuariosPDF($filtro){
+        $rutaCompletaGenero = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_genero.png';
+        $rutaCompletaEdad = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_grupo_edad.png';
+        $rutaCompletaPais = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_pais.png';
+        $rutaCompletaAcertadas = 'C:/xampp/htdocs/public/graficos/grafico_porcentaje_acertadas_por_usuario.png';
+
+        $html = '<div style="position: relative;">
+           <h1 style="text-align: center; font-weight: bolder; position: absolute; top: 0; left: 0; right: 0;">'.$filtro.'</h1>
+           <table style="width: 100%; text-align: center; margin-top: 40px;">
+               <tr>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaGenero)) . '">
+                   </td>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaEdad)) .'">
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <img style="height: auto" src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaPais)) . '">
+                   </td>
+                   <td>
+                       <img style="height: auto" src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaAcertadas)) . '">
+                   </td>
+               </tr>
+           </table>
+       </div>';
+
+        return $html;
+    }
+
+    public function htmlPreguntasPDF($filtro){
+        $rutaCompletaPreguntasPorCategoria= 'C:/xampp/htdocs/public/graficos/grafico_preguntas_por_categoria.png';
+
+
+        $html = '<h1 style="text-align: center">' . $filtro . '</h1>
+            <table style="width: 100%; text-align: center; margin-top: 40px;">
+               <tr>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaPreguntasPorCategoria)) . '">
+                   </td>
+               </tr>
+           </table>';
+
+        return $html;
     }
 
 }

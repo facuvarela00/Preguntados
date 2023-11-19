@@ -37,11 +37,12 @@ class homeAdminController
     public function usuarios(){
         $usuarios= $this->modelo->verUsuarios();
         $correos = array_column($usuarios, 'mail');
-        if(!isset($_POST['correo'])){
-            $usuario="admin@gmail.com";
-        }else{
-            $usuario=$_POST['correo'];
-        }
+            if(!isset($_POST['correo'])){
+                $_SESSION['guardarUsuarioActual']="admin@gmail.com";
+            }else{
+                $_SESSION['guardarUsuarioActual']=$_POST['correo'];
+            }
+
         if(!isset($_SESSION['filtro'])){
             $tipoDeFiltro='todo';
         }else{
@@ -51,7 +52,7 @@ class homeAdminController
             }
         }
 
-        $graficoPorcentajeAcertadasPorUsuario=$this->modelo->acertadasPorUsuario($usuario);
+        $graficoPorcentajeAcertadasPorUsuario=$this->modelo->acertadasPorUsuario($_SESSION['guardarUsuarioActual']);
         $graficoCantidadUsuariosPorPais=$this->modelo->graficoCantidadUsuariosPorPais($tipoDeFiltro);
         $graficoCantidadUsuariosPorGenero=$this->modelo->graficoCantidadUsuariosPorGenero($tipoDeFiltro);
         $graficoCantidadUsuariosPorGrupoEdad=$this->modelo->graficoCantidadUsuariosPorGrupoEdad($tipoDeFiltro);
@@ -68,7 +69,10 @@ class homeAdminController
         }
 
         $this->renderizado->render('/usuariosDB', $data);
-        unset($_SESSION['filtro']);
+        if(!isset($_POST['correo'])){
+            unset($_SESSION['guardarUsuarioActual']);
+        }
+        
         exit();
     }
 
@@ -83,31 +87,18 @@ class homeAdminController
         $cantidadTotalPreguntas = $this->modelo->verCantidadPreguntas();
         $graficoPreguntasPorCategoria = $this->modelo->graficoPreguntasPorCategoria($tipoDeFiltro);
 
-
         $data = [
             'cantidadTotalPreguntas' => $cantidadTotalPreguntas,
             'graficoPreguntasPorCategoria' => $graficoPreguntasPorCategoria,
             'cantidadPartidasJugadas' => $cantidadPartidasJugadas,
-            'mostrarBotonGenerar' => isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1 ? false : true,
         ];
-
 
         if (!empty($preguntasNuevas)) {
             $data['preguntasNuevas'] = $preguntasNuevas;
         }
 
-        if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1){
-            $htmlContent = $this->renderizado->generateHtmlPDF('/preguntasDB', $data);
-        }else{
-            $htmlContent = $this->renderizado->generateHtml('/preguntasDB', $data);
-        }
-
-        if (isset($_POST['generarPDF']) && $_POST['generarPDF'] == 1) {
-            $pdfFilename = 'preguntas_report.pdf';
-            PdfGenerator::generatePdf($htmlContent, $pdfFilename);
-        } else {
-            echo $htmlContent;
-        }
+        $this->renderizado->render('/preguntasDB', $data);
+        exit();
     }
 
     public function desactivarCuenta(){
@@ -126,11 +117,24 @@ class homeAdminController
         $_SESSION['filtrarEn']=$filtrarEn;
         $tipoDeFiltro=$_POST['filtro'];
         $_SESSION['filtro']=$tipoDeFiltro;
+        $_SESSION['filtroPDF']=$tipoDeFiltro;
         if($filtrarEn==1){
             header("Location: usuarios",$tipoDeFiltro);
+
         }else{
             header("Location: preguntas",$tipoDeFiltro);
         }
+        exit();
+    }
+
+    public function generarPDF(){
+        $filtrarEn=intval($_POST['ejecutadoDesde']);
+        if(!isset($_SESSION['filtroPDF'])){
+            $tipoDeFiltro='todo';
+        }else{
+            $tipoDeFiltro=$_SESSION['filtroPDF'];
+        }
+        $this->modelo->generarPDF($tipoDeFiltro,$filtrarEn);
         exit();
     }
 

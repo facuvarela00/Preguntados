@@ -37,10 +37,11 @@
         </table>
     </div>
 
-    {{#mostrarBotonGenerar}}
-        <form action="preguntas" method="post">
-            <input type="hidden" name="generarPDF" value="1">
+    <article>
+        <form action="/homeAdmin/generarPDF" method="post">
+            <input type="hidden" name="ejecutadoDesde" value="2">
             <button type="submit">Generar PDF</button>
         </form>
-    {{/mostrarBotonGenerar}}
+    </article>
+
 </main>
