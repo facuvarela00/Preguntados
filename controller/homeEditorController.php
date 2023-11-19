@@ -18,9 +18,6 @@ class homeEditorController
              * PREGUNTAS REPORTADAS:
              * APROBAR
              * DAR DE BAJA
-             * PREGUNTAS SUGERIDAS:
-             * APROBAR
-             * RECHAZAR
              */
             $preguntas = $this->modelo->traerPreguntas();
             $data = [
@@ -69,20 +66,31 @@ class homeEditorController
         }
     }
 
+    public function eliminarSugerida()
+    {
+        if (isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
+            $idPregunta = $_POST['eliminar'];
+            $this->modelo->eliminarPreguntSugerida($idPregunta);
+            header("Location:/homeEditor/mostrarPreguntasSugeridas");
+        } else {
+            $this->renderizado->render('/login');
+        }
+    }
+
     public function modificarPregunta()
     {
         if (isset($_POST['id']) && isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
-            $idPregunta = $_POST['id'];
-            $idRespuestaCorrecta = $_POST["correcta"];
-            $id_categoria = $_POST["id_categoria"];
-            $pregunta = $_POST["pregunta"];
-            $respuestaA = $_POST["respuestaA"];
-            $respuestaB = $_POST["respuestaB"];
-            $respuestaC = $_POST["respuestaC"];
-            $respuestaD = $_POST["respuestaD"];
+                $idPregunta = $_POST['id'];
+                $idRespuestaCorrecta = $_POST["correcta"];
+                $id_categoria = $_POST["id_categoria"];
+                $pregunta = $_POST["pregunta"];
+                $respuestaA = $_POST["respuestaA"];
+                $respuestaB = $_POST["respuestaB"];
+                $respuestaC = $_POST["respuestaC"];
+                $respuestaD = $_POST["respuestaD"];
 
-            $this->modelo->modificarPreguntaRespuestas($idPregunta, $idRespuestaCorrecta, $id_categoria, $pregunta, $respuestaA, $respuestaB, $respuestaC, $respuestaD);
-            header("Location: /homeEditor");
+                $this->modelo->modificarPreguntaRespuestas($idPregunta, $idRespuestaCorrecta, $id_categoria, $pregunta, $respuestaA, $respuestaB, $respuestaC, $respuestaD);
+                header("Location: /homeEditor");
         } else {
             $this->renderizado->render('/login');
         }
@@ -118,30 +126,45 @@ class homeEditorController
             $correcta = $_POST["correcta"];
 
             $this->modelo->agregarPreguntaRespuestas($id_categoria, $pregunta, $respuestaA, $respuestaB, $respuestaC, $respuestaD, $dificultad, $correcta);
+            if(isset($_POST['idSugerida'])){
+                $this->modelo->eliminarPreguntSugerida($_POST["idSugerida"]);
+                header("Location: /homeEditor/mostrarPreguntasSugeridas");
+                exit();
+            }
             header("Location: /homeEditor");
-        } else {
+        }else {
             $this->renderizado->render('/login');
         }
     }
 
     public function mostrarPreguntasSugeridas()
     {
-        if (isset($_POST['dificultad']) && isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
-            /*
-            $categorias = $this->modelo->traerCategorias();
-            $dificultad = ["Facil", "Medio", "Dificil"];
-
-            $data = [
-                'categorias' => $categorias,
-                'dificultad' => $dificultad,
-            ];
-
-            $this->renderizado->render("/preguntasReportadas", $data);
-            */
+        if(isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
+            $preguntasSugeridas = $this->modelo->traerPreguntasSugeridas();
+                $data = [
+                    'sugeridas' => $preguntasSugeridas,
+                ];
+                $this->renderizado->render('/mostrarSugeridas', $data);
         } else {
             $this->renderizado->render('/login');
         }
 
+    }
+
+    public function editarSugerida()
+    {
+        if (isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
+            $idPregunta = $_POST['editar'];
+            $pregunta = $this->modelo->traerPreguntaSugeridaID($idPregunta);
+            $cat =$this->modelo->traerCategoriasID($pregunta['id_categoria']);
+            $data = [
+                'preguntaBD' => $pregunta,
+                'categoria' => $cat,
+            ];
+            $this->renderizado->render("/editarPreguntaSugerida", $data);
+        } else {
+            $this->renderizado->render('/login');
+        }
     }
 
     public function mostrarPreguntasReportadas()

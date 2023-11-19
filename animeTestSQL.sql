@@ -62,7 +62,7 @@ respuestaSugeridaB VARCHAR(50) NOT NULL,
 respuestaSugeridaC VARCHAR(50) NOT NULL,
 respuestaSugeridaD VARCHAR(50) NOT NULL,
 id_categoria int(11) NOT NULL,
-nivelPregunta int(11) NOT NULL,
+nivelPregunta VARCHAR(30) NOT NULL,
 FOREIGN KEY(id_categoria) REFERENCES categorias(id));
 
 INSERT INTO roles(id,rol)
