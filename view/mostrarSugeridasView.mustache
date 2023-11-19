@@ -16,9 +16,7 @@
           <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
 
           <div style="margin-bottom: 1em">
-              <form action="/homeEditor/mostrarAgregar" method="POST">
-                  <input type="submit" name="agregar" value="Agregar Pregunta">
-              </form>
+
           </div>
           <div id="scrollable-box" style="overflow-y: scroll; height: 600px">
               <table>
@@ -27,26 +25,36 @@
                       <th>ID Pregunta</th>
                       <th>Pregunta</th>
                       <th>ID Categoria</th>
+                      <th>Opcion 1</th>
+                      <th>Opcion 2</th>
+                      <th>Opcion 3</th>
+                      <th>Opcion 4</th>
+                      <th>Dificultad</th>
                       <th></th>
                       <th></th>
                   </tr>
                   </thead>
                   <tbody>
-                  {{#preguntas}}
+                  {{#sugeridas}}
                       <tr>
                           <td>{{id}}</td>
-                          <td>{{pregunta}}</td>
+                          <td>{{preguntaSugerida}}</td>
                           <td>{{id_categoria}}</td>
+                          <td>{{respuestaSugeridaA}}</td>
+                          <td>{{respuestaSugeridaB}}</td>
+                          <td>{{respuestaSugeridaC}}</td>
+                          <td>{{respuestaSugeridaD}}</td>
+                          <td>{{nivelPregunta}}</td>
                           <td>
-                              <form action="/homeEditor/editar" method="POST" >
+                              <form action="/homeEditor/editarSugerida" method="POST">
                                   <input type="hidden" value="{{id}}" name="editar">
-                                  <input type="submit" value="Editar" >
+                                  <input type="submit" value="Aprobar">
                               </form>
                           </td>
                           <td>
-                              <form action="/homeEditor/eliminar" method="POST" >
+                              <form action="/homeEditor/eliminarSugerida" method="POST" >
                                   <input type="hidden" value="{{id}}" name="eliminar">
-                                  <input type="submit" value="Eliminar" onclick="return confirmarEliminarPregunta()"></form></td>
+                                  <input type="submit" value="Rechazar" onclick="return confirmarEliminarPregunta()"></form></td>
                           <script>
                               function confirmarEliminarPregunta() {
                                   var confirmacion = confirm("¿Estás seguro de que deseas eliminar esta pregunta?");
@@ -55,7 +63,7 @@
                           </script>
                           </td>
                       </tr>
-                  {{/preguntas}}
+                  {{/sugeridas}}
                   </tbody>
               </table>
           </div>

@@ -27,6 +27,19 @@ class homeEditorModel
         return $pregunta;
     }
 
+    public function traerPreguntasSugeridas(){
+        $sql = "SELECT * FROM sugeridas";
+        $arrayPreguntas = $this->database->query($sql);
+        return $arrayPreguntas;
+    }
+
+    public function traerPreguntaSugeridaID($id){
+        $sql = "SELECT * FROM sugeridas where id = $id";
+        $pregunta = $this->database->queryAssoc($sql);
+        return $pregunta;
+    }
+
+
     public function traerRespuestas(){
         $sql = "SELECT * FROM respuestas";
         $arrayRespuestas = $this->database->query($sql);
@@ -37,6 +50,12 @@ class homeEditorModel
         $sql = "SELECT * FROM categorias";
         $arrayCategorias = $this->database->query($sql);
         return $arrayCategorias;
+    }
+
+    public function traerCategoriasID($cat){
+        $sql = "SELECT categoria FROM categorias where id=$cat";
+        $categorias = $this->database->queryAssoc($sql);
+        return $categorias['categoria'];
     }
 
     public function traerRespuestasDePregunta($id){
@@ -79,11 +98,15 @@ class homeEditorModel
     }
 
     public function eliminarPregunta($idPregunta){
-       //hay que borrar tambien la pregunta en la tabla de reportadas?
         $sql = "DELETE FROM respuestas WHERE id_pregunta='$idPregunta'";
         $sql2 = "DELETE FROM preguntas WHERE id='$idPregunta'";
         $this->database->execute($sql);
         $this->database->execute($sql2);
+    }
+
+    public function eliminarPreguntSugerida($idPregunta){
+        $sql = "DELETE FROM sugeridas WHERE id='$idPregunta'";
+        $this->database->execute($sql);
     }
 
     public function modificarPreguntaRespuestas($idPregunta,$idRespuestaCorrecta,$id_categoria,$pregunta,$respuestaA,$respuestaB,$respuestaC,$respuestaD){

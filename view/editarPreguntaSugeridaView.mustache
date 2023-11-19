@@ -1,0 +1,51 @@
+<main>
+<section class="editarPregunta">
+<br>
+<h1>Editor de preguntas</h1>
+
+<form action="/homeEditor/agregar" class="" method="POST">
+        <h2 style="color: black">Pregunta:</h2>
+    {{#preguntaBD}}
+        <input type="text" value="{{preguntaSugerida}}" name="pregunta" required>
+        <input type="hidden" name="idSugerida" value="{{id}}">
+        <h3 style="color: black">Respuestas: </h3>
+        <input type="text" id="rep0" value="{{respuestaSugeridaA}}" name="respuestaA" required>
+        <input type="text" id="rep1" value="{{respuestaSugeridaB}}" name="respuestaB" required>
+        <input type="text" id="rep2" value="{{respuestaSugeridaC}}" name="respuestaC" required>
+        <input type="text" id="rep3" value="{{respuestaSugeridaD}}" name="respuestaD" required>
+        <h3 style="color: black">Respuesta correcta: </h3>
+        <select id="correcta" name="correcta">
+            <div>
+                <option value="{{respuestaSugeridaA}}" name="{{respuestaSugeridaA}}">Opcion 1</option>
+                <option value="{{respuestaSugeridaB}}" name="{{respuestaSugeridaB}}">Opcion 2</option>
+                <option value="{{respuestaSugeridaC}}" name="{{respuestaSugeridaC}}">Opcion 3</option>
+                <option value="{{respuestaSugeridaD}}" name="{{respuestaSugeridaD}}">Opcion 4</option>
+            </div>
+        </select>
+        <label for="categoria"><h3>Categoria: </h3></label>
+        <select id="categoria" name="id_categoria">
+            <div>
+                <option value="{{id_categoria}}" name="{{id_categoria}}">Categoria original: {{categoria}}</option>
+                <option value="1" name="1">POKEMON</option>
+                <option value="2" name="2">SHINGEKI NO KYOJIN</option>
+                <option value="3" name="3">BANANA FISH</option>
+                <option value="4" name="4">DEATH NOTE</option>
+                <option value="5" name="5">HAIKYUU</option>
+            </div>
+        </select>
+        <label for="dificultad"><h3>Dificultad:</h3></label>
+        <select id="dificultad" name="dificultad">
+            <div>
+                <option value="{{nivelPregunta}}">Dificultad original: {{nivelPregunta}}</option>
+                <option value="Facil">Facil</option>
+                <option value="Medio">Medio</option>
+                <option value="Dificil">Dificil</option>
+            </div>
+        </select>
+    {{/preguntaBD}}
+        <div id="agregar">
+        <input type="submit" class="" value="Enviar">
+        </div>
+</form>
+</section>
+</main>
