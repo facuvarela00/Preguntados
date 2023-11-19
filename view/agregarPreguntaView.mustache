@@ -1,0 +1,45 @@
+<main>
+<section class="sugerirPregunta">
+<br>
+<form action="/homeEditor/agregar" class="" method="POST">
+        <input type="hidden" value="" name="time" required>
+        <h2>Agregar Pregunta:</h2>
+        <input type="text" placeholder="Ingrese su pregunta" name="pregunta" required>
+        <h3>Opciones: </h3>
+        <input type="text" placeholder="Respuesta A" name="respuestaA" required>
+        <input type="text" placeholder="Respuesta B" name="respuestaB" required>
+        <input type="text" placeholder="Respuesta C" name="respuestaC" required>
+        <input type="text" placeholder="Respuesta D" name="respuestaD" required>
+
+        <label for="categoria"><h3>Seleccione una categoría:</h3></label>
+        <select id="categoria" name="id_categoria">
+        <div>
+            {{#categorias}}
+                <option value="{{id}}" name="{{id}}">{{categoria}}</option>
+            {{/categorias}}
+        </div>
+        </select>
+    <label for="dificultad"><h3>Dificultad:</h3></label>
+    <select id="dificultad" name="dificultad">
+        <div>
+            <option value="{{dificultad.0}}">{{dificultad.0}}</option>
+            <option value="{{dificultad.1}}">{{dificultad.1}}</option>
+            <option value="{{dificultad.2}}">{{dificultad.2}}</option>
+        </div>
+    </select>
+    <label for="correcta"><h3>Respuesta correcta: </h3></label>
+    <select id="correcta" name="correcta">
+        <div>
+            <option value="" name=""></option>
+            <option value="0" name="0">Primera</option>
+            <option value="1" name="1">Segunda</option>
+            <option value="2" name="2">Tercera</option>
+            <option value="3" name="3">Cuarta</option>
+        </div>
+    </select>
+        <div id="">
+        <input type="submit" class="" value="Enviar">
+        </div>
+</form>
+</section>
+</main>
