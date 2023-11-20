@@ -15,26 +15,31 @@ class rankingController
     {
         if (isset($_SESSION['correo'])) {
             $correo = $_SESSION['correo'];
-            $rankingPersonal = $this->modelo->hacerRankingPersonal($correo);
             $rankingGlobal = $this->modelo->hacerRankingGlobal();
             $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
             $idPersonal = $this->modelo->obtenerIdPersonal($correo); //OBTENGO ID DEL USUARIO
-
             $data = array(
-                'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,
                 'puntajeTotal' => $puntajeTotal,
                 'idPersonal' => $idPersonal
             );
 
-            if ($rankingPersonal != 0 && $rankingGlobal != 0) {
-                $this->renderizado->render('/ranking', $data);
-            } else {
-                $this->renderizado->render('/ranking',$data);
-            }
+            $this->renderizado->render('/ranking', $data);
 
         } else {
             $this->renderizado->render("/login");
         }
+    }
+
+    public function generarRankingPersonal()
+    {
+        $data=$this->modelo->hacerRankingPersonal($_SESSION['correo']);
+        echo json_encode($data);
+    }
+
+    public function generarRankingGlobal()
+    {
+        $data=$this->modelo->hacerRankingGlobal();
+        echo json_encode($data);
     }
 }
