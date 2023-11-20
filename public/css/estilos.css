@@ -363,7 +363,7 @@ h2{
 /* Media queries responsive pantallas pequeñas Header */
 @media (max-width: 768px) {
     .fondoHome {
-        background-size: cover; 
+        background-size: cover;
     }
 
     .carrusel img {
