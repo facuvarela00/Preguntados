@@ -8,25 +8,17 @@
             <h1>RANKING PERSONAL</h1>
             <p><strong>PUNTAJE TOTAL PERSONAL: {{puntajeTotal}}</strong></p>
             <div id="scrollable-box" style="height: 300px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
-                <table>
+                <table id="tablaPersonal">
                     <thead>
                     <tr>
                         <th>Posición</th>
                         <th>Puntaje</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {{#rankingPersonal}}
-                        <tr>
-                            <td>{{posicion}}°</td>
-                            <td>{{puntaje}}</td>
-                        </tr>
-                    {{/rankingPersonal}}
-                    </tbody>
+                    <tbody id="ranking"></tbody>
                 </table>
             </div>
         </article>
-
         <article class="rankingGlobal">
             <h1>RANKING GLOBAL</h1>
             <div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
@@ -38,7 +30,7 @@
                     <th>Puntaje</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tablaGlobal"><!--
                 {{#rankingGlobal}}
                     <tr>
                        <td>
@@ -48,10 +40,50 @@
                         <td>{{puntaje}}</td>
                     </tr>
                 {{/rankingGlobal}}
+                -->
                 </tbody>
             </table>
             </div>
         </article>
     </section>
 </main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+</script>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: 'ranking/generarRankingPersonal',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                $.each(data, function (index, pos) {
+                    $('#tablaPersonal tbody').append('<tr><td>' + pos.posicion + '</td><td>' + pos.puntaje + '</td></tr>');
+                });
+            },
+            error: function (error) {
+                console.log('Error al obtener datos para ranking personal: ' + error);
+            }
+        });
+
+
+        $.ajax({
+            url: 'ranking/generarRankingGlobal',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data2) {
+                console.log(data2)
+                $.each(data2, function (index, pos2) {
+                    $('#tablaGlobal tbody').append('<tr><td><a href="/perfil?id=' + pos2.idPersonal + '">' + pos2.mail + '</a></td><td>' + pos2.posicion + '</td><td>' + pos2.puntaje + '</td></tr>');
+                });
+            },
+            error: function (error) {
+                console.log('Error al obtener datos para ranking global: ' + error);
+            }
+        });
+    });
+</script>
 

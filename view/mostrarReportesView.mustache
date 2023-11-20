@@ -1,0 +1,81 @@
+<main class="fondoHome">
+    <section class="contenedorMain">
+        <article>
+            <h2>Panel de Preguntas</h2>
+            <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+            <style>
+                table,th,td{
+                    border: 1px solid;
+                }
+
+                table{
+                    border-collapse: collapse;
+                    background-color: white;
+                }
+            </style>
+            <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+
+            <div style="margin-bottom: 1em">
+
+            </div>
+            <div id="scrollable-box" style="overflow-y: scroll; height: 600px;background-color: gray">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID Pregunta</th>
+                        <th>Pregunta</th>
+                        <th>ID Categoria</th>
+                        <th>Respuesta A</th>
+                        <th>Respuesta B</th>
+                        <th>Respuesta C</th>
+                        <th>Respuesta D</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#reportadas}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{pregunta}}</td>
+                            <td>{{id_categoria}}</td>
+                            {{#respuestas}}
+
+                                    <td>{{.}}</td>
+
+                            {{/respuestas}}
+                            <td>
+                                <form action="/homeEditor/reportar" method="POST">
+                                    <input type="hidden" value="{{id}}" name="idPreguntaReportada">
+                                    <input type="hidden" value="si" name="aprobar">
+                                    <input type="submit" value="Aprobar Reporte" onclick="return confirmarAprobar()">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/homeEditor/reportar" method="POST" >
+                                    <input type="hidden" value="{{id}}" name="idPreguntaReportada">
+                                    <input type="hidden" value="no" name="aprobar">
+                                    <input type="submit" value="Rechazar Reporte" onclick="return confirmarRechazar()">
+                                </form>
+                            </td>
+                            <script>
+                                function confirmarRechazar() {
+                                    var confirmacion = confirm("¿Estás seguro de que Rechazar este Reporte?");
+                                    return confirmacion;
+                                }
+                                function confirmarAprobar() {
+                                    var confirmacion = confirm("¿Estás seguro de que Aprobar este Reporte?");
+                                    return confirmacion;
+                                }
+
+                            </script>
+                            </td>
+                        </tr>
+                    {{/reportadas}}
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </section>
+</main>
+

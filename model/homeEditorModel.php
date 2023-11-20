@@ -70,9 +70,10 @@ class homeEditorModel
         return $arrayRespuestas;
     }
 
-    public function traerPreguntaReportadas(){
-        $sql = "SELECT * FROM preguntas_reportadas";
+    public function traerPreguntasReportadas(){
+        $sql = "SELECT * FROM preguntas WHERE reportada='SI'";
         $arrayPreguntas = $this->database->query($sql);
+
         return $arrayPreguntas;
     }
 
@@ -157,6 +158,34 @@ class homeEditorModel
             exit();
         }
 
+    }
+    public function aprobarReporte($id){
+        $sql = "DELETE FROM respuestas WHERE id_pregunta='$id'";
+        $sql1 = "DELETE FROM preguntas WHERE id='$id'";
+        $this->database->execute($sql);
+        $this->database->execute($sql1);
+    }
+
+    public function rechazarReporte($id){
+        $sql = "UPDATE preguntas SET reportada='NO' WHERE id = '$id'";
+        $this->database->execute($sql);
+    }
+
+
+    public function traerRespuestasDeReportadas($preguntasReportadas){
+        $arrayRespuestas[]=null;
+        $cantidad=count($preguntasReportadas);
+
+        for($i=0; $i<$cantidad; $i++) {
+            $sql = "SELECT * FROM respuestas WHERE id_pregunta = '$preguntasReportadas[$i]'";
+            $resultado=$this->database->query($sql);
+
+            if ($resultado) {
+                $arrayRespuestas[$i] = $resultado;
+            }
+
+        }
+        return $arrayRespuestas;
     }
 
 }
