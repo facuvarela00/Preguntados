@@ -54,11 +54,7 @@ class juegoIniciadoController{
             $this->modelo->actualizarPreguntasUsuario($correo,$puntajeDeLaPartida);
             $this->modelo->actualizarNivelPregunta($idPreg);
             $this->modelo->agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida);
-            if($_SESSION['reportada']==1){
-                $_SESSION['reportada']=0;
-                header("Location:/homeJuego");
-                exit();
-            }
+
             /*$_SESSION['puntosTotalesPersonal']+=$_SESSION['puntosPartida'];*/
             header("Location:perder");
         }
@@ -164,15 +160,11 @@ class juegoIniciadoController{
         $result = $this->modelo->agregarReporte($pregunta, $correo);
         $idPregunta=$this->modelo->obtenerIdPregunta($pregunta);
         $idPregunta=intval($idPregunta['id']);
-        $_SESSION['reportada']=1;
         $_SESSION['idPreguntaReportada']=$idPregunta;
-        header("Location:envioExitosoReporte");
-
+        exit();
     }
 
-    public function envioExitosoReporte(){
-        $this->renderizado->render('/envioExitosoReporte');
-    }
+
 
 }
 ?>

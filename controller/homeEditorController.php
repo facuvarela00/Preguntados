@@ -167,24 +167,47 @@ class homeEditorController
         }
     }
 
+
     public function mostrarPreguntasReportadas()
     {
-        if (isset($_POST['dificultad']) && isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
-            /*
-            $categorias = $this->modelo->traerCategorias();
-            $dificultad = ["Facil", "Medio", "Dificil"];
+        if(isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
+            $preguntasReportadas = $this->modelo->traerPreguntasReportadas();
 
             $data = [
-                'categorias' => $categorias,
-                'dificultad' => $dificultad,
+                'reportadas' => [],
             ];
 
-            $this->renderizado->render("/preguntasReportadas", $data);
-            */
+            foreach ($preguntasReportadas as $pregunta) {
+                $idPregunta = $pregunta['id'];
+                $respuestas = $this->modelo->traerRespuestasDeReportadas([$idPregunta]);
+
+                if (!empty($respuestas[0])) {
+                    $data['reportadas'][] = [
+                        'id' => $pregunta['id'],
+                        'pregunta' => $pregunta['pregunta'],
+                        'id_categoria' => $pregunta['id_categoria'],
+                        'respuestas' => array_map(function ($respuesta) {
+                            return isset($respuesta['respuesta']) ? $respuesta['respuesta'] : 'Valor predeterminado';
+                        }, $respuestas[0]),
+                    ];
+                }
+            }
+
+            $this->renderizado->render('/mostrarReportes', $data);
         } else {
             $this->renderizado->render('/login');
         }
+    }
 
+    public function reportar(){
+
+        if($_POST['aprobar']=="si"){
+            $this->modelo->aprobarReporte($_POST['idPreguntaReportada']);
+        }else if($_POST['aprobar']=="no"){
+            $this->modelo->rechazarReporte($_POST['idPreguntaReportada']);
+        }
+        header("Location:mostrarPreguntasReportadas");
+        exit();
     }
 
 }

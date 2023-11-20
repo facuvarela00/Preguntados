@@ -37,13 +37,44 @@
             </form>
         </article>
         <article>
-        <div class="reportar">
-         <form action="reportarPregunta" method="POST">
-         <input type="hidden" name="pregunta" value="{{pregunta}}">
-            <input type="submit" value="Reportar">
-         </form>
-        </div>
+            <div class="reportar">
+                <form id="reportarForm" action="reportarPregunta" method="POST">
+                    <input type="hidden" name="pregunta" value="{{pregunta}}">
+                    <input type="button" id="reportarBtn" style="border-radius:10px;border-color:white; background-color: cornflowerblue;color: white;padding: 10px 20px; /* Ajusta el tamaño del botón según sea necesario */font-size: 16px;" value="Reportar">
+                </form>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         </article>
+        <script>
+            $(document).ready(function () {
+                $("#reportarBtn").click(function () {
+
+                    var confirmacion = confirm("¿Estás seguro de que quieres reportar esta pregunta?");
+                    if (!confirmacion) {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    $(this).hide();
+
+                    var formData = $("#reportarForm").serialize();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "reportarPregunta",
+                        data: formData,
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (error) {
+                            console.error("Error en la solicitud AJAX: ", error);
+                            $("#reportarBtn").show();
+                        }
+                    });
+                });
+            });
+        </script>
     </section>
 </main>
 
