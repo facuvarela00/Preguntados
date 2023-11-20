@@ -55,7 +55,6 @@ class juegoIniciadoController{
             $this->modelo->actualizarNivelPregunta($idPreg);
             $this->modelo->agregarPuntajeAMiTablaRanking($correo,$puntajeDeLaPartida);
             if($_SESSION['reportada']==1){
-                printf("holaaaaa");
                 $_SESSION['reportada']=0;
                 header("Location:/homeJuego");
                 exit();

@@ -1,11 +1,17 @@
-<p>¡ Bienvenido a Animé Test!</p>
-<p>Por favor activa tu cuenta ingresando el código de validación:</p>
+<section class="registroAnimeTest">
 <form action="validarCuenta" method="POST">
+<div class="containerRegistro">
+<h1>¡ Bienvenido a Animé Test !</h1>
+<h3>Por favor activa tu cuenta ingresando el código de validación:</h3>
+        <h3>Ingrese su código de validación: </h3>
         <input type="text" placeholder="Ingrese su código" name="hashUsuario" required>
-        <h2>Ingrese su código de validación: </h2>
         <br>
-        <input type="submit" class="preguntaSugerida" value="Enviar">
+        <input type="submit" value="Enviar">
+        <br><br>
+        <br><h3>Si tú no solicitaste esta cuenta, ignora este mensaje.</h3>
+        <br><br>
+        <a href="/registro"><button class="opcionesHome3">Salir</button></a>
+</div>
 </form>
-<br><br>
-<p>Si tú no solicitaste esta cuenta, ignora este mensaje.</p>
-<a href="/registro"><button>SALIR</button></a>
+</section>
+

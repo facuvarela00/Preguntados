@@ -26,8 +26,8 @@ class registroController{
         $confirmarPassword = $_POST["confirmarPassword"];
         $mailValido = $this->validarFormatoMail($mail);
         $imagen = $_FILES['imagen'];
-        $nombreImagen = $mail;
-        $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen . '.png';
+        $nombreImagen = $mail . '.png';
+        $rutaImagen = $_SERVER['DOCUMENT_ROOT'] . '/public/imagenesPerfil/' . $nombreImagen;
         $latitud=$_POST["latitud"];
         $longitud=$_POST["longitud"];
         $pais=$_POST["pais"];
@@ -38,7 +38,7 @@ class registroController{
 
             $hash = rand(0, 1000);
 
-            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $hash,$latitud,$longitud,$pais,$ciudad))) {
+            if (!($this->guardarUsuario($nombreCompleto,$username,$fechaNac,$genero,$nombreImagen,$mail, $password, $hash,$latitud,$longitud,$pais,$ciudad))) {
                 $error = 'El correo ya está registrado';
             } else {
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);

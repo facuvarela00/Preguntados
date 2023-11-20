@@ -1,10 +1,85 @@
 <main class="fondoHome">
     <section class="contenedorMain">
-     <article>
-        <h1 class="titulo">{{nombre}}</h1>
-      </article>
       <article>
-          <p>HOLA MR/MRS EDITOR</p>
+          <h2>Panel de Preguntas</h2>
+          <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+          <style>
+              table,th,td{
+                  border: 1px solid;
+              }
+
+              table{
+                  border-collapse: collapse;
+                  background-color: white;
+              }
+          </style>
+          <!-- STYLE SE TIENE QUE BORRAR E IMPLEMENTAR CSS -->
+          <form style="display: flex; flex-direction: column; align-items: center;  justify-content: center;" action="/mostrarTabla" method="post">
+              <label style="color: white; font-size: 1.5em" for="buscar">Buscar: </label>
+              <input style="width: 500px; height: 1em"  type="text" name="buscar" id="buscar">
+          </form>
+
+          <div style="margin-bottom: 1em"><a style="color: #817392; font-size: 1.5em;" href="">Agregar Pregunta</a></div>
+          <div id="scrollable-box" style="overflow-y: scroll; height: 600px">
+              <table>
+                  <thead>
+                  <tr>
+                      <th>ID Pregunta</th>
+                      <th>Pregunta</th>
+                      <th>ID Categoria</th>
+                      <th></th>
+                      <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {{#preguntas}}
+                      <tr>
+                          <td>{{id}}</td>
+                          <td>{{pregunta}}</td>
+                          <td>{{id_categoria}}</td>
+                          <td>
+                              <form action="/homeEditor/editar" method="POST" >
+                                  <input type="hidden" value="{{id}}" name="editar">
+                                  <input type="submit" value="Editar" >
+                              </form>
+                          </td>
+                          <td>
+                              <form action="/homeEditor/eliminar" method="POST" >
+                                  <input type="hidden" value="{{id}}" name="eliminar">
+                                  <input type="submit" value="Eliminar" onclick="return confirmarEliminarPregunta()"></form></td>
+                          <script>
+                              function confirmarEliminarPregunta() {
+                                  var confirmacion = confirm("¿Estás seguro de que deseas eliminar esta pregunta?");
+                                  return confirmacion;
+                              }
+                          </script>
+                          </td>
+                      </tr>
+                  {{/preguntas}}
+                  </tbody>
+              </table>
+          </div>
+          <script>
+              getData();
+
+              document.getElementById("campo").addEventListener("keyup", getData);
+
+              function getData(){
+                  let input =document.getElementById("buscar").value;
+                  let content = document.getElementById("content");
+                  let ejecuter = "/mostrarTabla";
+                  let formData = new FormData();
+                  formData.append("buscar",input);
+
+                  fetch(ejecuter,{
+                      method:"POST",
+                      body: formData
+                  }).then(response => response.json())
+                          .then(data=>{
+                              content.innerHTML = data
+                          }).catch(err => console.log(err))
+              }
+          </script>
       </article>
     </section>
 </main>

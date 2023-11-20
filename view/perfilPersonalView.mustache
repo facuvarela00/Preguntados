@@ -1,1 +1,28 @@
-<p>hola</p>
+<main class="registroAnimeTest">
+    <section class="contenedorPerfil">
+        <article>
+            <h1>Mi Perfil</h1>
+            <p><strong>Usuario:</strong> {{username}}</p>
+            <img src="{{img}}" alt="Imagen de Perfil">
+            <p><strong>Nombre Completo:</strong> {{nombreCompleto}}</p>
+            <p><strong>Direccion de Mail:</strong> {{mail}} </p>
+            <p><strong>Fecha de Nacimiento:</strong> {{fechaNac}}</p>
+            <p><strong>Género:</strong> {{genero}}</p>
+            <p><strong>País:</strong> {{pais}}</p>
+            <p><strong>Ciudad:</strong> {{ciudad}}</p>
+            <p><strong>Nivel de juego:</strong> {{nivel}}</p>
+          <br>
+          <form action="/perfil/modificar" method="POST">
+          <input type="hidden" value="{{username}}" name="username">
+          <input type="hidden" value="{{img}}" name="imagen">
+          <input type="hidden" value="{{nombreCompleto}}" name="name">          
+          <input type="hidden" value="{{fechaNac}}" name="year">
+          <input type="hidden" value="{{genero}}" name="genero">
+
+          <input type="submit" class="opcionesHome3" value="Modificar Perfil">
+          </form>
+          <br>
+        </article>
+
+    </section>
+</main>

@@ -9,9 +9,15 @@ class homeAdminModel
         $this->database = $database;
     }
 
+    public function buscarUsuarioPorCorreo($correo){
+        $sql="SELECT * FROM usuarios WHERE mail='$correo'";
+        $resultado=$this->database->queryAssoc($sql);
+        return $resultado;
+    }
     public function verUsuarios(){
         $sql="SELECT * FROM usuarios";
         $resultado=$this->database->query($sql);
+
         return $resultado;
     }
     public function verUsuariosNuevos(){
@@ -79,7 +85,17 @@ class homeAdminModel
         return $edad->y; // 'y' representa el número de años en la diferencia
     }
     public function verCantidadPartidasJugadas(){
-            //AGREGAR TABLA DE PARTIDAS? CON CADA UNA DE LOS DATOS DE LA MISMA Y QUIEN LA JUGÓ?
+        $sql = "SELECT puntajesPorPartida FROM ranking";
+        $resultado = $this->database->query($sql);
+        $totalPartidas = 0;
+
+        foreach ($resultado as $fila) {
+            $puntajes = json_decode($fila['puntajesPorPartida']);
+            if (is_array($puntajes)) {
+                $totalPartidas += count($puntajes);
+            }
+        }
+        return $totalPartidas;
     }
     public function verPreguntas(){
         $sql="SELECT * FROM preguntas";
@@ -92,28 +108,28 @@ class homeAdminModel
         return intval($resultado['total']);
     }
     public function verCantidadPreguntasPorCategoria(){
-    $sql="SELECT pregunta,id_categoria FROM preguntas";
-    $resultado=$this->database->query($sql);
+        $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id";
+        $resultado = $this->database->query($sql);
 
-    $contadores = array();
-    foreach ($resultado as $row) {
-        $categoria = $row['id_categoria'];
-        if (!isset($contadores[$categoria])) {
-            $contadores[$categoria] = 1;
-        } else {
-            $contadores[$categoria]++;
+        $contadores = array();
+        foreach ($resultado as $row) {
+            $categoria = $row['categoria'];
+            if (!isset($contadores[$categoria])) {
+                $contadores[$categoria] = 1;
+            } else {
+                $contadores[$categoria]++;
+            }
         }
+        return $contadores;
     }
-    return $contadores;
-    }
-    public function verPorcentajePreguntasAcertadasPorUsuario($usuario){
-        $correo=$usuario['mail'];
-        $sql="SELECT preguntasRecibidas,preguntasAcertadas FROM usuarios WHERE mail='$correo'";
-        $resultado=$this->database->query($sql);
-        return $resultado;
-    }
+
     public function verCantidadPreguntasCreadas(){
         /* NOSE A QUE SE REFIERE */
+    }
+
+    public function desactivarCuenta($correo){
+        $sql = "UPDATE usuarios SET activo = 'NO' WHERE mail = '$correo'";
+        $resultado = $this->database->execute($sql);
     }
 
 }

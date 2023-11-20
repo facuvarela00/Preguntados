@@ -1,0 +1,36 @@
+<section class="registroAnimeTest">
+<div class="h1">
+<h1 class="h1">Anime Test</h1>
+<h1 class="h1">Modificar Perfil Personal</h1>
+</div>
+    <form action="/perfil/modificarUsuario" method="POST" enctype="multipart/form-data">
+        <div class="containerRegistro">
+
+            <label for="name"><b>Nombre completo</b></label>
+            <input type="text" value="{{nombreCompleto}}" name="name"  required>
+            <br><br>
+
+            <label style="text-align: center" for="username"><b>Nombre de usuario</b></label>
+            <input type="text" value="{{username}}" name="username"  required>
+            <br><br>
+
+            <label for="genero" id="genero">Género:</label>
+            <select id="genero"  name="genero" required>
+                <option value="{{genero}}" selected>{{genero}}(Original)</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+            </select>
+            <br><br>
+
+            <label for="imagen" id="foto"> Seleccione una foto de perfil </label>
+            <br><br>
+            <input type="file" name="imagen" value={{imagen}} id="imagen" required>
+            <br><br>
+    
+            <span style="color: #f44336">{{error}}</span>
+            
+            <input type="submit" class="botonFormularioInicio" value="Modificar">
+        </div> 
+    </form>
+</section>

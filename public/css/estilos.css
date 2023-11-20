@@ -64,7 +64,7 @@ h2{
     box-shadow: 0 5px #999;
 }
 
-.opcionesHome:hover, .opcionesHome2:hover{
+.opcionesHome:hover, .opcionesHome2:hover, .opcionesHome3:hover{
     background-color: #817392; 
     font-weight: bolder;
     transition: transform 0.3s ease, background-color 0.3s ease;
@@ -79,6 +79,26 @@ h2{
     border: none;
     font-weight: bold;
     display: inline-block;
+    padding: 8px 18px;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+}
+
+.opcionesHome3{
+    width: 30%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: solid 1px grey;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
     padding: 8px 18px;
     font-size: 10px;
     cursor: pointer;
@@ -416,8 +436,6 @@ form {
     animation: aparecer 2s ease-in-out;
 }
 
-
-
 .juegoIniciadoI{
     display: flex;
     justify-content: center;
@@ -438,7 +456,7 @@ form {
     color: #ffffff;
 }
 
-.containerRegistro, .containerRegistroSugerir, .container input[type=text], select {
+.containerRegistro, .containerRegistroSugerir, .container input[type=text], select{
     width: 100%;
     padding: 22px 30px;
     margin: 8px 0;
@@ -447,8 +465,8 @@ form {
     border-radius: 4px;
     box-sizing: border-box;
   }
-  
 
+  
   .containerRegistro input[type=submit], .containerRegistroSugerir input[type=submit]{
     width: 100%;
     background-color: #04AA6D;
@@ -463,11 +481,19 @@ form {
     background-color: #2ec235;
   }
 
+.activarCuenta article{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: blue;
+}
 
 .registroAnimeTest, .sugerirPregunta {
     position: relative;
 }
-  
+
+
 .registroAnimeTest::before , .sugerirPregunta::before{
     content: '';
     position: absolute;
@@ -744,4 +770,32 @@ a:hover {
     text-align: center;
     font-size: 30px;
     color: black;
+}
+
+#data-box {
+    width: 400px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.contenedorPerfil article{
+   text-align: center;
+    background-color: white;
+    width: 50%;
+    border: #333 solid 5px;
+}
+
+.contenedorPerfil img{
+    width: 30%;
+    height: auto;
+    border: #333 solid 2px;
+    border-radius: 50%;
+}
+
+.contenedorPerfil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    flex-direction: column;
 }

@@ -24,7 +24,7 @@ class rankingController
                 'rankingPersonal' => $rankingPersonal,
                 'rankingGlobal' => $rankingGlobal,
                 'puntajeTotal' => $puntajeTotal,
-                'idPersonal' => $idPersonal,//LO GUARDO EN EL ARRAY
+                'idPersonal' => $idPersonal
             );
 
             if ($rankingPersonal != 0 && $rankingGlobal != 0) {
