@@ -74,14 +74,14 @@ VALUES
 INSERT INTO usuarios (nombreCompleto, username, fechaNac,genero, mail, password,rol, imagen, hash, activo,latitud,longitud,pais,ciudad, horaRegistro, nivelUsuario,preguntasRecibidas,preguntasAcertadas)
 VALUES ("Usuario Administrador", "Admin1","2002-02-22","Femenino","admin@gmail.com", "SuperContraseñaSecreta", "1", "admin.jpg", "113344", "SI","0.0","0.0","Argentina","Buenos Aires", "2023-09-18 16:20:51", "Pro", 50,45),
 ("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg", "123456", "SI","0.0","0.0","Argentina","Buenos Aires","2023-09-18 16:20:51", "Pro", 50,45), 
-("Ana Martínez", "AnaM2023", "1990-05-15", "Femenino", "ana2023@gmail.com", "PassAna123", "3", "user_ana.jpg", "789012", "SI", "-34.6037", "-58.3816", "Argentina", "Buenos Aires", "2023-09-19 10:30:00", "Pro", 30, 25),
-("Carlos Ruiz", "CarlosR", "1985-07-20", "Masculino", "carlosR@gmail.com", "CarlosPass789", "2", "user_carlos.jpg", "345678", "SI", "41.9028", "12.4964", "Italia", "Roma", "2023-09-19 11:00:00", "Avanzado", 40, 35),
-("Lucía Fernández", "LuciaFdz", "1992-11-08", "Femenino", "luciaF@gmail.com", "Lucia1234", "1", "user_lucia.jpg", "901234", "SI", "48.8566", "2.3522", "Francia", "París", "2023-09-19 11:30:00", "Pro", 60, 50),
-("David González", "DavidG2023", "1988-03-14", "Masculino", "davidG2023@gmail.com", "David123", "3", "user_david.jpg", "567890", "SI", "35.6895", "139.6917", "Japón", "Tokio", "2023-09-19 12:00:00", "Avanzado", 20, 15),
-("Sofía López", "SofiaL", "1993-09-25", "Femenino", "sofiaL@gmail.com", "SofiaPass456", "2", "user_sofia.jpg", "678901", "SI", "55.7558", "37.6173", "Rusia", "Moscú", "2023-09-19 12:30:00", "Noob", 10, 5),
-("Jorge Martín", "JorgeM", "1991-12-12", "Masculino", "jorgeM@gmail.com", "Jorge7890", "1", "user_jorge.jpg", "234567", "SI", "51.5074", "-0.1278", "Reino Unido", "Londres", "2023-09-19 13:00:00", "Pro", 45, 40),
-("Laura Pérez", "LauraP2023", "1994-02-17", "Femenino", "lauraP2023@gmail.com", "Laura1234", "3", "user_laura.jpg", "890123", "SI", "40.7128", "-74.0060", "Estados Unidos", "Nueva York", "2023-09-19 13:30:00", "Avanzado", 55, 50),
-("Daniel Rodríguez", "DanielRdz", "1986-06-06", "Masculino", "danielRdz@gmail.com", "Dan12345", "2", "user_daniel.jpg", "345679", "SI", "-33.8688", "151.2093", "Australia", "Sídney", "2023-09-19 14:00:00", "Noob", 25, 20),
+("Ana Martínez", "AnaM2023", "1990-05-15", "Femenino", "ana2023@gmail.com", "PassAna123", "3", "user_ana.jpg", "789012", "SI", "-34.6037", "-58.3816", "Argentina", "Buenos Aires", "2022-09-19 10:30:00", "Pro", 30, 25),
+("Carlos Ruiz", "CarlosR", "1985-07-20", "Masculino", "carlosR@gmail.com", "CarlosPass789", "2", "user_carlos.jpg", "345678", "SI", "41.9028", "12.4964", "Italia", "Roma", "2022-09-19 11:00:00", "Avanzado", 40, 35),
+("Lucía Fernández", "LuciaFdz", "1992-11-08", "Femenino", "luciaF@gmail.com", "Lucia1234", "1", "user_lucia.jpg", "901234", "SI", "48.8566", "2.3522", "Francia", "París", "2023-11-17 11:30:00", "Pro", 60, 50),
+("David González", "DavidG2023", "1988-03-14", "Masculino", "davidG2023@gmail.com", "David123", "3", "user_david.jpg", "567890", "SI", "35.6895", "139.6917", "Japón", "Tokio", "2022-09-19 12:00:00", "Avanzado", 20, 15),
+("Sofía López", "SofiaL", "1993-09-25", "Femenino", "sofiaL@gmail.com", "SofiaPass456", "2", "user_sofia.jpg", "678901", "SI", "55.7558", "37.6173", "Rusia", "Moscú", "2023-11-20 12:30:00", "Noob", 10, 5),
+("Jorge Martín", "JorgeM", "1991-12-12", "Masculino", "jorgeM@gmail.com", "Jorge7890", "1", "user_jorge.jpg", "234567", "SI", "51.5074", "-0.1278", "Reino Unido", "Londres", "2023-11-21 13:00:00", "Pro", 45, 40),
+("Laura Pérez", "LauraP2023", "1994-02-17", "Femenino", "lauraP2023@gmail.com", "Laura1234", "3", "user_laura.jpg", "890123", "SI", "40.7128", "-74.0060", "Estados Unidos", "Nueva York", "2023-11-21 13:30:00", "Avanzado", 55, 50),
+("Daniel Rodríguez", "DanielRdz", "1986-06-06", "Masculino", "danielRdz@gmail.com", "Dan12345", "2", "user_daniel.jpg", "345679", "SI", "-33.8688", "151.2093", "Australia", "Sídney", "2023-11-21 14:00:00", "Noob", 25, 20),
 ("Elena Sánchez", "ElenaS", "1995-04-22", "Femenino", "elenaS@gmail.com", "Elena6789", "1", "user_elena.jpg", "456789", "SI", "39.9042", "116.4074", "China", "Pekín", "2023-09-19 14:30:00", "Pro", 15, 10),
 ("Miguel Torres", "MiguelT", "1989-01-30", "Masculino", "miguelT@gmail.com", "Miguel123", "3", "user_miguel.jpg", "567891", "SI", "19.4326", "-99.1332", "México", "Ciudad de México", "2023-09-19 15:00:00", "Avanzado", 35, 30);
 
@@ -153,7 +153,17 @@ VALUES
 ('¿En qué año Hinata comienza la preparatoria?', 0, 5, 'Dificil', 15, 3, 'NO', '2023-10-15 12:20:51'),
 ('¿Cuál es el título de la canción de apertura de la primera temporada de "Haikyuu!"?', 0, 5, 'Dificil', 15, 3, 'NO', '2023-07-15 12:20:51');
 
-
+INSERT INTO ranking (mail, puntajesPorPartida, puntajeTotal) VALUES
+("ana2023@gmail.com", "[1,2,3]", 6),
+("carlosR@gmail.com", "[1,1,2]", 4),
+("luciaF@gmail.com", "[3,4,5]", 12),
+("davidG2023@gmail.com", "[2,2,1]", 5),
+("sofiaL@gmail.com", "[2,2,3]", 7),
+("jorgeM@gmail.com", "[4,4,3]", 11),
+("lauraP2023@gmail.com", "[4,5,5]", 14),
+("danielRdz@gmail.com", "[1,1,1]", 3),
+("elenaS@gmail.com", "[2,2,3]", 7),
+("miguelT@gmail.com", "[2,2,3]", 7);
 
 INSERT INTO respuestas (id_pregunta,respuesta,esCorrecta)
 VALUES 

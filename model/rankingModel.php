@@ -64,9 +64,9 @@ class rankingModel{
             $contador++;
             $rankingGlobalData[] = array(
                 'idPersonal'=>intval($this->buscarIDporCorreo($puntaje['mail'])),
-                'mail' => $puntaje['mail'], // Obtén el correo electrónico de la fila actual
+                'mail' => $puntaje['mail'],
                 'posicion' => $contador,
-                'puntaje' => intval($puntaje['puntajeTotal']) // Obtén el puntaje total de la fila actual
+                'puntaje' => intval($puntaje['puntajeTotal'])
             );
         }
         return $rankingGlobalData;

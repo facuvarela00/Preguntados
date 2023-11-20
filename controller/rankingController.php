@@ -15,11 +15,9 @@ class rankingController
     {
         if (isset($_SESSION['correo'])) {
             $correo = $_SESSION['correo'];
-            $rankingGlobal = $this->modelo->hacerRankingGlobal();
             $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
             $idPersonal = $this->modelo->obtenerIdPersonal($correo); //OBTENGO ID DEL USUARIO
             $data = array(
-                'rankingGlobal' => $rankingGlobal,
                 'puntajeTotal' => $puntajeTotal,
                 'idPersonal' => $idPersonal
             );

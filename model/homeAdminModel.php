@@ -25,11 +25,6 @@ class homeAdminModel
         return $resultado;
     }
 
-    public function verUsuariosNuevos()
-    {
-        //NOSE A QUE SE REFIERE//
-    }
-
     public function verCantidadUsuarios()
     {
         $sql = "SELECT COUNT(*) as total FROM usuarios";

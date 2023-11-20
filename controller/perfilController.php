@@ -78,18 +78,6 @@ class perfilController
     }
 
     public function generadorQR($id){
-        /*
-        $url_perfil = "https://localhost/perfil?id=" . $id;
-        //QRcode::png($url_perfil,false,QR_ECLEVEL_L,8); otra funcion qr
-        $rutaCarpeta = "/public/QR_Usuario/";
-
-        if (!file_exists($rutaCarpeta)) {
-            mkdir($rutaCarpeta, 0777, true);
-        }
-        $rutaFinal= $rutaCarpeta . $id . ".png";
-        QRcode::png($url_perfil, $rutaFinal);
-        return $rutaFinal;
-        */
 
         $url_perfil = "https://localhost/perfil?id=" . $id;
 

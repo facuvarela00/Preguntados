@@ -239,9 +239,9 @@ form {
 
 .fondoHome{
     background-image: url("/public/fondo_juego.png");
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 86vh;
     width: 100%;
     overflow: hidden;
 }
@@ -363,7 +363,7 @@ h2{
 /* Media queries responsive pantallas pequeñas Header */
 @media (max-width: 768px) {
     .fondoHome {
-        background-size: cover; 
+        background-size: cover;
     }
 
     .carrusel img {
@@ -851,7 +851,7 @@ a:hover {
 
 .qr img{
     width: 10em; height: 10em;
-    border: black 1 px solid;
+    border: black 1px solid;
     border-radius: 0%;
     margin: 5px;
 }
@@ -893,4 +893,14 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.contenedorMain2{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
 }

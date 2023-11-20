@@ -69,7 +69,7 @@
 
                     map.addListener('click', function (e) {
                         if (marker) {
-                            marker.setMap(null); // Elimina el marcador anterior
+                            marker.setMap(null);
                         }
                         selectedLatLng = e.latLng;
                         geocodeLatLng(geocoder, map, selectedLatLng);
@@ -87,11 +87,9 @@
                                         results
                                 );
 
-                                // Actualiza los valores de latitud y longitud en los campos ocultos
                                 document.getElementById('latitud').value = latlng.lat();
                                 document.getElementById('longitud').value = latlng.lng();
 
-                                // Agrega un marcador en el lugar donde hiciste clic
                                 marker = new google.maps.Marker({
                                     position: latlng,
                                     map: map,

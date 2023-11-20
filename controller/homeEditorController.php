@@ -14,11 +14,7 @@ class homeEditorController
     public function execute()
     {
         if (isset($_SESSION['correo']) && (isset($_SESSION['rolActual'])) && $_SESSION['rolActual'] == 2) {
-            /*
-             * PREGUNTAS REPORTADAS:
-             * APROBAR
-             * DAR DE BAJA
-             */
+
             $preguntas = $this->modelo->traerPreguntas();
             $data = [
                 'preguntas' => $preguntas,

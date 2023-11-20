@@ -149,7 +149,7 @@ class juegoIniciadoController{
 
     public function iniciarContador(){
         $tiempo_inicial = time();
-        $duracion = 200;
+        $duracion = 20;
         $tiempo_finalizacion = $tiempo_inicial + $duracion;
         return $tiempo_finalizacion;
     }

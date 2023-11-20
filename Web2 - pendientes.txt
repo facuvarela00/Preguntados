@@ -1,3 +1,0 @@
-Ajax, perfiles *admin, jugador / vista jugador perfil, editor, fecha y hora en el ranking
-
-envioExitoso, perfil jugador full datos y secundario

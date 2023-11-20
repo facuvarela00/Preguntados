@@ -21,28 +21,17 @@
         </article>
         <article class="rankingGlobal">
             <h1>RANKING GLOBAL</h1>
-            <div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
-            <table>
-                <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Posición</th>
-                    <th>Puntaje</th>
-                </tr>
-                </thead>
-                <tbody id="tablaGlobal"><!--
-                {{#rankingGlobal}}
+            <div id="scrollable-box" style="height: 300px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+                <table id="tablaGlobal">
+                    <thead>
                     <tr>
-                       <td>
-                           <a href="/perfil?id={{idPersonal}}">{{mail}}</a>
-                       </td>
-                        <td>{{posicion}}°</td>
-                        <td>{{puntaje}}</td>
+                        <th>Usuario</th>
+                        <th>Posición</th>
+                        <th>Puntaje</th>
                     </tr>
-                {{/rankingGlobal}}
-                -->
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="ranking"></tbody>
+                </table>
             </div>
         </article>
     </section>
