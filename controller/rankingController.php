@@ -18,7 +18,7 @@ class rankingController
             $rankingPersonal = $this->modelo->hacerRankingPersonal($correo);
             $rankingGlobal = $this->modelo->hacerRankingGlobal();
             $puntajeTotal = $this->modelo->obtenerPuntajeTotalPersonal($correo);
-            $idPersonal = $this->modelo->obtenerIdPersonal($correo); //OBTENGO ID DEL USUARIO
+            $idPersonal = $this->modelo->obtenerIdPersonal($correo);
 
             $data = array(
                 'rankingPersonal' => $rankingPersonal,
@@ -27,14 +27,14 @@ class rankingController
                 'idPersonal' => $idPersonal
             );
 
-            if ($rankingPersonal != 0 && $rankingGlobal != 0) {
-                $this->renderizado->render('/ranking', $data);
-            } else {
-                $this->renderizado->render('/ranking',$data);
-            }
-
+            header('Content-Type: application/json');
+            echo json_encode($data);
+            exit();
         } else {
-            $this->renderizado->render("/login");
+            // Puedes enviar un código de error o redirigir a la página de inicio de sesión
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Usuario no autenticado']);
+            exit();
         }
-    }
-}
+
+    }}
