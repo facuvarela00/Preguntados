@@ -73,7 +73,17 @@ VALUES
 
 INSERT INTO usuarios (nombreCompleto, username, fechaNac,genero, mail, password,rol, imagen, hash, activo,latitud,longitud,pais,ciudad, horaRegistro, nivelUsuario,preguntasRecibidas,preguntasAcertadas)
 VALUES ("Usuario Administrador", "Admin1","2002-02-22","Femenino","admin@gmail.com", "SuperContraseñaSecreta", "1", "admin.jpg", "113344", "SI","0.0","0.0","Argentina","Buenos Aires", "2023-09-18 16:20:51", "Pro", 50,45),
-("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg", "123456", "SI","0.0","0.0","Argentina","Buenos Aires","2023-09-18 16:20:51", "Pro", 50,45);
+("Usuario Editor", "Editor1","2002-02-22","Masculino","editor@gmail.com", "SuperContraseñaSecreta", "2", "admin.jpg", "123456", "SI","0.0","0.0","Argentina","Buenos Aires","2023-09-18 16:20:51", "Pro", 50,45), 
+("Ana Martínez", "AnaM2023", "1990-05-15", "Femenino", "ana2023@gmail.com", "PassAna123", "3", "user_ana.jpg", "789012", "SI", "-34.6037", "-58.3816", "Argentina", "Buenos Aires", "2023-09-19 10:30:00", "Pro", 30, 25),
+("Carlos Ruiz", "CarlosR", "1985-07-20", "Masculino", "carlosR@gmail.com", "CarlosPass789", "2", "user_carlos.jpg", "345678", "SI", "41.9028", "12.4964", "Italia", "Roma", "2023-09-19 11:00:00", "Avanzado", 40, 35),
+("Lucía Fernández", "LuciaFdz", "1992-11-08", "Femenino", "luciaF@gmail.com", "Lucia1234", "1", "user_lucia.jpg", "901234", "SI", "48.8566", "2.3522", "Francia", "París", "2023-09-19 11:30:00", "Pro", 60, 50),
+("David González", "DavidG2023", "1988-03-14", "Masculino", "davidG2023@gmail.com", "David123", "3", "user_david.jpg", "567890", "SI", "35.6895", "139.6917", "Japón", "Tokio", "2023-09-19 12:00:00", "Avanzado", 20, 15),
+("Sofía López", "SofiaL", "1993-09-25", "Femenino", "sofiaL@gmail.com", "SofiaPass456", "2", "user_sofia.jpg", "678901", "SI", "55.7558", "37.6173", "Rusia", "Moscú", "2023-09-19 12:30:00", "Noob", 10, 5),
+("Jorge Martín", "JorgeM", "1991-12-12", "Masculino", "jorgeM@gmail.com", "Jorge7890", "1", "user_jorge.jpg", "234567", "SI", "51.5074", "-0.1278", "Reino Unido", "Londres", "2023-09-19 13:00:00", "Pro", 45, 40),
+("Laura Pérez", "LauraP2023", "1994-02-17", "Femenino", "lauraP2023@gmail.com", "Laura1234", "3", "user_laura.jpg", "890123", "SI", "40.7128", "-74.0060", "Estados Unidos", "Nueva York", "2023-09-19 13:30:00", "Avanzado", 55, 50),
+("Daniel Rodríguez", "DanielRdz", "1986-06-06", "Masculino", "danielRdz@gmail.com", "Dan12345", "2", "user_daniel.jpg", "345679", "SI", "-33.8688", "151.2093", "Australia", "Sídney", "2023-09-19 14:00:00", "Noob", 25, 20),
+("Elena Sánchez", "ElenaS", "1995-04-22", "Femenino", "elenaS@gmail.com", "Elena6789", "1", "user_elena.jpg", "456789", "SI", "39.9042", "116.4074", "China", "Pekín", "2023-09-19 14:30:00", "Pro", 15, 10),
+("Miguel Torres", "MiguelT", "1989-01-30", "Masculino", "miguelT@gmail.com", "Miguel123", "3", "user_miguel.jpg", "567891", "SI", "19.4326", "-99.1332", "México", "Ciudad de México", "2023-09-19 15:00:00", "Avanzado", 35, 30);
 
 INSERT INTO categorias (categoria)
 VALUES 
@@ -375,3 +385,16 @@ VALUES
 (57, 'Fly High', 0),
 (57, 'Hikari Are', 0),
 (57, 'Ah Yeah!!', 0);
+
+INSERT INTO sugeridas (preguntaSugerida, respuestaSugeridaA, respuestaSugeridaB, respuestaSugeridaC, respuestaSugeridaD, id_categoria, nivelPregunta) 
+VALUES 
+("¿Qué habilidad tiene el Pokémon Ditto?", "Transformación", "Intimidación", "Sincronía", "Presión", 1, "Medio"),
+("¿En qué temporada aparece por primera vez Misty?", "Temporada 1", "Temporada 2", "Temporada 3", "Temporada 4", 1, "Facil"),
+("¿Cuál es el nombre real del Titán Colosal?", "Reiner", "Eren", "Bertolt", "Armin", 2, "Medio"),
+("¿Qué grupo es responsable de la creación de los titanes?", "La Legión de Reconocimiento", "La Policía Militar", "El Gobierno Central", "Marley", 2, "Dificil"),
+("¿Cómo se llama el amigo cercano de Ash Lynx?", "Eiji", "Shorter", "Yut-Lung", "Blanca", 3, "Facil"),
+("¿Cuál es el nombre del hermano menor de Ash en Banana Fish?", "Griffin", "Max", "Shorter", "Skip", 3, "Medio"),
+("¿Qué personaje descubre la verdadera identidad de L?", "Misa", "Near", "Rem", "Light", 4, "Dificil"),
+("¿Qué regla del Death Note es falsa según el Shinigami Ryuk?", "El usuario puede ver la esperanza de vida", "El usuario no irá al cielo ni al infierno", "Solo el dueño del Death Note puede usarlo", "Escribir el nombre en dos Death Notes no incrementa el poder", 4, "Medio"),
+("¿Qué posición juega Tobio Kageyama en el equipo?", "Líbero", "Armador", "Delantero", "Central", 5, "Facil"),
+("¿Qué técnica de saque especial desarrolla Shoyo Hinata?", "Salto flotante", "Saque en salto", "Saque de potencia", "Saque rápido", 5, "Dificil");

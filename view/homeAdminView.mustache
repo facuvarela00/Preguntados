@@ -1,4 +1,4 @@
-<main class="fondoHome" style="height: 80vh">
+<main class="fondoHome" style="height: 80vh "display: flex; justify-content: center; align-items: center;">
     <section class="contenedorMain" style="display: flex;flex-direction: row;justify-content: space-around">
         <style>
             #scrollable-box {
@@ -27,7 +27,7 @@
             }
         </style>
         <article>
-            <p style="color:white">Actualmente hay {{cantidadUsuarios}} usuarios registrados.</p>
+             <p style="color:white; padding-top: 15px; padding-bottom: 15px;"><strong>Actualmente hay {{cantidadUsuarios}} usuarios registrados.</strong></p>
             <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
                 <table>
                     <thead>
@@ -61,7 +61,7 @@
                             <td>{{activo}}</td>
                             <td><form action="/homeAdmin/desactivarCuenta" method="post">
                                 <input type="hidden" value="{{mail}}" name="correo">
-                                <input type="submit" value="Desactivar" onclick="return confirmarDesactivar()"></form></td>
+                                <input type="submit" value="Desactivar" class="opcionesHome4" onclick="return confirmarDesactivar()"></form></td>
                             <script>
                                 function confirmarDesactivar() {
                                     var confirmacion = confirm("¿Estás seguro de que deseas desactivar esta cuenta?");
@@ -76,7 +76,7 @@
             </div>
         </article>
         <article>
-            <p style="color:white">Actualmente hay {{cantidadPreguntas}} preguntas.</p>
+            <p style="color:white; padding-top: 15px; padding-bottom: 15px;"><strong>Actualmente hay {{cantidadPreguntas}} preguntas.</strong></p>
             <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
                 <table>
                     <thead>

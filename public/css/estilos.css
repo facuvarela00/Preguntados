@@ -14,64 +14,6 @@ body {
     }
 }
 
-h2{
-    color: white;
-    animation: aparecer 2s ease-in-out;
-}
-
-.botonIniciar input[type=submit]{
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    border: none;
-    font-weight: bold;
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 20px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-}
-
-.botonIniciar input[type=submit]:hover{
-    background-color: #817392; 
-    font-weight: bolder;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    transform: scale(1.05);
-    color: white;
-}
-
-
-.opcionesHome{
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    border: none;
-    font-weight: bold;
-    display: inline-block;
-    padding: 8px 18px;
-    font-size: 10px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px #999;
-}
-
-.opcionesHome:hover, .opcionesHome2:hover, .opcionesHome3:hover{
-    background-color: #817392; 
-    font-weight: bolder;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    transform: scale(1.05);
-    color: white;
-}
-
 .opcionesHome2{
     width: 30%;
     font-family: Arial, Helvetica, sans-serif;
@@ -79,15 +21,15 @@ h2{
     border: none;
     font-weight: bold;
     display: inline-block;
-    padding: 8px 18px;
-    font-size: 10px;
+    padding: 0.5em 1.1em;
+    font-size: 0.7em;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px #999;
+    border-radius: 1em;
+    box-shadow: 0 0.3em #999;
 }
 
 .opcionesHome3{
@@ -99,15 +41,43 @@ h2{
     display: block;
     margin-left: auto;
     margin-right: auto;    
-    padding: 8px 18px;
-    font-size: 10px;
+    padding: 0.5em 1.1em;
+    font-size: 0.7em;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px #999;
+    border-radius: 1em;
+    box-shadow: 0 0.3em #999;
+}
+
+.acertadas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.opcionesHome4{
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: solid 1px grey;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    padding: 0.5em 1.1em;
+    font-size: 0.7em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0.3em #999;
 }
 
 #sugerida{
@@ -115,32 +85,14 @@ h2{
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 1em;
+    margin-top: 1em;
 }
-.homeJuegoII{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+
 
 
 /* FORMULARIO*/
 
-/*button {
-    background-color: #04AA6D;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover {
-    opacity: 0.8;
-}*/
 
 .cancelbtn {
     width: auto;
@@ -148,37 +100,10 @@ button:hover {
     background-color: #f44336;
 }
 
-/*.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-*/
-
 img.avatar {
     width: 40%;
     border-radius: 50%;
 }
-
-/*.container {
-    padding: 16px;
-}
-
-.psw p{
-    padding-top: 16px;
-    background-color: blue;
-    margin-left: 20px;
-}
-/*
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-    .cancelbtn {
-        width: 100%;
-    }
-}*/
 
 header, .headerIniciado {
     display: flex;
@@ -196,7 +121,7 @@ header, .headerIniciado {
     padding-top: 5px;
     padding-bottom: 5px;
     color: black;
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
     font-family: 'Anime Ace', sans-serif;
     animation: aparecer 2s ease-in-out;
@@ -205,7 +130,7 @@ header, .headerIniciado {
 .sugerirPregunta h1{
     text-align: center;
     color: black;
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
     font-family: 'Anime Ace', sans-serif;
     width: 20%;
@@ -214,7 +139,7 @@ header, .headerIniciado {
 }
 
 .sugerirPregunta{
-    margin-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 .h1{
@@ -237,7 +162,7 @@ header, .headerIniciado {
     text-align: center;
     padding: 5px;
     color: white;
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
     animation: aparecer 2s ease-in-out;
 }
@@ -246,21 +171,8 @@ header, .headerIniciado {
     text-align: center;
     padding: 4px;
     color: white;
-    font-size: 65px;
+    font-size: 4em;
 }
-/*
-.container form input[type=submit] {
-    flex: 50%;
-    flex-basis: calc(50% - 10px);
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
-    border: 1px black solid;
-    background-color: white;
-    margin-right: 10px;
-    margin-top: 20px;
-    font-size: 20px;
-}*/
 
 #genero, #foto, #mapa{
     font-weight: bold;
@@ -269,7 +181,7 @@ header, .headerIniciado {
 #perdiste{
     color: white;
     text-align: center;
-    font-size: 80px;
+    font-size: 5em;
     animation: aparecer 2s;
 }
 
@@ -280,7 +192,7 @@ header, .headerIniciado {
     height: 90vh;
     width: 100%;
     position: relative;
-    padding-top: 20px;
+    padding-top: 1.3em;
 }
 
 .container2{
@@ -295,13 +207,13 @@ header, .headerIniciado {
         width: 15%;
         color: black;
         border: none;
-        padding: 8px 18px;
-        font-size: 20px;
+        padding: 0.5em 1.2em;
+        font-size: 1.3em;
         cursor: pointer;
         text-align: center;
         text-decoration: none;
         outline: none;
-        border-radius: 15px;
+        border-radius: 1em;
         box-shadow: 0 5px #999;
         position: absolute;
         bottom: 0; 
@@ -317,7 +229,7 @@ header, .headerIniciado {
 
 form {
     display: flex !important;
-    margin-top: 20px !important;
+    margin-top: 1.2em !important;
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -327,9 +239,11 @@ form {
 
 .fondoHome{
     background-image: url("/public/fondo_juego.png");
-    background-size: cover;
-    height: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100vh;
     width: 100%;
+    overflow: hidden;
 }
 
 .contenedorMain{
@@ -338,6 +252,7 @@ form {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
 }
 
 .carrusel {
@@ -355,21 +270,122 @@ form {
 }
 
 .carrusel img {
-    width: 800px; 
-    height: 350px;
+    width: 50em; 
+    height: 22em;
     object-fit: cover; 
     display: block;  
     border: solid 5px #999;
 }
 
+.homeJuegoII{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.botonIniciar input[type=submit]{
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 1em 1.4em;
+    font-size: 1.3em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0.7empx #999;
+}
+
+.botonIniciar input[type=submit]:hover{
+    background-color: #817392; 
+    font-weight: bolder;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: scale(1.05);
+    color: white;
+}
+
+
+h2{
+    color: white;
+    animation: aparecer 2s ease-in-out;
+}
+
+.opcionesHome{
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    border: none;
+    font-weight: bold;
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 0.6em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0.3em #999;
+}
+
+.opcionesHome:hover, .opcionesHome2:hover, .opcionesHome3:hover, .opcionesHome4:hover{
+    background-color: #817392; 
+    font-weight: bolder;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: scale(1.05);
+    color: white;
+}
+
+
+/* Estilos para tablets y pequeñas pantallas (de 600px a 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .carrusel img {
+        width: 40em; 
+        height: 18em;
+    }
+
+    .botonIniciar input[type=submit] {
+        font-size: 1.4em; 
+    }
+
+    .opcionesHome {
+        font-size: 0.7em; 
+    }
+}
+
+/* Media queries responsive pantallas pequeñas Header */
+@media (max-width: 768px) {
+    .fondoHome {
+        background-size: cover; 
+    }
+
+    .carrusel img {
+        width: 100%; 
+        height: auto; 
+    }
+
+    .botonIniciar input[type=submit], .opcionesHome {
+        font-size: 1em;
+    }
+}
+
+
 /*/////////////////////////////////// CATEGORIAS ///////////////////////////////////*/
+
 
 .POKEMON{
     background-image: url('/public/pokemon.jpg');
     width: 100%;
     background-size: contain;
     background-repeat: repeat;
-    height: 425px;
+    height: 100vh;
 }
 
 .SHINGEKI_NO_KYOJIN{
@@ -377,7 +393,7 @@ form {
     width: 100%;
     background-size: contain;
     background-repeat: repeat;
-    height: 425px;
+    height: 100vh;
 }
 
 .BANANA_FISH{
@@ -385,7 +401,7 @@ form {
     width: 100%;
     background-size: contain;
     background-repeat: repeat;
-    height: 425px;
+    height: 100vh;
 }
 
 .DEATH_NOTE{
@@ -393,7 +409,7 @@ form {
     width: 100%;
     background-size: contain;
     background-repeat: repeat;
-    height: 425px;
+    height: 100vh;
 }
 
 .HAIKYUU{
@@ -401,7 +417,7 @@ form {
     width: 100%;
     background-size: contain;
     background-repeat: repeat;
-    height: 425px;
+    height: 100vh;
 }
 
 /*/////////////////////////////////// REGISTRO ///////////////////////////////////*/
@@ -431,7 +447,7 @@ form {
     justify-content: center;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.2em;
     background-color: white;
     animation: aparecer 2s ease-in-out;
 }
@@ -458,7 +474,7 @@ form {
 
 .containerRegistro, .containerRegistroSugerir, .container input[type=text], select{
     width: 100%;
-    padding: 22px 30px;
+    padding: 1.4em 2em;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -471,7 +487,7 @@ form {
     width: 100%;
     background-color: #04AA6D;
     color: white;
-    padding: 14px 14px;
+    padding: 1em 1em;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -512,15 +528,12 @@ form {
 }
 
 /*/////////////////////////////////// LOGIN ///////////////////////////////////*/
-/*
-form {
-    border: 3px solid #f1f1f1;
-}*/
+
 
 input[type=text], input[type=password] {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 0.8em 1.2em;
+    margin: 0.5em 0;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -622,7 +635,7 @@ footer{
     padding: 3px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4); 
-    font-size: 18px;
+    font-size: 1.2em;
     border: solid black 2px;
     margin: auto;
 }
@@ -648,14 +661,14 @@ footer{
 }
 
 .preguntas input[type="submit"] {
-    padding: 10px;
+    padding: 0.7em;
     border: 2px solid black; 
     background-color: white;
     cursor: pointer; 
     transition: background-color 0.3s; 
     margin: 3px;
     width: 30%;
-    border-radius: 10px;
+    border-radius: 0.7em;
 }
 
 .preguntas input[type="submit"]:hover {
@@ -677,9 +690,9 @@ footer{
     cursor: pointer; 
     transition: background-color 0.3s; 
     width: auto;
-    border-radius: 10px;
+    border-radius: 0.8em;
     width: 10%;
-    padding: 10px;
+    padding: 0.8em;
 }
 
 .reportar input[type="submit"]:hover {
@@ -687,10 +700,46 @@ footer{
     font-weight: bold;
 }
 
+/* Media queries para pantallas más pequeñas (p. ej., menos de 768px) */
+@media (max-width: 768px) {
+    .obtenidos, .contador {
+        flex-direction: column;
+        margin: 0; 
+    }
+
+    .contador {
+        padding: 10px;
+        font-size: 1em; 
+    }
+
+    .obtenidos p {
+        font-size: 1em;
+    }
+
+    .preguntaAleatoria {
+        font-size: 1em; 
+        height: auto; 
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .preguntas input[type="submit"] {
+        width: 80%; 
+        padding: 10px; 
+    }
+
+    .reportar input[type="submit"] {
+        width: 60%; 
+        padding: 10px; 
+    }
+}
+
 /*/////////////////////////////////// RANKING ///////////////////////////////////*/
 
 .fondoRanking {
-    padding: 20px; 
+    padding: 1.4em; 
     font-family: 'Arial', sans-serif; 
     position: relative;
 }
@@ -709,12 +758,12 @@ footer{
 }
 
 .contenedorRanking , .containerRegistro, .containerRegistroSugerir{
-    max-width: 800px; 
+    max-width: 50em; 
     margin: 0 auto; 
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    padding: 20px; 
-    border-radius: 8px; 
+    padding: 1.2em; 
+    border-radius: 0.5em; 
 }
 
 .containerRegistro{
@@ -724,26 +773,26 @@ footer{
 
 .error {
     color: #d9534f; 
-    margin-bottom: 20px;
+    margin-bottom: 1.2em;
     font-weight: bold;
 }
 
 .rankingPersonal h1,
 .rankingGlobal p {
     color: #333; 
-    margin-bottom: 10px; 
+    margin-bottom: 0.7em; 
 }
 
 table {
     width: 100%; 
     border-collapse: collapse; 
-    margin-bottom: 20px; 
+    margin-bottom: 1.2em; 
 }
 
 table th,
 table td {
     text-align: center; 
-    padding: 10px; 
+    padding: 0.7em; 
     border-bottom: 1px solid #ddd;
     border: 1px solid black;
 }
@@ -768,13 +817,13 @@ a:hover {
 
 .fondoRanking h1 {
     text-align: center;
-    font-size: 30px;
+    font-size: 2em;
     color: black;
 }
 
 #data-box {
-    width: 400px;
-    height: 300px;
+    width: 25em;
+    height: 19em;
     overflow-y: scroll;
 }
 
@@ -796,6 +845,52 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+    margin: 0.7em;
     flex-direction: column;
+}
+
+.qr img{
+    width: 10em; height: 10em;
+    border: black 1 px solid;
+    border-radius: 0%;
+    margin: 5px;
+}
+
+.qr{
+    border-top: none;
+}
+
+.perfilRanking{
+    border-bottom: none;
+}
+
+.contenedorPerfil2 article{
+    text-align: center;
+    font-size: 1.2em;
+     
+ }
+ 
+ .perfilRanking img{
+    width: 30%;
+     height: auto;
+     border: #333 solid 2px;
+     border-radius: 50%;
+     margin: 1em;
+ }
+ 
+ .contenedorPerfil2{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0.8em;
+     flex-direction: column;
+     border: #333 solid 5px;
+     background-color: white;
+     width: 40%;
+ }
+
+ .contenedorRanking2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,0 +1,3 @@
+hacer hover desde el ranking con email
+Revisar que todas sean responsive
+chusmear ayax

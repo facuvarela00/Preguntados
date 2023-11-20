@@ -1,6 +1,6 @@
 <main>
     <article>
-        <form action="/homeAdmin/filtrarGraficos" method="post">
+        <form action="/homeAdmin/filtrarGraficos" class="containerRegistro" method="post">
             <select name="filtro" id="filtro">
                 <option value="todo">Todos los Tiempos</option>
                 <option value="año">Ultimo Año</option>
@@ -12,21 +12,27 @@
             <input type="submit" value="Filtrar">
         </form>
     </article>
-    <p>Usuarios</p>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;>
+    <p style="text-align:center;"><strong>Usuarios</strong></p>
     <img src="/public/graficos/{{graficoCantidadUsuariosPorGenero}}" alt="Usuarios por Genero">
     <img src="/public/graficos/{{graficoCantidadUsuariosPorGrupoEdad}}" alt="Usuarios por Grupo Edad">
     <img src="/public/graficos/{{graficoCantidadUsuariosPorPais}}" alt="Usuarios por Pais">
-    <div id="scrollable-box" style="height: 200px; overflow-y: scroll;width: 400px; align-self: center">
-    <p>{{#usuarios}}</p>
-        <form action="usuarios" method="POST">
-            <input type="submit" class="user-button" data-correo="{{.}}" name="correo" value="{{.}}">
-        </form>
-    <p>{{/usuarios}}</p>
     </div>
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: auto;">
+    <div id="scrollable-box" style="height: 300px; overflow-y: scroll; width: 80%;">
+        {{#usuarios}}
+        <form action="usuarios" method="POST">
+            <input type="submit" class="opcionesHome4" data-correo="{{.}}" name="correo" value="{{.}}">
+        </form>
+        {{/usuarios}}
+    </div>
+</div>
+<div class="acertadas">
     <img src="/public/graficos/{{graficoPorcentajeAcertadasPorUsuario}}" alt="Porcentaje Acertadas por Usuario">
-
-    <p>Usuarios Nuevos</p>
-    <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white">
+</div>
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <p><strong>Usuarios Nuevos</strong></p>
+    <div id="scrollable-box" style="height: 400px; overflow-y: scroll;width: 600px; align-self: center;background-color: white; border: solid 1px black">
         <table>
             <thead>
             <tr>
@@ -44,10 +50,12 @@
             </tbody>
         </table>
     </div>
+    </div>
     <article>
         <form action="/homeAdmin/generarPDF" method="post">
             <input type="hidden" name="ejecutadoDesde" value="1">
-            <button type="submit">Generar PDF</button>
+            <button type="submit" class="opcionesHome4">Generar PDF</button>
         </form>
+        <br>
     </article>
 </main>
