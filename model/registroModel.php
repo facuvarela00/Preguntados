@@ -7,10 +7,12 @@ class registroModel {
     }
 
     public function agregarUsuario ($nombreCompleto,$username,$fechaNac,$genero,$rutaImagen,$mail, $password, $rol, $hash, $activo,$latitud,$longitud,$pais,$ciudad){
-        $nivelUsuario=0;
+        $nivelUsuario="Noob";
         $preguntasRecibidas=0;
         $preguntasAcertadas=0;
-        $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, rol, imagen, hash, activo, latitud, longitud, pais, ciudad, nivelUsuario, preguntasRecibidas, preguntasAcertadas) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password', '$rol', '$rutaImagen', '$hash', '$activo','$latitud','$longitud','$pais','$ciudad','$nivelUsuario','$preguntasRecibidas','$preguntasAcertadas')";
+        $horaDeRegistro=date("Y-m-d H:i:s");
+
+        $sql = "INSERT INTO usuarios (nombreCompleto, username, fechaNac, genero, mail, password, rol, imagen, hash, activo, latitud, longitud, pais, ciudad,horaRegistro, nivelUsuario, preguntasRecibidas, preguntasAcertadas) VALUES ('$nombreCompleto','$username','$fechaNac','$genero','$mail', '$password', '$rol', '$rutaImagen', '$hash', '$activo','$latitud','$longitud','$pais','$ciudad','$horaDeRegistro','$nivelUsuario','$preguntasRecibidas','$preguntasAcertadas')";
         $sql2= "INSERT INTO ranking (mail, puntajesPorPartida, puntajeTotal) VALUES ('$mail',0,0)";
         try {
             $this->database->execute($sql);

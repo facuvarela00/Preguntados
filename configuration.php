@@ -30,9 +30,11 @@ include_once('third-party/jpgraph/src/jpgraph.php');
 include_once('third-party/jpgraph/src/jpgraph_pie.php');
 
 class Configuration{
+
     private $configFile = 'config/config.ini';
 
     public function __construct(){
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
     }
     private function getArrayConfig(){
         return parse_ini_file($this->configFile);

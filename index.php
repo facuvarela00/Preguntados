@@ -8,5 +8,6 @@ $router = $config->getRouter();
 $controller= $_GET['controller'] ?? 'login';
 $method = $_GET['method'] ?? 'execute';
 
+
 $router->route($controller, $method);
 

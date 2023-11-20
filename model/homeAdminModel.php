@@ -9,28 +9,42 @@ class homeAdminModel
         $this->database = $database;
     }
 
-    public function buscarUsuarioPorCorreo($correo){
-        $sql="SELECT * FROM usuarios WHERE mail='$correo'";
-        $resultado=$this->database->queryAssoc($sql);
+    ////////////////////////////////BUSQUEDA Y VER USUARIOS///////////////////////////////////////
+    public function buscarUsuarioPorCorreo($correo)
+    {
+        $sql = "SELECT * FROM usuarios WHERE mail='$correo'";
+        $resultado = $this->database->queryAssoc($sql);
         return $resultado;
     }
-    public function verUsuarios(){
-        $sql="SELECT * FROM usuarios";
-        $resultado=$this->database->query($sql);
+
+    public function verUsuarios()
+    {
+        $sql = "SELECT * FROM usuarios";
+        $resultado = $this->database->query($sql);
 
         return $resultado;
     }
-    public function verUsuariosNuevos(){
+
+    public function verUsuariosNuevos()
+    {
         //NOSE A QUE SE REFIERE//
     }
-    public function verCantidadUsuarios(){
-        $sql="SELECT COUNT(*) as total FROM usuarios";
-        $resultado=$this->database->queryAssoc($sql);
+
+    public function verCantidadUsuarios()
+    {
+        $sql = "SELECT COUNT(*) as total FROM usuarios";
+        $resultado = $this->database->queryAssoc($sql);
         return intval($resultado['total']);
     }
-    public function verCantidadUsuariosPorPais(){
-        $sql="SELECT username,pais FROM usuarios";
-        $resultado=$this->database->query($sql);
+
+    public function verCantidadUsuariosPorPais($tipoDeFiltro)
+    {
+        if ($tipoDeFiltro != "todo") {
+            $sql = $this->filtroPais($tipoDeFiltro);
+        } else {
+            $sql = "SELECT username,pais FROM usuarios";
+        }
+        $resultado = $this->database->query($sql);
         $contadores = array();
         foreach ($resultado as $row) {
             $pais = $row['pais'];
@@ -42,12 +56,19 @@ class homeAdminModel
         }
         return $contadores;
     }
-    public function verCantidadUsuariosPorGenero(){
-        $sql="SELECT username,genero FROM usuarios";
-        $resultado=$this->database->query($sql);
+
+    public function verCantidadUsuariosPorGenero($tipoDeFiltro)
+    {
+        if ($tipoDeFiltro != "todo") {
+            $sql = $this->filtroGenero($tipoDeFiltro);
+        } else {
+            $sql = "SELECT username,genero FROM usuarios";
+        }
+
+        $resultado = $this->database->query($sql);
         $contadores = array();
         foreach ($resultado as $row) {
-            $genero= $row['genero'];
+            $genero = $row['genero'];
             if (!isset($contadores[$genero])) {
                 $contadores[$genero] = 1;
             } else {
@@ -56,8 +77,15 @@ class homeAdminModel
         }
         return $contadores;
     }
-    public function verCantidadUsuariosPorGrupoEdad() {
-        $sql = "SELECT fechaNac FROM usuarios";
+
+    public function verCantidadUsuariosPorGrupoEdad($tipoDeFiltro)
+    {
+        if ($tipoDeFiltro != "todo") {
+            $sql = $this->filtroGrupoEdad($tipoDeFiltro);
+        } else {
+            $sql = "SELECT fechaNac FROM usuarios";
+        }
+
         $resultado = $this->database->query($sql);
 
         $contadores = [
@@ -78,13 +106,16 @@ class homeAdminModel
         return $contadores;
     }
 
-    private function calcularEdad($fechaNacimiento) {
+    private function calcularEdad($fechaNacimiento)
+    {
         $fechaNacimiento = new DateTime($fechaNacimiento);
         $hoy = new DateTime();
         $edad = $hoy->diff($fechaNacimiento);
         return $edad->y; // 'y' representa el número de años en la diferencia
     }
-    public function verCantidadPartidasJugadas(){
+
+    public function verCantidadPartidasJugadas()
+    {
         $sql = "SELECT puntajesPorPartida FROM ranking";
         $resultado = $this->database->query($sql);
         $totalPartidas = 0;
@@ -97,18 +128,36 @@ class homeAdminModel
         }
         return $totalPartidas;
     }
-    public function verPreguntas(){
-        $sql="SELECT * FROM preguntas";
-        $resultado=$this->database->query($sql);
+
+    public function desactivarCuenta($correo)
+    {
+        $sql = "UPDATE usuarios SET activo = 'NO' WHERE mail = '$correo'";
+        $resultado = $this->database->execute($sql);
+    }
+
+    ////////////////////////////////BUSQUEDA Y VER PREGUNTAS///////////////////////////////////////
+    public function verPreguntas()
+    {
+        $sql = "SELECT * FROM preguntas";
+        $resultado = $this->database->query($sql);
         return $resultado;
     }
-    public function verCantidadPreguntas(){
-        $sql="SELECT COUNT(*) as total FROM preguntas";
-        $resultado=$this->database->queryAssoc($sql);
+
+    public function verCantidadPreguntas()
+    {
+        $sql = "SELECT COUNT(*) as total FROM preguntas";
+        $resultado = $this->database->queryAssoc($sql);
         return intval($resultado['total']);
     }
-    public function verCantidadPreguntasPorCategoria(){
-        $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id";
+
+    public function verCantidadPreguntasPorCategoria($tipoDeFiltro)
+    {
+        if ($tipoDeFiltro != "todo") {
+            $sql = $this->filtroPreguntasPorCategoria($tipoDeFiltro);
+        } else {
+            $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id";
+        }
+
         $resultado = $this->database->query($sql);
 
         $contadores = array();
@@ -123,15 +172,368 @@ class homeAdminModel
         return $contadores;
     }
 
-    public function verCantidadPreguntasCreadas(){
-        /* NOSE A QUE SE REFIERE */
+    ////////////////////////////////GRAFICOS USUARIO///////////////////////////////////////
+
+    public function acertadasPorUsuario($usuario)
+    {
+        $usuarioEncontrado = $this->buscarUsuarioPorCorreo($usuario);
+        $recibidas = intval($usuarioEncontrado['preguntasRecibidas']);
+        $acertadas = intval($usuarioEncontrado['preguntasAcertadas']);
+        $erradas = $recibidas - $acertadas;
+        $datos = [
+            'acertadas' => $acertadas,
+            'erradas' => $erradas,
+        ];
+        if ($recibidas == 0) {
+            return "no-data.png";
+        }else{
+            return $this->graficoPorcentajeAcertadasPorUsuario($usuario, $datos);
+        }
     }
 
-    public function desactivarCuenta($correo){
-        $sql = "UPDATE usuarios SET activo = 'NO' WHERE mail = '$correo'";
-        $resultado = $this->database->execute($sql);
+    public function graficoPorcentajeAcertadasPorUsuario($usuario, $datos)
+    {
+        $resultado = $datos;
+
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Porcentaje Acertadas por: " .$usuario);
+        $datosTorta = array_values($resultado);
+        $etiquetas = array_keys($resultado);
+        $torta = new PiePlot($datosTorta);
+        $torta->SetLegends($etiquetas);
+        $grafico->Add($torta);
+
+        $rutaCarpeta = "C:/xampp/htdocs/public/graficos/";
+        $nombreArchivo = 'grafico_porcentaje_acertadas_por_usuario.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
+    }
+
+    public function graficoCantidadUsuariosPorPais($tipoDeFiltro)
+    {
+        $resultado = $this->verCantidadUsuariosPorPais($tipoDeFiltro);
+
+        if (empty($resultado)) {
+            return "no-data.png";
+        }
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Usuarios por Pais");
+        $datosTorta = array_values($resultado);
+        $etiquetas = array_keys($resultado);
+        $torta = new PiePlot($datosTorta);
+        $torta->SetLegends($etiquetas);
+        $grafico->Add($torta);
+
+        $rutaCarpeta = "C:/xampp/htdocs/public/graficos/";
+        $nombreArchivo = 'grafico_usuarios_por_pais.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
+    }
+
+    public function graficoCantidadUsuariosPorGenero($tipoDeFiltro)
+    {
+        $resultado = $this->verCantidadUsuariosPorGenero($tipoDeFiltro);
+
+        if (empty($resultado)) {
+            return "no-data.png";
+        }
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Usuarios por Genero");
+        $datosTorta = array_values($resultado);
+        $etiquetas = array_keys($resultado);
+        $torta = new PiePlot($datosTorta);
+        $torta->SetLegends($etiquetas);
+        $grafico->Add($torta);
+
+        $rutaCarpeta = "C:/xampp/htdocs/public/graficos/";
+        $nombreArchivo = 'grafico_usuarios_por_genero.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
+    }
+
+    public function graficoCantidadUsuariosPorGrupoEdad($tipoDeFiltro)
+    {
+        $resultado = $this->verCantidadUsuariosPorGrupoEdad($tipoDeFiltro);
+
+        if (empty($resultado)) {
+            return "no-data.png";
+        }
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Usuarios por Grupo Edad");
+        $datosTorta = array_values($resultado);
+        $etiquetas = array_keys($resultado);
+        $torta = new PiePlot($datosTorta);
+        $torta->SetLegends($etiquetas);
+        $grafico->Add($torta);
+
+        $rutaCarpeta = "C:/xampp/htdocs/public/graficos/";
+        $nombreArchivo = 'grafico_usuarios_por_grupo_edad.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
+    }
+
+    ////////////////////////////////GRAFICOS PREGUNTAS///////////////////////////////////////
+
+    public function graficoPreguntasPorCategoria($tipoDeFiltro)
+    {
+        $resultado = $this->verCantidadPreguntasPorCategoria($tipoDeFiltro);
+
+        if (empty($resultado)) {
+            return "no-data.png";
+        }
+
+        $grafico = new PieGraph(500, 300);
+        $grafico->title->Set("Preguntas por Categoría");
+        $datosTorta = array_values($resultado);
+        $etiquetas = array_keys($resultado);
+        $torta = new PiePlot($datosTorta);
+        $torta->SetLegends($etiquetas);
+        $grafico->Add($torta);
+
+        $rutaCarpeta = "C:/xampp/htdocs/public/graficos/";
+        $nombreArchivo = 'grafico_preguntas_por_categoria.png';
+        $rutaFinal = $rutaCarpeta . $nombreArchivo;
+
+        if (file_exists($rutaFinal)) {
+            unlink($rutaFinal);
+        }
+
+        $grafico->Stroke($rutaFinal);
+
+        return $nombreArchivo;
+    }
+
+////////////////////////////////FILTROS USUARIO///////////////////////////////////////
+
+    public function filtroGrupoEdad($tipoDeFiltro)
+    {
+        $fechaActual = date("Y-m-d");
+        switch ($tipoDeFiltro) {
+            case 'dia':
+                $sql = "SELECT fechaNac FROM usuarios WHERE DATE(horaRegistro) = '$fechaActual'";
+                break;
+            case 'semana':
+                $fechaInicioSemana = date("Y-m-d", strtotime('last Monday', strtotime($fechaActual)));
+                $sql = "SELECT fechaNac FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioSemana'";
+                break;
+            case 'mes':
+                $fechaInicioMes = date("Y-m-01");
+                $sql = "SELECT fechaNac FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioMes'";
+                break;
+            case 'año':
+                $añoActual = date("Y");
+                $sql = "SELECT fechaNac FROM usuarios WHERE YEAR(horaRegistro) = '$añoActual'";
+                break;
+            default:
+                $sql = "SELECT fechaNac FROM usuarios";
+                break;
+        }
+        return $sql;
+
+    }
+    public function filtroGenero($tipoDeFiltro)
+    {
+        $fechaActual = date("Y-m-d");
+        switch ($tipoDeFiltro) {
+            case 'dia':
+                $sql = "SELECT username,genero FROM usuarios WHERE DATE(horaRegistro) = '$fechaActual'";
+                break;
+            case 'semana':
+                $fechaInicioSemana = date("Y-m-d", strtotime('last Monday', strtotime($fechaActual)));
+                $sql = "SELECT username,genero FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioSemana'";
+                break;
+            case 'mes':
+                $fechaInicioMes = date("Y-m-01");
+                $sql = "SELECT username,genero FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioMes'";
+                break;
+            case 'año':
+                $añoActual = date("Y");
+                $sql = "SELECT username,genero FROM usuarios WHERE YEAR(horaRegistro) = '$añoActual'";
+                break;
+            default:
+                $sql = "SELECT username,genero FROM usuarios";
+                break;
+        }
+        return $sql;
+
+    }
+    public function filtroPais($tipoDeFiltro)
+    {
+        $fechaActual = date("Y-m-d");
+        switch ($tipoDeFiltro) {
+            case 'dia':
+                $sql = "SELECT username,pais FROM usuarios WHERE DATE(horaRegistro) = '$fechaActual'";
+                break;
+            case 'semana':
+                $fechaInicioSemana = date("Y-m-d", strtotime('last Monday', strtotime($fechaActual)));
+                $sql = "SELECT username,pais FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioSemana'";
+                break;
+            case 'mes':
+                $fechaInicioMes = date("Y-m-01");
+                $sql = "SELECT username,pais FROM usuarios WHERE DATE(horaRegistro) >= '$fechaInicioMes'";
+                break;
+            case 'año':
+                $añoActual = date("Y");
+                $sql = "SELECT username,pais FROM usuarios WHERE YEAR(horaRegistro) = '$añoActual'";
+                break;
+            default:
+                $sql = "SELECT username,pais FROM usuarios";
+                break;
+        }
+        return $sql;
+
+    }
+
+    public function buscarUsuariosNuevos(){
+        $fechaActual = date("Y-m-d");
+        $sql = "SELECT id,mail FROM usuarios WHERE DATE(horaRegistro) = '$fechaActual'";
+        $resultado = $this->database->query($sql);
+
+        return $resultado;
+    }
+////////////////////////////////FILTROS PREGUNTAS///////////////////////////////////////
+
+    public function filtroPreguntasPorCategoria($tipoDeFiltro)
+    {
+        $fechaActual = date("Y-m-d");
+        switch ($tipoDeFiltro) {
+            case 'dia':
+                $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id WHERE DATE(horaCreacion) = '$fechaActual'";
+                break;
+            case 'semana':
+                $fechaInicioSemana = date("Y-m-d", strtotime('last Monday', strtotime($fechaActual)));
+                $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id WHERE DATE(horaCreacion) >= '$fechaInicioSemana'";
+                break;
+            case 'mes':
+                $fechaInicioMes = date("Y-m-01");
+                $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id WHERE DATE(horaCreacion) >= '$fechaInicioMes'";
+                break;
+            case 'año':
+                $añoActual = date("Y");
+                $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id WHERE YEAR(horaCreacion) = '$añoActual'";
+                break;
+            default:
+                $sql = "SELECT categoria FROM preguntas P LEFT JOIN categorias C ON P.id_categoria = C.id";
+                break;
+        }
+        return $sql;
+
+    }
+
+    public function verPreguntasCreadasRecientemente()
+    {
+        $fechaCreacion ='2023-11-15 12:20:51';
+
+        $sql = "SELECT * FROM preguntas WHERE DATE(horaCreacion) >= '$fechaCreacion'";
+        $resultado = $this->database->query($sql);
+
+        return $resultado;
+    }
+
+    ////////////////////////////////PDFS USUARIOS///////////////////////////////////////
+
+    public function generarPDF($tipoDeFiltro,$filtrarEn){
+        switch($tipoDeFiltro){
+            case 'todo': $filtro="Resúmen de todos los Tiempos";
+            break;
+            case 'año': $filtro="Resúmen del Último Año";
+                break;
+            case 'mes': $filtro="Resúmen del Último Mes";
+                break;
+            case 'semana': $filtro="Resúmen de la Última Semana";
+                break;
+            case 'dia': $filtro="Resúmen Hoy";
+                break;
+            case 'default': $filtro="Resúmen todos los Tiempos";
+                break;
+        }
+        if($filtrarEn==1){
+            $html=$this->htmlUsuariosPDF($filtro);
+            $pdfFilename = 'usuarios_report.pdf';
+            $formato='landscape';
+        }else{
+            $html=$this->htmlPreguntasPDF($filtro);
+            $pdfFilename = 'preguntas_report.pdf';
+            $formato='portrait';
+        }
+
+        PdfGenerator::generatePdf($html, $pdfFilename,$formato);
+        unset($_SESSION['filtroPDF']);
+    }
+
+    public function htmlUsuariosPDF($filtro){
+        $rutaCompletaGenero = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_genero.png';
+        $rutaCompletaEdad = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_grupo_edad.png';
+        $rutaCompletaPais = 'C:/xampp/htdocs/public/graficos/grafico_usuarios_por_pais.png';
+        $rutaCompletaAcertadas = 'C:/xampp/htdocs/public/graficos/grafico_porcentaje_acertadas_por_usuario.png';
+
+        $html = '<div style="position: relative;">
+           <h1 style="text-align: center; font-weight: bolder; position: absolute; top: 0; left: 0; right: 0;">'.$filtro.'</h1>
+           <table style="width: 100%; text-align: center; margin-top: 40px;">
+               <tr>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaGenero)) . '">
+                   </td>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaEdad)) .'">
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       <img style="height: auto" src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaPais)) . '">
+                   </td>
+                   <td>
+                       <img style="height: auto" src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaAcertadas)) . '">
+                   </td>
+               </tr>
+           </table>
+       </div>';
+
+        return $html;
+    }
+
+    public function htmlPreguntasPDF($filtro){
+        $rutaCompletaPreguntasPorCategoria= 'C:/xampp/htdocs/public/graficos/grafico_preguntas_por_categoria.png';
+
+
+        $html = '<h1 style="text-align: center">' . $filtro . '</h1>
+            <table style="width: 100%; text-align: center; margin-top: 40px;">
+               <tr>
+                   <td>
+                       <img style="height: auto " src="data:image/png;base64,' . base64_encode(file_get_contents($rutaCompletaPreguntasPorCategoria)) . '">
+                   </td>
+               </tr>
+           </table>';
+
+        return $html;
     }
 
 }
-
 ?>
