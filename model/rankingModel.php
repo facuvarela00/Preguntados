@@ -40,8 +40,6 @@ class rankingModel{
         }else{
             return 0;
         }
-
-
     }
     public function obtenerPuntajeTotalPersonal($correo){
         $sql = "SELECT puntajeTotal FROM ranking WHERE mail='$correo' ";
@@ -65,10 +63,10 @@ class rankingModel{
         foreach ($puntajesTotales as $puntaje) {
             $contador++;
             $rankingGlobalData[] = array(
-                'idPersonal'=>$this->buscarIDporCorreo($puntaje['mail']),
+                'idPersonal'=>intval($this->buscarIDporCorreo($puntaje['mail'])),
                 'mail' => $puntaje['mail'], // Obtén el correo electrónico de la fila actual
                 'posicion' => $contador,
-                'puntaje' => $puntaje['puntajeTotal'] // Obtén el puntaje total de la fila actual
+                'puntaje' => intval($puntaje['puntajeTotal']) // Obtén el puntaje total de la fila actual
             );
         }
         return $rankingGlobalData;
